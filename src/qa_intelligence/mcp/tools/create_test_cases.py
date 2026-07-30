@@ -12,19 +12,29 @@ from qa_intelligence.prompts.analysis_guidance import generation_guidance
 
 async def create_test_cases(
     test_cases: list[Any],
-    dry_run: bool = False,
+    dry_run: bool = True,
     reject_duplicates: bool = True,
     override_requirement_block: bool = False,
     requirement_blocked: bool = False,
     user_story_id: int | None = None,
 ) -> dict[str, object]:
-    """Validate and create Test Cases in Azure DevOps.
+    """Validate and optionally create Test Cases in Azure DevOps.
+
+    Defaults to dry_run=true (no ADO writes). Real creates require
+    ADO_WRITES_ENABLED=true and dry_run=false after explicit user approval.
 
     Each test case must contain ONLY title, steps, and expected_results,
     with step_count == expected_result_count.
     """
     try:
+        from qa_intelligence.infrastructure.safety import ensure_ado_writes_allowed
+
         container = get_container()
+        ensure_ado_writes_allowed(
+            container.settings,
+            dry_run=dry_run,
+            action="create_test_cases",
+        )
         drafts = parse_test_cases(test_cases)
         existing = None
         if user_story_id is not None and reject_duplicates:

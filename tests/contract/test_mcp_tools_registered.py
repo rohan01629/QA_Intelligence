@@ -52,9 +52,10 @@ async def test_registered_tool_names_match_product_surface() -> None:
 async def test_get_user_story_returns_config_error_without_credentials(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    monkeypatch.delenv("ADO_ORGANIZATION", raising=False)
-    monkeypatch.delenv("ADO_PROJECT", raising=False)
-    monkeypatch.delenv("ADO_PAT", raising=False)
+    # Empty env vars must override values loaded from a local .env file.
+    monkeypatch.setenv("ADO_ORGANIZATION", "")
+    monkeypatch.setenv("ADO_PROJECT", "")
+    monkeypatch.setenv("ADO_PAT", "")
     from qa_intelligence.infrastructure.config import clear_settings_cache
 
     clear_settings_cache()

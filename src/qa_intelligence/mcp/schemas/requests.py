@@ -65,7 +65,7 @@ class CreateTestCasesRequest(BaseModel):
         min_length=1,
         description="Test cases with only title, steps, expected_results",
     )
-    dry_run: bool = False
+    dry_run: bool = True
     reject_duplicates: bool = True
     override_requirement_block: bool = False
 
@@ -73,4 +73,4 @@ class CreateTestCasesRequest(BaseModel):
 class LinkTestCasesRequest(BaseModel):
     user_story_id: int = Field(..., gt=0)
     test_case_ids: list[int] = Field(..., min_length=1)
-    dry_run: bool = False
+    dry_run: bool = True

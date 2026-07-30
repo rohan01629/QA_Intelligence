@@ -157,7 +157,7 @@ async def test_full_workflow_fresh_suite_publishes_and_links() -> None:
     story = _complete_story()
     orch, tc_repo = _build_orchestration(stories={story.id: story})
 
-    summary = await orch.run(story.id, dry_run=False)
+    summary = await orch.run(story.id, dry_run=False, publish=True, ado_writes_enabled=True)
 
     assert summary.ok is True
     assert summary.blocked is False
@@ -189,7 +189,12 @@ async def test_dry_run_validates_without_ado_writes() -> None:
     story = _complete_story()
     orch, tc_repo = _build_orchestration(stories={story.id: story})
 
-    summary = await orch.run(story.id, dry_run=True)
+    summary = await orch.run(
+        story.id,
+        dry_run=True,
+        publish=True,
+        ado_writes_enabled=True,
+    )
 
     assert summary.ok is True
     assert summary.dry_run is True

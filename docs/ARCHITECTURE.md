@@ -1,15 +1,15 @@
 # QA Intelligence MCP Server — Architecture Summary
 
-**Status:** Architecture documentation complete — awaiting approval before implementation  
-**Version:** 0.2.0-arch  
+**Status:** Implemented (v0.1.0)  
+**Version:** 0.1.0  
 
-This file is a **consolidated summary**. The authoritative, detailed design lives in the numbered documents listed in [README.md](./README.md).
+This file is a **consolidated summary** of the running system. Detailed design lives in the numbered documents listed in [README.md](./README.md).
 
 ---
 
 ## System in one paragraph
 
-Cursor orchestrates a 15-step QA workflow. The MCP server (FastMCP + services + domain) fetches Azure DevOps data, emits a **QA Strategy**, detects duplicates and coverage gaps, hard-validates test cases (exactly three fields; steps ↔ expected results 1:1), and creates/links only meaningful Test Cases. The LLM drafts; the server decides scope and enforces quality. Exactly **nine** MCP tools; no generic ADO CRUD.
+Cursor (or the in-process `OrchestrationService`) drives a QA workflow. The MCP server (FastMCP + services + domain) fetches Azure DevOps data, emits a **QA Strategy**, optionally runs **Code Intelligence** against a local application repository, detects duplicates and coverage gaps, hard-validates test cases (exactly three fields; steps ↔ expected results 1:1), and creates/links only meaningful Test Cases. Exactly **ten** MCP tools; no generic ADO CRUD. Code Intelligence is additive: omit `repository_path` and behavior matches the ADO-only path.
 
 ---
 
@@ -36,17 +36,39 @@ Cursor orchestrates a 15-step QA workflow. The MCP server (FastMCP + services + 
 
 ---
 
-## Closed tool surface
+## Closed tool surface (10)
 
 1. `get_user_story`  
 2. `get_existing_test_cases`  
 3. `search_similar_test_cases`  
 4. `get_related_bugs`  
 5. `analyze_requirement`  
-6. `detect_duplicate_test_cases`  
-7. `generate_coverage_report`  
-8. `create_test_cases`  
-9. `link_test_cases`  
+6. `analyze_codebase` — optional Code Intelligence (local `repository_path`)  
+7. `detect_duplicate_test_cases`  
+8. `generate_coverage_report`  
+9. `create_test_cases`  
+10. `link_test_cases`  
+
+---
+
+## Code Intelligence (additive)
+
+Provide a source via local path and/or Azure Repos:
+
+1. **Azure Repos** (`ado_repository` + optional `ado_branch` / `ado_project`, or `.env` defaults) → shallow clone/refresh into cache → analyze tip of branch.  
+2. **Local** (`repository_path`) → analyze files on disk (includes WIP).  
+3. If both are set, **Azure Repos wins** (shared “latest”); use local-only for uncommitted work.  
+
+Then:
+
+1. `RepositorySearchService` infers search terms from the story (and bugs) and ranks source files.  
+2. `ImpactAnalysisService` extracts APIs, validation rules, permissions, UI, DB, flags, integrations.  
+3. `ImplementationSummaryBuilder` produces an `ImplementationSummary` (includes `source_kind`, repo/branch/commit when ADO).  
+4. `TestCaseGenerationService` may enrich missing scenarios from that summary.  
+
+If analysis finds weak or no matches, treat the summary as a signal of **implementation gaps** vs the story — do not invent coverage from empty results.
+
+PAT for ADO Git requires **Code Read**. Git must be installed on PATH.
 
 ---
 
@@ -54,13 +76,17 @@ Cursor orchestrates a 15-step QA workflow. The MCP server (FastMCP + services + 
 
 | ID | Decision |
 |----|----------|
-| D1 | Cursor LLM drafts test cases; MCP validates/creates (no generate tool) |
+| D1 | Cursor LLM and/or `TestCaseGenerationService` draft cases; MCP validates/creates |
 | D2 | FastAPI = health/readiness only |
 | D3 | ADO auth = PAT via AuthProvider port |
 | D4 | Create = per-item results + dry_run |
 | D5 | Duplicates = deterministic semantic scorer; embeddings later behind same port |
 | D6 | Blocking gaps block generation; explicit override for Test Leads |
 | D7 | Optional default Test Plan/Suite; else WI + story link |
+| D8 | Code Intelligence is optional; local path and/or Azure Repos (`ado_repository`) |
+| D9 | When both sources set, Azure Repos wins; local-only for WIP |
+| D10 | Azure Repos access is **read-only** (clone/fetch; never push) |
+| D11 | ADO work-item writes require `ADO_WRITES_ENABLED=true` + non-dry-run after approval |
 
 ---
 
@@ -74,8 +100,13 @@ Cursor orchestrates a 15-step QA workflow. The MCP server (FastMCP + services + 
 
 ---
 
-## Implementation gate
+## Implementation status
 
-**No application code until architecture approval.**
-
-Post-approval module order: M1 skeleton → M2 domain/validation → M3 ADO read repos → M4 read tools → M5 analysis/coverage → M6 write path → M7 contracts/runbook → M8 hardening.
+| Area | Status |
+|------|--------|
+| Domain models, policies, validators | Done |
+| ADO client, repos, DI | Done |
+| 10 MCP tools wired to services | Done |
+| OrchestrationService workflow | Done |
+| Code Intelligence engine | Done (optional path) |
+| Unit + contract tests | Done |

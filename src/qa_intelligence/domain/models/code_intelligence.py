@@ -12,6 +12,13 @@ from qa_intelligence.domain.models.base import DomainModel
 NonEmptyStr = Annotated[str, Field(min_length=1)]
 
 
+class CodeSourceKind(StrEnum):
+    """Where Code Intelligence obtained the source tree."""
+
+    LOCAL = "local"
+    ADO_GIT = "ado_git"
+
+
 class CodeArtifactRole(StrEnum):
     """Inferred role of a source file relative to the feature."""
 
@@ -68,6 +75,11 @@ class ImplementationSummary(DomainModel):
 
     feature: NonEmptyStr
     repository_path: NonEmptyStr
+    source_kind: CodeSourceKind = CodeSourceKind.LOCAL
+    ado_repository: str | None = None
+    ado_project: str | None = None
+    ado_branch: str | None = None
+    ado_commit: str | None = None
     user_story_id: Annotated[int, Field(gt=0)] | None = None
     affected_files: list[AffectedFile] = Field(default_factory=list)
     affected_apis: list[AffectedApi] = Field(default_factory=list)

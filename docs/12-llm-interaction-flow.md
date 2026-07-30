@@ -8,13 +8,14 @@
 
 | Concern | Where it runs |
 |---------|----------------|
-| Orchestration of the 15-step workflow | Cursor Agent (LLM + tool calling) |
-| Drafting test case title/steps/expected | Cursor LLM |
+| Orchestration of the QA workflow | Cursor Agent **or** `OrchestrationService` |
+| Drafting test case title/steps/expected | Cursor LLM **and/or** `TestCaseGenerationService` |
 | Fetching ADO data | MCP Server |
+| Local codebase → Implementation Summary | MCP Server (`analyze_codebase` — local and/or Azure Repos) |
 | QA Strategy, gaps, duplicates, coverage | MCP Server (deterministic policies + scorers) |
 | Hard validation & create/link | MCP Server |
 
-**There is no `generate_test_cases` MCP tool.** Generation is intentionally client-side so the server remains deterministic, auditable, and unit-testable without an LLM dependency in v1.
+There is **no** MCP tool named `generate_test_cases`. Drafts come from the Cursor LLM (tool-driven path) or from `TestCaseGenerationService` inside orchestration. Both paths must still pass hard validation before ADO create.
 
 ---
 
@@ -27,16 +28,19 @@ QA Engineer
 Cursor System / User Prompt
   “Generate test cases for User Story 73230.
    Use QA Intelligence MCP tools. Follow QA Strategy allow/deny lists.
-   Create only missing scenarios. Use exactly 3 fields. Steps↔Expected 1:1.”
+   Optionally analyze_codebase(repository_path=…).
+   Create only missing scenarios. Use exactly 3 fields. Steps↔Expected 1:1.
+   Dry-run first; create/link only after approval.”
     │
     ▼
 Cursor plans tool calls ──► MCP tools ──► structured JSON
     │
     ├── If QAStrategy.blocked → stop; present gaps to user
+    ├── Optional: analyze_codebase → ImplementationSummary
     ├── Else inventory + coverage
-    ├── LLM drafts TestCaseDraft[] from missing_scenarios only
+    ├── LLM drafts TestCaseDraft[] from missing_scenarios (+ code signals)
     ├── Optional: create_test_cases(dry_run=true)
-    ├── create_test_cases / link_test_cases
+    ├── create_test_cases / link_test_cases  (only after user approval)
     └── Summarize for QA Engineer
 ```
 
@@ -52,6 +56,7 @@ From MCP (structured):
 4. Existing + similar tests + bugs  
 5. Duplicate clusters  
 6. CoverageReport.missing_scenarios + generation_directive  
+7. **Optional:** ImplementationSummary (affected files/APIs/rules/UI/flags)  
 
 From product rules (prompt / skill / tool descriptions):
 
@@ -59,6 +64,8 @@ From product rules (prompt / skill / tool descriptions):
 - Never generate deny-listed categories  
 - Only three fields per case  
 - One action per step; one assertion per expected result  
+- Prefer code-backed scenarios when Implementation Summary is present  
+- Treat empty/noisy code matches as gaps, not as coverage  
 
 ---
 
@@ -68,60 +75,41 @@ From product rules (prompt / skill / tool descriptions):
 - Blindly emit all optional categories  
 - Recreate covered or duplicate intents  
 - Submit mismatched step/expected counts  
-- Bypass dry-run guidance in production runbooks without Test Lead approval when blocked  
+- Bypass dry-run guidance without user approval for ADO writes  
+- Paste application source into the MCP-TC repo  
 
 ---
 
-## 5. Server-Side “Intelligence” Without LLM (v1)
+## 5. Server-Side Intelligence Without LLM (v1)
 
 AnalysisService uses:
 
 - Keyword / pattern signals for feature type and optional categories  
 - Heuristic risk scoring (keywords, AC thinness, integration signals)  
-- Gap detectors (missing error handling language, conflicting AC markers, empty AC)  
-- Estimate heuristics (AC count × category weight × risk factor), then finalized by coverage math  
 
-This keeps CI deterministic. Optional future: LLM adjudicator behind a port (see scalability).
+Code Intelligence uses:
 
----
+- Term inference from story/bugs  
+- Ranked local file search  
+- Heuristic extraction of routes, validation, permissions, UI, DB, flags  
 
-## 6. Prompt / Tool Description Strategy
-
-| Artifact | Owner | Purpose |
-|----------|-------|---------|
-| MCP tool docstrings / schemas | Server | Teach Cursor how to call tools correctly |
-| `prompts/analysis_guidance.py` | Server | Short directive strings embedded in analysis/coverage responses |
-| Cursor rule / skill (optional) | Client workspace | Enforce workflow order and format |
-
-Guidance fragments returned in tool payloads help steer the LLM without a second model call on the server.
+GenerationService uses templates + coverage gaps (+ optional Implementation Summary enrichment).
 
 ---
 
-## 7. Failure Collaboration
+## 6. Failure Modes Affecting the LLM
 
-| MCP signal | LLM behavior |
-|------------|--------------|
-| `blocked=true` | Present gaps; do not draft cases |
-| `generation_directive=gap_fill_only` | Draft only missing |
-| `VALIDATION_*` on create | Fix drafts; retry failed items only |
+| Signal | Required LLM behavior |
+|--------|------------------------|
 | `ADO_NOT_FOUND` | Stop; ask user for correct id |
-
----
-
-## 8. Future Option (not v1)
-
-Server-side generation tool (`generate_missing_test_cases`) calling an LLM provider:
-
-- Same Validation Layer  
-- Same QA Strategy allow/deny  
-- Feature-flagged; default off  
-
-Does not remove Cursor orchestration; it becomes an alternative drafter behind a port `TestCaseDrafter`.
+| `blocked=true` | Present gaps; do not invent AC |
+| Weak Implementation Summary | Call out implementation gap; do not invent APIs |
+| Validation rejects | Fix drafts; do not force-create |
 
 ---
 
 ## Related
 
+- [03-mcp-tool-design.md](./03-mcp-tool-design.md)  
+- [09-service-layer.md](./09-service-layer.md)  
 - [01-high-level-architecture.md](./01-high-level-architecture.md)  
-- [05-sequence-diagram.md](./05-sequence-diagram.md)  
-- [13-future-scalability.md](./13-future-scalability.md)  

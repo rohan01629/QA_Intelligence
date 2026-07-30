@@ -12,11 +12,12 @@ QA Intelligence is a **production-grade Azure DevOps MCP Server** that behaves l
 Its job is to:
 
 1. Fetch and understand a User Story  
-2. Inventory existing tests and related bugs  
-3. Produce a **QA Strategy** (what to test / what not to test)  
-4. Detect duplicates and coverage gaps  
-5. Accept only valid, missing test cases  
-6. Create and link those cases in Azure DevOps  
+2. Optionally analyze a **local application repository** (Code Intelligence) for implementation impact  
+3. Inventory existing tests and related bugs  
+4. Produce a **QA Strategy** (what to test / what not to test)  
+5. Detect duplicates and coverage gaps  
+6. Accept only valid, missing test cases  
+7. Create and link those cases in Azure DevOps  
 
 ---
 
@@ -26,15 +27,17 @@ Its job is to:
 ┌────────────────────┐         MCP (stdio / SSE)        ┌──────────────────────────────┐
 │  Cursor Agent      │◄────────────────────────────────►│  QA Intelligence MCP Server  │
 │  (LLM orchestrator)│     tool call / structured JSON  │  FastMCP + Services + Domain │
-└────────────────────┘                                  └──────────────┬───────────────┘
-                                                                       │ HTTPS
-                                                                       │ AuthProvider (PAT v1)
-                                                                       ▼
-                                                        ┌──────────────────────────────┐
-                                                        │  Azure DevOps Services       │
-                                                        │  Work Items · Queries ·      │
-                                                        │  Relations · Test Plans*     │
-                                                        └──────────────────────────────┘
+└────────────────────┘                                  └───────┬──────────────┬───────┘
+                                                                │              │ optional
+                                                                │ HTTPS        │ local FS
+                                                                │ PAT          │ repository_path
+                                                                ▼              ▼
+                                                 ┌──────────────────┐  ┌─────────────────────┐
+                                                 │ Azure DevOps     │  │ Application codebase│
+                                                 │ Work Items ·     │  │ (read-only search)  │
+                                                 │ Relations ·      │  └─────────────────────┘
+                                                 │ Test Plans*      │
+                                                 └──────────────────┘
 * Test Plans/Suites optional via configuration
 ```
 
@@ -53,15 +56,17 @@ Its job is to:
 
 | Concern | Owner |
 |---------|--------|
-| Workflow orchestration (15 steps) | Cursor Agent |
-| Natural-language drafting of missing test cases | Cursor LLM |
+| Workflow orchestration | Cursor Agent and/or `OrchestrationService` |
+| Natural-language drafting of missing test cases | Cursor LLM and/or `TestCaseGenerationService` |
 | Fetching ADO data with fidelity | MCP Server |
+| Local codebase search / Implementation Summary | MCP Server (Code Intelligence; optional local and/or Azure Repos) |
 | QA Strategy, duplicate detection, coverage math | MCP Server |
 | Hard validation (3 fields, step↔result parity) | MCP Server |
 | Creating / linking Test Cases | MCP Server |
 | Source of truth for work items | Azure DevOps |
+| Source of truth for *how it is built* | Application codebase (when path provided) |
 
-**Design rule:** The MCP server stays deterministic and testable. The LLM drafts; the server decides scope, rejects bad output, and writes safely.
+**Design rule:** The MCP server stays deterministic and testable. Drafts may come from the LLM or from server-side templates enriched by Code Intelligence; the server decides scope, rejects bad output, and writes safely.
 
 ---
 
@@ -89,7 +94,8 @@ Cross-cutting: Dependency Injection, Structlog, correlation IDs, typed Settings 
 | Coverage awareness | Existing tests + bugs constrain generation |
 | No assumption inflation | Blocking gaps → stop; do not invent AC |
 | Strict output contract | `extra=forbid`; title / steps / expected only |
-| Focused MCP surface | Exactly 9 tools; no generic CRUD |
+| Focused MCP surface | Exactly 10 tools; no generic CRUD |
+| Code as implementation truth | Optional `analyze_codebase`; never invent from empty matches |
 | Safe writes | Dry-run supported; per-item create results |
 | Production discipline | Async, SOLID, repository pattern, full test pyramid |
 
@@ -101,12 +107,13 @@ Cross-cutting: Dependency Injection, Structlog, correlation IDs, typed Settings 
 User Story ID
     → get_user_story
     → analyze_requirement          → QA Strategy (+ gaps)
+    → [optional] analyze_codebase(repository_path and/or ado_repository) → Implementation Summary
     → get_existing_test_cases
     → search_similar_test_cases
     → get_related_bugs             (reads may run in parallel after analysis)
     → detect_duplicate_test_cases
     → generate_coverage_report     → final estimates + missing scenarios
-    → [LLM drafts only missing, required categories]
+    → [LLM and/or generation service drafts only missing, required categories]
     → create_test_cases            → hard validation + ADO create
     → link_test_cases              → story ↔ cases
 ```

@@ -10,13 +10,17 @@ SERVER_NAME = "qa-intelligence"
 SERVER_INSTRUCTIONS = (
     "QA Intelligence MCP Server for Azure DevOps. "
     "Use these tools to fetch a user story, analyze requirements into a QA Strategy, "
-    "optionally analyze a local repository with analyze_codebase for implementation-aware "
-    "test design, inventory existing tests and bugs, detect coverage gaps and duplicates, "
-    "then create and link only meaningful missing test cases. "
+    "optionally analyze application source with analyze_codebase "
+    "(local repository_path and/or ado_repository + ado_branch from Azure Repos — READ ONLY), "
+    "inventory existing tests and bugs, detect coverage gaps and duplicates, "
+    "then draft meaningful missing test cases. "
+    "SAFETY: Never push to Azure Repos. Never create/link work items unless the user "
+    "explicitly approves AND ADO_WRITES_ENABLED=true; default create/link to dry_run=true. "
     "Never generate optional categories without evidence. "
     "Test cases must contain only title, steps, and expected_results "
     "with matching step/expected counts. "
-    "Credentials: set ADO_ORGANIZATION, ADO_PROJECT, ADO_PAT in .env."
+    "Credentials: set ADO_ORGANIZATION, ADO_PROJECT, ADO_PAT in .env "
+    "(Code Read for clones; Work Items write only if publishes are enabled)."
 )
 
 

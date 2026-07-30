@@ -11,94 +11,88 @@ The layout enforces:
 - Thin MCP adapters  
 - Fat, testable services and domain  
 - ADO details isolated behind repository ports  
-- Docs and ADRs versioned with the product  
+- Optional Code Intelligence over a **local** application tree (read-only)  
+- Docs versioned with the product  
 
-No implementation code is present yet; this is the **target** structure after Module M1+.
+This tree matches the **implemented** package under `src/qa_intelligence/`.
 
 ---
 
-## 2. Target Tree
+## 2. Implemented Tree
 
 ```text
-qa-intelligence-mcp/
+MCP-TC/
 ├── pyproject.toml
 ├── README.md
 ├── .env.example
 ├── .gitignore
+├── .cursor/
+│   └── mcp.json                       # Cursor MCP server registration
 ├── docs/
-│   ├── README.md                          # Documentation index
-│   ├── 01-high-level-architecture.md
-│   ├── 02-folder-structure.md             # this file
-│   ├── 03-mcp-tool-design.md
-│   ├── 04-component-diagram.md
-│   ├── 05-sequence-diagram.md
-│   ├── 06-data-flow.md
-│   ├── 07-domain-models.md
-│   ├── 08-repository-layer.md
-│   ├── 09-service-layer.md
-│   ├── 10-validation-layer.md
-│   ├── 11-azure-devops-integration.md
-│   ├── 12-llm-interaction-flow.md
-│   ├── 13-future-scalability.md
-│   ├── 14-error-handling-strategy.md
-│   ├── 15-logging-strategy.md
-│   ├── 16-testing-strategy.md
-│   ├── ARCHITECTURE.md                    # consolidated summary
-│   └── ADRs/                              # architecture decision records
-│       └── .gitkeep
+│   ├── README.md
+│   ├── ARCHITECTURE.md
+│   └── 01…16-*.md
 ├── src/
 │   └── qa_intelligence/
 │       ├── __init__.py
-│       ├── main.py                        # process entry (MCP bootstrap)
+│       ├── main.py                    # process entry (MCP bootstrap)
 │       ├── api/
-│       │   └── health.py                  # FastAPI health/ready only
+│       │   └── health.py              # FastAPI health/ready only
 │       ├── mcp/
-│       │   ├── server.py                  # FastMCP app + registration
-│       │   ├── tools/                     # one module per tool (thin)
+│       │   ├── server.py              # FastMCP app + registration
+│       │   ├── runtime.py             # DI container accessor
+│       │   ├── responses.py / parsers.py
+│       │   ├── tools/                 # one module per tool (thin)
 │       │   │   ├── get_user_story.py
 │       │   │   ├── get_existing_test_cases.py
 │       │   │   ├── search_similar_test_cases.py
 │       │   │   ├── get_related_bugs.py
 │       │   │   ├── analyze_requirement.py
+│       │   │   ├── analyze_codebase.py
 │       │   │   ├── detect_duplicate_test_cases.py
 │       │   │   ├── generate_coverage_report.py
 │       │   │   ├── create_test_cases.py
 │       │   │   └── link_test_cases.py
-│       │   └── schemas/                   # MCP request/response DTOs
+│       │   └── schemas/
 │       ├── domain/
-│       │   ├── models/
+│       │   ├── models/                # incl. code_intelligence.py, orchestration.py
 │       │   ├── enums.py
-│       │   ├── policies/                  # category applicability, risk
-│       │   └── validation/                # format & invariant validators
+│       │   ├── similarity.py
+│       │   ├── policies/              # category, risk, gap, product_rules, …
+│       │   └── validation/            # format + duplicate guard
 │       ├── services/
 │       │   ├── story_service.py
 │       │   ├── test_case_service.py
 │       │   ├── bug_service.py
-│       │   ├── analysis_service.py
-│       │   ├── duplicate_service.py
-│       │   ├── coverage_service.py
-│       │   └── linking_service.py
+│       │   ├── requirement_analysis_service.py
+│       │   ├── duplicate_detection_service.py
+│       │   ├── coverage_analysis_service.py
+│       │   ├── test_strategy_service.py
+│       │   ├── test_case_generation_service.py
+│       │   ├── linking_service.py
+│       │   ├── orchestration_service.py
+│       │   ├── code_intelligence_service.py
+│       │   ├── ado_git_repository_service.py
+│       │   ├── repository_search_service.py
+│       │   ├── impact_analysis_service.py
+│       │   └── implementation_summary_builder.py
 │       ├── repositories/
-│       │   ├── protocols.py               # ports
-│       │   ├── ado_work_item_repository.py
-│       │   ├── ado_test_case_repository.py
-│       │   └── ado_query_repository.py
+│       │   ├── protocols.py
+│       │   ├── user_story_repository.py
+│       │   ├── test_case_repository.py
+│       │   └── bug_repository.py
 │       ├── infrastructure/
-│       │   ├── ado/
-│       │   │   ├── client.py
-│       │   │   ├── auth.py
-│       │   │   └── mappers.py
+│       │   ├── ado/                   # client, auth, mappers
 │       │   ├── config.py
 │       │   ├── logging.py
 │       │   ├── di.py
 │       │   └── errors.py
-│       └── prompts/                       # optional guidance fragments for tool outputs
+│       └── prompts/
 │           └── analysis_guidance.py
 └── tests/
     ├── unit/
     ├── integration/
     ├── contract/
-    ├── golden/
     └── fixtures/
 ```
 
@@ -109,28 +103,33 @@ qa-intelligence-mcp/
 | Path | May depend on | Must not depend on |
 |------|---------------|--------------------|
 | `mcp/tools` | services, mcp/schemas | ADO client directly |
-| `services` | domain, repository protocols | FastMCP, FastAPI |
+| `services` | domain, repository protocols, local FS (Code Intel only) | FastMCP, FastAPI |
 | `domain` | stdlib, pydantic | services, repos, MCP, ADO |
 | `repositories` | domain, infrastructure/ado | mcp, services (circular) |
 | `infrastructure` | config, external libs | domain business policies |
 | `api/health` | config, di readiness checks | domain write paths |
+
+Code Intelligence services read the filesystem under `repository_path` only; they never write to the application repo or to ADO.
 
 ---
 
 ## 4. Package Naming
 
 - Distribution / import root: `qa_intelligence`  
-- Project directory name may remain `MCP-TC` or rename to `qa-intelligence-mcp` at scaffold time (ADR).  
+- Workspace directory: `MCP-TC` (local); GitHub remote may use `QA_Intelligence`  
 
 ---
 
-## 5. Configuration Files (planned)
+## 5. Configuration Files
 
 | File | Purpose |
 |------|---------|
-| `pyproject.toml` | uv, deps, pytest, ruff/mypy tool config |
+| `pyproject.toml` | Package metadata, deps, pytest |
 | `.env.example` | Documented env keys; no secrets |
-| `docs/ADRs/*` | One decision per file (auth, duplicate scorer, suite placement) |
+| `.env` | Local secrets (gitignored) |
+| `.cursor/mcp.json` | Cursor MCP launch (`python -m qa_intelligence.main`) |
+
+Optional Code Intelligence defaults: `ADO_DEFAULT_GIT_REPOSITORY`, `ADO_DEFAULT_GIT_BRANCH`, `CODE_INTEL_CACHE_DIR`.
 
 ---
 

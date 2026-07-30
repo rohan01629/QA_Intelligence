@@ -11,16 +11,25 @@ from qa_intelligence.prompts.analysis_guidance import product_rules_guidance
 
 
 async def analyze_codebase(
-    repository_path: str,
     user_story_id: int | None = None,
     user_story: dict[str, Any] | None = None,
+    repository_path: str | None = None,
+    ado_repository: str | None = None,
+    ado_branch: str | None = None,
+    ado_project: str | None = None,
     related_bugs: list[dict[str, Any]] | None = None,
     max_files: int | None = None,
+    refresh_ado: bool = True,
 ) -> dict[str, object]:
-    """Analyze a local repository for implementation impact of a User Story.
+    """Analyze application source for implementation impact of a User Story.
 
-    Returns an Implementation Summary (affected files, APIs, business rules,
-    regression areas). Does not create test cases.
+    Provide either ``repository_path`` (local) and/or ``ado_repository`` (Azure Repos).
+    When ``ado_repository`` is set, Code Intelligence shallow-clones/refreshes that
+    repo+branch (latest remote) into a local cache and analyzes it. If both are set,
+    Azure Repos wins. Defaults may come from ``ADO_DEFAULT_GIT_REPOSITORY`` /
+    ``ADO_DEFAULT_GIT_BRANCH`` in ``.env``.
+
+    Returns an Implementation Summary. Does not create test cases.
     """
     try:
         container = get_container()
@@ -41,8 +50,12 @@ async def analyze_codebase(
         summary = container.code_intelligence_service.analyze(
             story,
             repository_path,
+            ado_repository=ado_repository,
+            ado_branch=ado_branch,
+            ado_project=ado_project,
             related_bugs=bugs,
             max_files=max_files,
+            refresh_ado=refresh_ado,
         )
         return responses.success(
             summary,

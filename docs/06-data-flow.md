@@ -23,6 +23,15 @@
               ├── reason
               └── estimates (preliminary)
 
+[Optional source: repository_path and/or ado_repository]
+        │
+        ▼
+  CodeIntelligenceService
+        ├── (ado) AdoGitRepositoryService → shallow cache checkout
+        ├── RepositorySearch → AffectedFile[]
+        ├── ImpactAnalysis → APIs / rules / UI / flags / …
+        └── ImplementationSummary (source_kind=local|ado_git)
+
 [ADO Test Cases JSON] ──► Mapper → TestCaseSummary[]
 [ADO Bugs JSON]       ──► Mapper → BugSummary[]
 [Similar search hits] ──► SimilarTestCase[]

@@ -16,6 +16,7 @@ from qa_intelligence.repositories.protocols import (
 )
 from qa_intelligence.repositories.test_case_repository import AdoTestCaseRepository
 from qa_intelligence.repositories.user_story_repository import AdoUserStoryRepository
+from qa_intelligence.services.ado_git_repository_service import AdoGitRepositoryService
 from qa_intelligence.services.bug_service import BugService
 from qa_intelligence.services.code_intelligence_service import CodeIntelligenceService
 from qa_intelligence.services.coverage_analysis_service import CoverageAnalysisService
@@ -54,6 +55,7 @@ class Container:
     repository_search_service: RepositorySearchService
     impact_analysis_service: ImpactAnalysisService
     implementation_summary_builder: ImplementationSummaryBuilder
+    ado_git_repository_service: AdoGitRepositoryService
     code_intelligence_service: CodeIntelligenceService
     orchestration_service: OrchestrationService
 
@@ -86,10 +88,15 @@ def build_container(settings: Settings | None = None) -> Container:
     repository_search_service = RepositorySearchService()
     impact_analysis_service = ImpactAnalysisService()
     implementation_summary_builder = ImplementationSummaryBuilder()
+    ado_git_repository_service = AdoGitRepositoryService(resolved)
     code_intelligence_service = CodeIntelligenceService(
         repository_search_service=repository_search_service,
         impact_analysis_service=impact_analysis_service,
         implementation_summary_builder=implementation_summary_builder,
+        ado_git_repository_service=ado_git_repository_service,
+        default_ado_repository=resolved.ado_default_git_repository,
+        default_ado_branch=resolved.ado_default_git_branch,
+        default_ado_project=resolved.ado_project,
     )
     orchestration_service = OrchestrationService(
         story_service=story_service,
@@ -123,6 +130,7 @@ def build_container(settings: Settings | None = None) -> Container:
         repository_search_service=repository_search_service,
         impact_analysis_service=impact_analysis_service,
         implementation_summary_builder=implementation_summary_builder,
+        ado_git_repository_service=ado_git_repository_service,
         code_intelligence_service=code_intelligence_service,
         orchestration_service=orchestration_service,
     )

@@ -56,7 +56,7 @@ No network. Fake repositories via protocol stubs.
 
 ## 4. Contract Tests
 
-For each of the 9 tools:
+For each of the 10 tools:
 
 - Input schema accepts valid payloads  
 - Rejects invalid payloads with stable codes  

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from qa_intelligence.services.ado_git_repository_service import AdoGitRepositoryService
 from qa_intelligence.services.bug_service import BugService
 from qa_intelligence.services.code_intelligence_service import CodeIntelligenceService
 from qa_intelligence.services.coverage_analysis_service import CoverageAnalysisService
@@ -23,6 +24,7 @@ DuplicateService = DuplicateDetectionService
 CoverageService = CoverageAnalysisService
 
 __all__ = [
+    "AdoGitRepositoryService",
     "AnalysisService",
     "BugService",
     "CodeIntelligenceService",

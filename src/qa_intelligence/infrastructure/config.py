@@ -33,6 +33,29 @@ class Settings(BaseSettings):
     ado_ac_field: str | None = "Microsoft.VSTS.Common.AcceptanceCriteria"
     ado_tested_by_relation: str = "Microsoft.VSTS.Common.TestedBy-Forward"
 
+    # Code Intelligence — optional Azure Repos defaults
+    ado_default_git_repository: str | None = None
+    ado_default_git_branch: str = "main"
+    code_intel_cache_dir: str | None = None
+
+    @field_validator("ado_default_git_branch", mode="before")
+    @classmethod
+    def normalize_git_branch(cls, value: object) -> object:
+        if value is None or value == "":
+            return "main"
+        text = str(value).strip()
+        if text.startswith("origin/"):
+            text = text[len("origin/") :].lstrip()
+        if text.startswith("refs/heads/"):
+            text = text[len("refs/heads/") :].lstrip()
+        return text or "main"
+
+    # Safety — ADO work-item creates/links require explicit opt-in
+    ado_writes_enabled: bool = Field(
+        default=False,
+        description="When false, create_test_cases/link_test_cases refuse non-dry-run writes",
+    )
+
     mcp_transport: str = "stdio"
     log_level: str = "INFO"
 
@@ -46,6 +69,8 @@ class Settings(BaseSettings):
         "ado_default_test_plan_id",
         "ado_default_suite_id",
         "ado_ac_field",
+        "ado_default_git_repository",
+        "code_intel_cache_dir",
         mode="before",
     )
     @classmethod

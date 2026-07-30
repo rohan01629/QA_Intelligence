@@ -13,6 +13,7 @@ from qa_intelligence.domain.models.code_intelligence import (
     AffectedFile,
     CodeArtifactRole,
     CodeSignal,
+    CodeSourceKind,
     ImplementationSummary,
 )
 from qa_intelligence.domain.models.coverage import CoverageReport, ScenarioRef
@@ -64,6 +65,7 @@ __all__ = [
     "CategoryExclusion",
     "CodeArtifactRole",
     "CodeSignal",
+    "CodeSourceKind",
     "CoverageAnalysisResult",
     "CoverageEstimates",
     "CoverageMatrixRow",

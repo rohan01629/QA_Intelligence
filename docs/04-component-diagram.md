@@ -17,6 +17,8 @@
 │                         APPLICATION LAYER                                │
 │  StoryService · TestCaseService · BugService · AnalysisService           │
 │  DuplicateService · CoverageService · LinkingService                     │
+│  OrchestrationService · TestCaseGenerationService · TestStrategyService  │
+│  CodeIntelligenceService · RepositorySearch · ImpactAnalysis · Summary   │
 └─┬─────────────────────────────┬─────────────────────────────┬───────────┘
   │                             │                             │
   ▼                             ▼                             ▼
@@ -25,8 +27,10 @@
 │ UserStory       │  │ CategoryPolicy       │  │ TestCaseFormatValidator  │
 │ TestCase        │  │ RiskPolicy           │  │ ParityValidator          │
 │ Bug             │  │ GapPolicy            │  │ DuplicateBatchValidator  │
-│ QAStrategy      │  │                      │  │ ExtraFieldsForbidden     │
+│ QAStrategy      │  │ ProductRules         │  │ ExtraFieldsForbidden     │
 │ CoverageReport  │  │                      │  │                          │
+│ Implementation  │  │                      │  │                          │
+│ Summary         │  │                      │  │                          │
 └─────────────────┘  └──────────────────────┘  └──────────────────────────┘
                                     │
 ┌───────────────────────────────────▼─────────────────────────────────────┐
@@ -38,10 +42,12 @@
 ┌───────────────────────────────────▼─────────────────────────────────────┐
 │                         ADAPTERS (INFRASTRUCTURE)                        │
 │  AzureDevOpsClient · PATAuth · Mappers · Settings · Structlog · DI       │
+│  Local filesystem (Code Intelligence read-only)                          │
 └───────────────────────────────────┬─────────────────────────────────────┘
                                     │
-                                    ▼
-                          Azure DevOps REST API
+                    ┌───────────────┴───────────────┐
+                    ▼                               ▼
+          Azure DevOps REST API           Local application repo
 ```
 
 ---
@@ -57,6 +63,7 @@
 | Validators | Quality gate | Hard rejects before write |
 | Repository ports | Dependency inversion | Abstract persistence/query |
 | ADO adapters | External system isolation | REST, auth, JSON mapping |
+| Code Intelligence | Implementation-aware grounding | Local search + impact + summary |
 | DI container | Composition root | Wire lifetimes |
 | Health API | Ops readiness | Liveness/readiness without MCP |
 
@@ -103,6 +110,9 @@ flowchart TB
     DS[DuplicateService]
     CS[CoverageService]
     LS[LinkingService]
+    OS[OrchestrationService]
+    GS[TestCaseGenerationService]
+    CI[CodeIntelligenceService]
   end
 
   subgraph Domain
@@ -121,12 +131,15 @@ flowchart TB
   subgraph Adapters
     ADO[AzureDevOpsClient]
     Map[Mappers]
+    FS[LocalFilesystem]
   end
 
-  MCP --> SS & TS & BS & AS & DS & CS & LS
-  SS & TS & BS & AS & DS & CS & LS --> Models & Pol & Val
+  MCP --> SS & TS & BS & AS & DS & CS & LS & CI
+  OS --> SS & AS & CI & DS & CS & GS & TS & LS
+  SS & TS & BS & AS & DS & CS & LS & GS --> Models & Pol & Val
   SS & TS & BS --> WR & TR & QR
   DS & CS --> Sim
+  CI --> FS
   WR & TR & QR --> ADO
   ADO --> Map
 ```

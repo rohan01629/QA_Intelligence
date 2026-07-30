@@ -14,6 +14,8 @@
 | Missing scenario | Intent not covered by existing/similar/bug coverage |
 | Duplicate | Same business intent/workflow/AC mapping/expected outcome |
 | Blocking gap | Incomplete requirement that forbids generation |
+| Implementation Summary | Structured view of how a feature appears in local source |
+| Code Intelligence | Optional search + impact analysis over `repository_path` |
 
 ---
 
@@ -227,6 +229,22 @@ CoverageReport
   missing_scenarios: list[ScenarioRef]
   qa_strategy_final: QAStrategy
   generation_directive: GenerationDirective
+
+ImplementationSummary
+  feature: str
+  repository_path: str
+  source_kind: local | ado_git
+  ado_repository / ado_project / ado_branch / ado_commit: optional
+  user_story_id: int | None
+  affected_files: list[AffectedFile]     # path, role, score, reason
+  affected_apis: list[AffectedApi]       # method, path, source_file
+  business_rules / validation_rules / regression_areas: list[str]
+  permissions / feature_flags / integrations / error_handling: list[str]
+  database_interactions / ui_components: list[str]
+  signals: list[CodeSignal]
+  search_terms: list[str]
+  files_considered / files_read: int
+  notes: str
 ```
 
 ---
@@ -258,7 +276,8 @@ LinkResult
 5. Optional categories in Required need evidence; exclusions need reasons.  
 6. If any gap severity is `blocking` → `blocked=true` and new-case estimate = 0.  
 7. Generation must honor Required allow-list and Not Required deny-list.  
-8. Do not invent acceptance criteria to clear gaps.
+8. Do not invent acceptance criteria to clear gaps.  
+9. `ImplementationSummary` is optional; empty/weak matches must not be treated as proof of coverage.  
 
 ---
 

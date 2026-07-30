@@ -30,6 +30,14 @@ sequenceDiagram
   Svc-->>MCP: RequirementAnalysis
   MCP-->>Cursor: QA Strategy
 
+  opt Code Intelligence (optional local path and/or Azure Repos)
+    Cursor->>MCP: analyze_codebase(path and/or ado_repository, N)
+    MCP->>Svc: CodeIntelligenceService.analyze
+    Note over Svc: Optional shallow ADO clone<br/>+ local FS search + impact<br/>ImplementationSummary
+    Svc-->>MCP: ImplementationSummary
+    MCP-->>Cursor: ImplementationSummary
+  end
+
   alt blocked == true
     Cursor-->>User: Report requirement gaps (stop)
   else not blocked

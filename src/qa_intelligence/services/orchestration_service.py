@@ -19,7 +19,7 @@ from qa_intelligence.domain.models.orchestration import (
     WorkflowStepStatus,
 )
 from qa_intelligence.domain.models.test_case import TestCase
-from qa_intelligence.infrastructure.errors import QaIntelligenceError
+from qa_intelligence.infrastructure.errors import ConfigurationError, QaIntelligenceError
 from qa_intelligence.services.bug_service import BugService
 from qa_intelligence.services.code_intelligence_service import CodeIntelligenceService
 from qa_intelligence.services.coverage_analysis_service import CoverageAnalysisService
@@ -66,18 +66,40 @@ class OrchestrationService:
         self,
         user_story_id: int,
         *,
-        dry_run: bool = False,
+        dry_run: bool = True,
         override_requirement_block: bool = False,
-        publish: bool = True,
+        publish: bool = False,
         link: bool = True,
         repository_path: str | None = None,
+        ado_repository: str | None = None,
+        ado_branch: str | None = None,
+        ado_project: str | None = None,
+        ado_writes_enabled: bool | None = None,
     ) -> WorkflowExecutionSummary:
         """Execute the full workflow for a user story and return a summary.
 
-        ``repository_path`` is optional. When provided, Code Intelligence runs after
-        requirement analysis and enriches generation. When omitted, behavior matches
-        the legacy pipeline (code intelligence step is skipped).
+        Defaults: dry_run=true, publish=false — no ADO work-item writes.
+        Real publish requires publish=true, dry_run=false, and
+        ADO_WRITES_ENABLED=true (or ado_writes_enabled=True override for tests).
+
+        Code Intelligence runs when ``repository_path`` and/or ``ado_repository``
+        (or ``ADO_DEFAULT_GIT_REPOSITORY``) is available. Azure Repos access is
+        read-only (clone/fetch only; never push).
         """
+        from qa_intelligence.infrastructure.config import get_settings
+
+        writes_ok = (
+            ado_writes_enabled
+            if ado_writes_enabled is not None
+            else get_settings().ado_writes_enabled
+        )
+        if publish and not dry_run and not writes_ok:
+            raise ConfigurationError(
+                "Refusing to publish to Azure DevOps: ADO_WRITES_ENABLED is false. "
+                "Run with dry_run=true / publish=false to draft only.",
+                details={"publish": publish, "dry_run": dry_run},
+            )
+
         summary = WorkflowExecutionSummary(
             user_story_id=user_story_id,
             ok=False,
@@ -157,13 +179,21 @@ class OrchestrationService:
             )
             return summary
 
-        # 2b. Code Intelligence (optional — skipped when no repository_path)
+        # 2b. Code Intelligence (optional — skipped when no local/ADO source)
         implementation_summary = None
-        if repository_path:
+        has_code_source = bool(
+            (repository_path and repository_path.strip())
+            or (ado_repository and ado_repository.strip())
+            or self._code_intelligence_service.has_default_ado_repository
+        )
+        if has_code_source:
             try:
                 implementation_summary = self._code_intelligence_service.analyze(
                     story,
                     repository_path,
+                    ado_repository=ado_repository,
+                    ado_branch=ado_branch,
+                    ado_project=ado_project,
                 )
                 summary.implementation_summary = implementation_summary
                 summary.steps.append(
@@ -175,6 +205,10 @@ class OrchestrationService:
                             "files_read": implementation_summary.files_read,
                             "affected_files": len(implementation_summary.affected_files),
                             "validation_rules": len(implementation_summary.validation_rules),
+                            "source_kind": implementation_summary.source_kind.value,
+                            "ado_repository": implementation_summary.ado_repository,
+                            "ado_branch": implementation_summary.ado_branch,
+                            "ado_commit": implementation_summary.ado_commit,
                         },
                     )
                 )
@@ -197,7 +231,7 @@ class OrchestrationService:
                 _step(
                     WorkflowStepName.CODE_INTELLIGENCE,
                     WorkflowStepStatus.SKIPPED,
-                    "No repository_path provided",
+                    "No repository_path or ado_repository provided",
                 )
             )
 
