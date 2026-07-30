@@ -17,10 +17,14 @@ from qa_intelligence.repositories.protocols import (
 from qa_intelligence.repositories.test_case_repository import AdoTestCaseRepository
 from qa_intelligence.repositories.user_story_repository import AdoUserStoryRepository
 from qa_intelligence.services.bug_service import BugService
+from qa_intelligence.services.code_intelligence_service import CodeIntelligenceService
 from qa_intelligence.services.coverage_analysis_service import CoverageAnalysisService
 from qa_intelligence.services.duplicate_detection_service import DuplicateDetectionService
+from qa_intelligence.services.impact_analysis_service import ImpactAnalysisService
+from qa_intelligence.services.implementation_summary_builder import ImplementationSummaryBuilder
 from qa_intelligence.services.linking_service import LinkingService
 from qa_intelligence.services.orchestration_service import OrchestrationService
+from qa_intelligence.services.repository_search_service import RepositorySearchService
 from qa_intelligence.services.requirement_analysis_service import RequirementAnalysisService
 from qa_intelligence.services.story_service import StoryService
 from qa_intelligence.services.test_case_generation_service import TestCaseGenerationService
@@ -47,6 +51,10 @@ class Container:
     coverage_analysis_service: CoverageAnalysisService
     test_strategy_service: TestStrategyService
     test_case_generation_service: TestCaseGenerationService
+    repository_search_service: RepositorySearchService
+    impact_analysis_service: ImpactAnalysisService
+    implementation_summary_builder: ImplementationSummaryBuilder
+    code_intelligence_service: CodeIntelligenceService
     orchestration_service: OrchestrationService
 
     async def aclose(self) -> None:
@@ -75,6 +83,14 @@ def build_container(settings: Settings | None = None) -> Container:
     coverage_analysis_service = CoverageAnalysisService()
     test_strategy_service = TestStrategyService()
     test_case_generation_service = TestCaseGenerationService()
+    repository_search_service = RepositorySearchService()
+    impact_analysis_service = ImpactAnalysisService()
+    implementation_summary_builder = ImplementationSummaryBuilder()
+    code_intelligence_service = CodeIntelligenceService(
+        repository_search_service=repository_search_service,
+        impact_analysis_service=impact_analysis_service,
+        implementation_summary_builder=implementation_summary_builder,
+    )
     orchestration_service = OrchestrationService(
         story_service=story_service,
         requirement_analysis_service=requirement_analysis_service,
@@ -85,6 +101,7 @@ def build_container(settings: Settings | None = None) -> Container:
         test_strategy_service=test_strategy_service,
         test_case_generation_service=test_case_generation_service,
         linking_service=linking_service,
+        code_intelligence_service=code_intelligence_service,
     )
 
     return Container(
@@ -103,5 +120,9 @@ def build_container(settings: Settings | None = None) -> Container:
         coverage_analysis_service=coverage_analysis_service,
         test_strategy_service=test_strategy_service,
         test_case_generation_service=test_case_generation_service,
+        repository_search_service=repository_search_service,
+        impact_analysis_service=impact_analysis_service,
+        implementation_summary_builder=implementation_summary_builder,
+        code_intelligence_service=code_intelligence_service,
         orchestration_service=orchestration_service,
     )

@@ -11,6 +11,7 @@ from qa_intelligence.domain.enums import GenerationDirective
 from qa_intelligence.domain.models.analysis import RequirementAnalysis
 from qa_intelligence.domain.models.base import DomainModel
 from qa_intelligence.domain.models.bug import Bug
+from qa_intelligence.domain.models.code_intelligence import ImplementationSummary
 from qa_intelligence.domain.models.coverage_matrix import CoverageAnalysisResult
 from qa_intelligence.domain.models.detection import DuplicateDetectionResult
 from qa_intelligence.domain.models.generation import TestCaseGenerationResult
@@ -26,6 +27,7 @@ class WorkflowStepName(StrEnum):
 
     FETCH_USER_STORY = "fetch_user_story"
     ANALYZE_REQUIREMENT = "analyze_requirement"
+    CODE_INTELLIGENCE = "code_intelligence"
     FETCH_EXISTING_TEST_CASES = "fetch_existing_test_cases"
     FETCH_BUGS = "fetch_bugs"
     DUPLICATE_DETECTION = "duplicate_detection"
@@ -67,6 +69,7 @@ class WorkflowExecutionSummary(DomainModel):
 
     user_story: UserStory | None = None
     requirement_analysis: RequirementAnalysis | None = None
+    implementation_summary: ImplementationSummary | None = None
     existing_test_cases: list[TestCaseSummary] = Field(default_factory=list)
     related_bugs: list[Bug] = Field(default_factory=list)
     duplicate_detection: DuplicateDetectionResult | None = None

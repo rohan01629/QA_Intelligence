@@ -44,8 +44,13 @@ class TestCaseGenerationService:
         *,
         existing_test_cases: list[TestCaseSummary] | None = None,
         uncovered_scenarios: list[ScenarioRef] | None = None,
+        implementation_summary: object | None = None,
     ) -> TestCaseGenerationResult:
-        """Generate ONLY missing scenarios, or a fresh suite when none exist."""
+        """Generate ONLY missing scenarios, or a fresh suite when none exist.
+
+        ``implementation_summary`` is optional. When provided, validation rules and
+        regression areas enrich scenario targets. When omitted, behavior is unchanged.
+        """
         criteria = acceptance_criteria if acceptance_criteria is not None else list(
             user_story.acceptance_criteria
         )
@@ -71,6 +76,11 @@ class TestCaseGenerationService:
             criteria=criteria,
             existing=existing,
             uncovered_scenarios=uncovered_scenarios,
+        )
+        scenarios = self._enrich_scenarios_from_implementation(
+            scenarios,
+            implementation_summary,
+            mode=mode,
         )
 
         if not scenarios:
@@ -256,3 +266,71 @@ class TestCaseGenerationService:
         cores = [c for c in CORE_CATEGORIES_ORDERED if c in seen]
         optionals = [c for c in unique if c not in CORE_CATEGORIES_ORDERED]
         return cores + optionals if cores or optionals else list(CORE_CATEGORIES_ORDERED)
+
+    def _enrich_scenarios_from_implementation(
+        self,
+        scenarios: list[ScenarioRef],
+        implementation_summary: object | None,
+        *,
+        mode: GenerationMode,
+    ) -> list[ScenarioRef]:
+        """Append implementation-derived missing intents without dropping AC scenarios.
+
+        Only used when an ImplementationSummary is supplied. No-op when None.
+        """
+        if implementation_summary is None:
+            return scenarios
+
+        # Duck-typed to avoid hard import cycles in optional path; validate attrs.
+        validation_rules = list(getattr(implementation_summary, "validation_rules", []) or [])
+        regression_areas = list(getattr(implementation_summary, "regression_areas", []) or [])
+        affected_apis = list(getattr(implementation_summary, "affected_apis", []) or [])
+
+        extras: list[ScenarioRef] = []
+        existing_titles = {s.title.strip().lower() for s in scenarios}
+
+        for index, rule in enumerate(validation_rules, start=1):
+            title = rule.strip()
+            if not title or title.lower() in existing_titles:
+                continue
+            extras.append(
+                ScenarioRef(
+                    key=f"CODE-VAL-{index}",
+                    title=title,
+                    source=ScenarioSource.MISSING,
+                )
+            )
+            existing_titles.add(title.lower())
+
+        for index, api in enumerate(affected_apis, start=1):
+            method = getattr(api, "method", "") or ""
+            path = getattr(api, "path", "") or ""
+            title = f"API {method} {path}".strip()
+            if not path or title.lower() in existing_titles:
+                continue
+            extras.append(
+                ScenarioRef(
+                    key=f"CODE-API-{index}",
+                    title=title,
+                    source=ScenarioSource.MISSING,
+                )
+            )
+            existing_titles.add(title.lower())
+
+        for index, area in enumerate(regression_areas, start=1):
+            title = f"Regression: {area}".strip()
+            if not area or title.lower() in existing_titles:
+                continue
+            # In gap-fill mode, only add regression if we already have some missing work.
+            if mode == GenerationMode.GAP_FILL_ONLY and not scenarios and not extras:
+                break
+            extras.append(
+                ScenarioRef(
+                    key=f"CODE-REG-{index}",
+                    title=title,
+                    source=ScenarioSource.MISSING,
+                )
+            )
+            existing_titles.add(title.lower())
+
+        return [*scenarios, *extras]

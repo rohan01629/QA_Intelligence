@@ -174,7 +174,14 @@ async def test_full_workflow_fresh_suite_publishes_and_links() -> None:
     step_names = [s.name for s in summary.steps]
     assert step_names == list(WorkflowStepName)
     assert all(s.status != WorkflowStepStatus.FAILED for s in summary.steps)
-    assert all(s.status != WorkflowStepStatus.SKIPPED for s in summary.steps)
+    # Code intelligence is skipped when no repository_path is provided.
+    code_step = next(s for s in summary.steps if s.name == WorkflowStepName.CODE_INTELLIGENCE)
+    assert code_step.status == WorkflowStepStatus.SKIPPED
+    assert all(
+        s.status != WorkflowStepStatus.SKIPPED
+        for s in summary.steps
+        if s.name != WorkflowStepName.CODE_INTELLIGENCE
+    )
 
 
 @pytest.mark.asyncio

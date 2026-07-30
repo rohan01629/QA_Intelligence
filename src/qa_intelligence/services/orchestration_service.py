@@ -21,6 +21,7 @@ from qa_intelligence.domain.models.orchestration import (
 from qa_intelligence.domain.models.test_case import TestCase
 from qa_intelligence.infrastructure.errors import QaIntelligenceError
 from qa_intelligence.services.bug_service import BugService
+from qa_intelligence.services.code_intelligence_service import CodeIntelligenceService
 from qa_intelligence.services.coverage_analysis_service import CoverageAnalysisService
 from qa_intelligence.services.duplicate_detection_service import DuplicateDetectionService
 from qa_intelligence.services.linking_service import LinkingService
@@ -48,6 +49,7 @@ class OrchestrationService:
         test_strategy_service: TestStrategyService,
         test_case_generation_service: TestCaseGenerationService,
         linking_service: LinkingService,
+        code_intelligence_service: CodeIntelligenceService | None = None,
     ) -> None:
         self._story_service = story_service
         self._requirement_analysis_service = requirement_analysis_service
@@ -58,6 +60,7 @@ class OrchestrationService:
         self._test_strategy_service = test_strategy_service
         self._test_case_generation_service = test_case_generation_service
         self._linking_service = linking_service
+        self._code_intelligence_service = code_intelligence_service or CodeIntelligenceService()
 
     async def run(
         self,
@@ -67,8 +70,14 @@ class OrchestrationService:
         override_requirement_block: bool = False,
         publish: bool = True,
         link: bool = True,
+        repository_path: str | None = None,
     ) -> WorkflowExecutionSummary:
-        """Execute the full workflow for a user story and return a summary."""
+        """Execute the full workflow for a user story and return a summary.
+
+        ``repository_path`` is optional. When provided, Code Intelligence runs after
+        requirement analysis and enriches generation. When omitted, behavior matches
+        the legacy pipeline (code intelligence step is skipped).
+        """
         summary = WorkflowExecutionSummary(
             user_story_id=user_story_id,
             ok=False,
@@ -143,10 +152,54 @@ class OrchestrationService:
             )
             self._mark_remaining_skipped(
                 summary,
-                from_step=WorkflowStepName.FETCH_EXISTING_TEST_CASES,
+                from_step=WorkflowStepName.CODE_INTELLIGENCE,
                 reason="Blocked by incomplete requirements",
             )
             return summary
+
+        # 2b. Code Intelligence (optional — skipped when no repository_path)
+        implementation_summary = None
+        if repository_path:
+            try:
+                implementation_summary = self._code_intelligence_service.analyze(
+                    story,
+                    repository_path,
+                )
+                summary.implementation_summary = implementation_summary
+                summary.steps.append(
+                    _step(
+                        WorkflowStepName.CODE_INTELLIGENCE,
+                        WorkflowStepStatus.SUCCEEDED,
+                        f"Code intelligence analyzed {implementation_summary.files_read} file(s)",
+                        {
+                            "files_read": implementation_summary.files_read,
+                            "affected_files": len(implementation_summary.affected_files),
+                            "validation_rules": len(implementation_summary.validation_rules),
+                        },
+                    )
+                )
+            except QaIntelligenceError as exc:
+                summary.steps.append(
+                    _step(
+                        WorkflowStepName.CODE_INTELLIGENCE,
+                        WorkflowStepStatus.FAILED,
+                        exc.message,
+                        {"code": exc.code},
+                    )
+                )
+                # Non-fatal: continue without implementation enrichment.
+                summary.notes = (
+                    "Code intelligence failed; continuing with requirement-only generation. "
+                    f"({exc.code})"
+                )
+        else:
+            summary.steps.append(
+                _step(
+                    WorkflowStepName.CODE_INTELLIGENCE,
+                    WorkflowStepStatus.SKIPPED,
+                    "No repository_path provided",
+                )
+            )
 
         # 3. Fetch Existing Test Cases
         try:
@@ -314,6 +367,7 @@ class OrchestrationService:
                 list(story.acceptance_criteria),
                 existing_test_cases=existing,
                 uncovered_scenarios=list(coverage.uncovered_scenarios),
+                implementation_summary=summary.implementation_summary,
             )
         except QaIntelligenceError as exc:
             summary.steps.append(

@@ -8,6 +8,13 @@ from qa_intelligence.domain.models.analysis import (
     RequirementGap,
 )
 from qa_intelligence.domain.models.bug import Bug
+from qa_intelligence.domain.models.code_intelligence import (
+    AffectedApi,
+    AffectedFile,
+    CodeArtifactRole,
+    CodeSignal,
+    ImplementationSummary,
+)
 from qa_intelligence.domain.models.coverage import CoverageReport, ScenarioRef
 from qa_intelligence.domain.models.coverage_matrix import (
     AcceptanceCriterionMap,
@@ -49,10 +56,14 @@ from qa_intelligence.domain.models.write_results import CreateResult, LinkResult
 __all__ = [
     "AcceptanceCriteria",
     "AcceptanceCriterionMap",
+    "AffectedApi",
+    "AffectedFile",
     "Bug",
     "BugMapEntry",
     "CategoryDecision",
     "CategoryExclusion",
+    "CodeArtifactRole",
+    "CodeSignal",
     "CoverageAnalysisResult",
     "CoverageEstimates",
     "CoverageMatrixRow",
@@ -65,6 +76,7 @@ __all__ = [
     "FeatureAnalysis",
     "GeneratedTestCaseRecord",
     "GenerationMode",
+    "ImplementationSummary",
     "LinkResult",
     "QAStrategy",
     "RelatedWorkItemRef",

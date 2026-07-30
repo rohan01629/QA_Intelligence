@@ -24,12 +24,12 @@ def _reset_mcp_container() -> None:
 
 
 @pytest.mark.asyncio
-async def test_all_nine_tools_are_registered() -> None:
+async def test_all_ten_tools_are_registered() -> None:
     mcp = create_mcp_server()
     tools = await mcp.list_tools()
     names = sorted(tool.name for tool in tools)
     assert names == sorted(EXPECTED_TOOL_NAMES)
-    assert len(names) == 9
+    assert len(names) == 10
 
 
 @pytest.mark.asyncio
@@ -40,6 +40,7 @@ async def test_registered_tool_names_match_product_surface() -> None:
         "search_similar_test_cases",
         "get_related_bugs",
         "analyze_requirement",
+        "analyze_codebase",
         "detect_duplicate_test_cases",
         "generate_coverage_report",
         "create_test_cases",
