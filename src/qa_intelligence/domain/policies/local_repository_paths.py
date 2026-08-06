@@ -7,7 +7,7 @@ from pathlib import Path
 
 from qa_intelligence.domain.models.user_story import UserStory
 
-# Live+ UAT folder names → QA (e.g. D:\Live_Plus_UAT → D:\Live_Plus_QA).
+# Live+ UAT folder names → QA (e.g. ...\Live_Plus_UAT → ...\Live_Plus_QA).
 _LIVE_PLUS_UAT_PATTERN = re.compile(r"live[_-]?plus[_-]?uat", re.IGNORECASE)
 
 # Keyword boosts for story → path matching (path string + story text).

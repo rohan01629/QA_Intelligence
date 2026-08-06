@@ -1,8 +1,0 @@
-{
-  "user_story_id": 116566,
-  "status": "blocked_rule_12",
-  "feature_found": false,
-  "generated_count": 0,
-  "reason": "Magenta circle on LogLog (Closure x Meas'd Btmh Press) is not implemented in Minifrac or Live_Plus_UAT.",
-  "cases": []
-}

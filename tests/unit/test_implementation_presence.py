@@ -74,7 +74,7 @@ def test_legacy_ascii_download_is_not_feature_found() -> None:
     story = _ascii_story()
     summary = ImplementationSummary(
         feature=story.title,
-        repository_path=r"D:\Live_Plus_UAT",
+        repository_path=r"D:\Repos\Live_Plus_UAT",
         affected_files=[
             AffectedFile(
                 path="fracpro-agile/src/app/pages/plots/report/report-buttons/report-buttons.component.ts",
@@ -100,7 +100,7 @@ def test_implemented_ascii_dialog_is_feature_found() -> None:
     story = _ascii_story()
     summary = ImplementationSummary(
         feature=story.title,
-        repository_path=r"D:\Live_Plus_UAT",
+        repository_path=r"D:\Repos\Live_Plus_UAT",
         affected_files=[
             AffectedFile(
                 path="report-buttons.component.ts",
@@ -137,7 +137,7 @@ def test_any_codebase_sufficient_when_implemented() -> None:
     )
     miss = ImplementationSummary(
         feature=story.title,
-        repository_path=r"D:\Live_Plus_UAT",
+        repository_path=r"D:\Repos\Live_Plus_UAT",
         affected_files=[
             AffectedFile(path="auth.ts", role=CodeArtifactRole.SERVICE, score=0.2, reason="x")
         ],
@@ -204,7 +204,7 @@ def test_generation_blocked_when_feature_not_found() -> None:
     )
     summary = ImplementationSummary(
         feature=story.title,
-        repository_path=r"D:\Live_Plus_UAT",
+        repository_path=r"D:\Repos\Live_Plus_UAT",
         feature_found=False,
         feature_presence_notes="missing markers",
         related_implementation_available=True,
@@ -262,7 +262,7 @@ def test_generation_allowed_when_user_approves_related() -> None:
     )
     summary = ImplementationSummary(
         feature=story.title,
-        repository_path=r"D:\Live_Plus_UAT",
+        repository_path=r"D:\Repos\Live_Plus_UAT",
         feature_found=False,
         related_implementation_available=True,
         related_file_paths=["report-buttons.component.ts"],

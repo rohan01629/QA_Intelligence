@@ -10,17 +10,20 @@ from qa_intelligence.domain.policies.local_repository_paths import (
 )
 
 
-LIVE = r"D:\Live_Plus_UAT"
-LIVE_LEAF = r"D:\Live_Plus_UAT\fracpro-agile"
-LIVE_QA = r"D:\Live_Plus_QA\fracpro-agile"
+LIVE = r"D:\Repos\Live_Plus_UAT"
+LIVE_LEAF = r"D:\Repos\Live_Plus_UAT\fracpro-agile"
+LIVE_QA = r"D:\Repos\Live_Plus_QA\fracpro-agile"
 MINIFRAC = r"C:\Repos\Minifrac\fracpro-agile"
-PATHS = [LIVE, MINIFRAC]
-PATHS_WITH_QA = [LIVE, LIVE_QA, MINIFRAC]
+# Include leaf explicitly so selection is machine-independent (no real disks required).
+PATHS = [LIVE, LIVE_LEAF, MINIFRAC]
+PATHS_WITH_QA = [LIVE, LIVE_LEAF, LIVE_QA, MINIFRAC]
 
 
 def test_parse_paths_comma_and_newline() -> None:
-    assert parse_local_repository_paths(f"{LIVE},{MINIFRAC}") == PATHS
-    assert parse_local_repository_paths(f"{LIVE}\n{MINIFRAC}") == PATHS
+    sample = f"{LIVE},{MINIFRAC}"
+    expected = [LIVE, MINIFRAC]
+    assert parse_local_repository_paths(sample) == expected
+    assert parse_local_repository_paths(f"{LIVE}\n{MINIFRAC}") == expected
 
 
 def test_minifrac_story_selects_minifrac_tree() -> None:
@@ -128,5 +131,5 @@ def test_qa_state_derives_qa_path_from_uat_only_config() -> None:
 
 
 def test_derive_live_plus_qa_path_preserves_suffix() -> None:
-    assert derive_live_plus_qa_path(LIVE) == r"D:\Live_Plus_QA"
+    assert derive_live_plus_qa_path(LIVE) == r"D:\Repos\Live_Plus_QA"
     assert derive_live_plus_qa_path(LIVE_QA) is None
