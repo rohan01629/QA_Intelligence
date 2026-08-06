@@ -53,4 +53,5 @@ logs/
 # Local scratch
 tmp/
 temp/
+tmp_*
 *.tmp

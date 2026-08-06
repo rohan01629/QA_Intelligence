@@ -13,7 +13,7 @@ from qa_intelligence.domain.policies.local_repository_paths import (
 LIVE = r"D:\Live_Plus_UAT"
 LIVE_LEAF = r"D:\Live_Plus_UAT\fracpro-agile"
 LIVE_QA = r"D:\Live_Plus_QA\fracpro-agile"
-MINIFRAC = r"C:\Users\WalkingTree.LAPTOP-UNM23JON\Desktop\Minifrac\fracpro-agile"
+MINIFRAC = r"C:\Repos\Minifrac\fracpro-agile"
 PATHS = [LIVE, MINIFRAC]
 PATHS_WITH_QA = [LIVE, LIVE_QA, MINIFRAC]
 

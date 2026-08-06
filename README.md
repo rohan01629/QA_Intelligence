@@ -57,10 +57,7 @@ ADO_PAT=your-pat
 
 **Complex** means high/critical risk, 3+ AC items, 4+ `Scenario N:` markers, long AC text, or 8+ native uncovered scenarios — not volume-seed padding.
 
-Local Code Intelligence roots (story picks best match via `CODE_INTEL_LOCAL_REPOSITORY_PATHS`):
-
-- `D:\Live_Plus_UAT`
-- `C:\Users\WalkingTree.LAPTOP-UNM23JON\Desktop\Minifrac\fracpro-agile`
+Local Code Intelligence roots: set `CODE_INTEL_LOCAL_REPOSITORY_PATHS` in your private `.env` (comma-separated absolute paths). Do not commit machine-specific paths. Story analysis picks the best match from that list.
 
 **Rule 12:** If the US feature is **not implemented**, analyze related/previous code and **ask before generating**. Related-based TCs are optional (`allow_related_implementation=true` after user approval). If neither the feature nor related code exists, do not generate.
 
@@ -136,7 +133,7 @@ Optional path — provide at least one source:
 
 | Source | How | When to use |
 |--------|-----|-------------|
-| **Local** | `repository_path=D:\Live_Plus_UAT` | Uncommitted WIP on your machine |
+| **Local** | `repository_path=<your local app root>` | Uncommitted WIP on your machine |
 | **Azure Repos** | `ado_repository=YourRepo` + optional `ado_branch` | Latest shared branch without manual pull |
 
 ```text
