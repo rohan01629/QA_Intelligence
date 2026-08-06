@@ -87,6 +87,9 @@ PAT for ADO Git requires **Code Read**. Git must be installed on PATH.
 | D9 | When both sources set, Azure Repos wins; local-only for WIP |
 | D10 | Azure Repos access is **read-only** (clone/fetch; never push) |
 | D11 | ADO work-item writes require `ADO_WRITES_ENABLED=true` + non-dry-run after approval |
+| D12 | Generation volume: ~**25** for simple fresh stories; **50–60** only when complex (high risk / multi-AC / many Scenario blocks); cap 60 |
+| D13 | Rule 12: if US feature missing, analyze related code and **ask** before optional related-based generation |
+| D14 | Rule 13: **during generation**, decide which TCs are Regression (~30%) vs Critical→Sanity (~10%), draft for that role, stamp ADO toggles, link to US |
 
 ---
 

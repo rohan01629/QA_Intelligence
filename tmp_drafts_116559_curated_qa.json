@@ -1,0 +1,352 @@
+[
+  {
+    "title": "Verify ASCII Report button label on Word Report tab",
+    "steps": [
+      "Open Reports and select the Word Report (Plots in word Report) tab.",
+      "Locate the ASCII Report action button in the report buttons row.",
+      "Read the visible button label text."
+    ],
+    "expected_results": [
+      "Word Report tab is active.",
+      "ASCII Report button is visible.",
+      "Button label displays 'ASCII Report' not 'Download ASCII Report'."
+    ],
+    "label": "Critical"
+  },
+  {
+    "title": "Verify ASCII Report button label on Material Usage tab",
+    "steps": [
+      "Open Reports and select the Material Usage tab.",
+      "Locate the ASCII Report button.",
+      "Read the visible button label."
+    ],
+    "expected_results": [
+      "Material Usage tab is active.",
+      "ASCII Report button is visible.",
+      "Button label displays 'ASCII Report'."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify ASCII Report button label on Post Job Data tab",
+    "steps": [
+      "Open Reports and select the Post Job Data tab.",
+      "Locate the ASCII Report button.",
+      "Read the visible button label."
+    ],
+    "expected_results": [
+      "Post Job Data tab is active.",
+      "ASCII Report button is visible.",
+      "Button label displays 'ASCII Report'."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify clicking ASCII Report opens dialog without invoking COMMAND API",
+    "steps": [
+      "On any Reports tab click the ASCII Report button once.",
+      "Monitor network/API for COMMAND or GenerateASCII invocation on click.",
+      "Observe whether the ASCII Report modal opens."
+    ],
+    "expected_results": [
+      "Button click is accepted.",
+      "No COMMAND/GenerateASCII API call occurs on button click alone.",
+      "ASCII Report modal dialog opens via onOpenAsciiReportDialog."
+    ],
+    "label": "Critical"
+  },
+  {
+    "title": "Verify ASCII Report modal dialog title and layout",
+    "steps": [
+      "Click ASCII Report on Reports.",
+      "Inspect modal header title and overall dialog structure.",
+      "Confirm modal is centered and sized appropriately."
+    ],
+    "expected_results": [
+      "Modal opens.",
+      "Dialog title shows 'ASCII Report'.",
+      "Modal presents tab area and action buttons at bottom."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify Real-time tab is present and active by default in ASCII dialog",
+    "steps": [
+      "Open the ASCII Report dialog.",
+      "Inspect tab labels and active tab state.",
+      "Confirm Real-time channel spreadsheet is shown."
+    ],
+    "expected_results": [
+      "Dialog opens.",
+      "Real-time and FracPro tabs are visible.",
+      "Real-time tab is active by default with channel selection grid."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify FracPro tab switches channel list in ASCII dialog",
+    "steps": [
+      "Open the ASCII Report dialog.",
+      "Click the FracPro tab.",
+      "Inspect the channel selection grid content."
+    ],
+    "expected_results": [
+      "Dialog opens on Real-time tab.",
+      "FracPro tab becomes active.",
+      "FracPro channel spreadsheet is displayed (AC note says FrPro; UI label is FracPro)."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify Generate and Cancel action buttons are present in ASCII dialog",
+    "steps": [
+      "Open the ASCII Report dialog.",
+      "Inspect footer action buttons.",
+      "Confirm button labels."
+    ],
+    "expected_results": [
+      "Dialog opens.",
+      "Cancel and Generate buttons are visible.",
+      "Cancel uses translated CANCEL label; Generate shows 'Generate'."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify Cancel dismisses ASCII dialog without saving reportSetup changes",
+    "steps": [
+      "Open ASCII Report dialog and change Real-time channel selections.",
+      "Click Cancel.",
+      "Reopen ASCII dialog and compare selections to saved state before changes."
+    ],
+    "expected_results": [
+      "Channel selections were changed in dialog.",
+      "Dialog closes on Cancel.",
+      "Reopened dialog shows prior saved selections; unsaved dialog edits were discarded."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify close X dismisses ASCII dialog without saving changes",
+    "steps": [
+      "Open ASCII Report dialog and toggle FracPro channel selections.",
+      "Click the header close (X) control.",
+      "Reopen dialog and verify selections were not persisted from cancelled session."
+    ],
+    "expected_results": [
+      "Selections were changed.",
+      "Dialog closes via X without save.",
+      "Prior saved channel selections are restored on reopen."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify Generate saves changed channel selection then starts ASCII generation",
+    "steps": [
+      "Open ASCII Report dialog and change Real-time and/or FracPro channel selections.",
+      "Click Generate.",
+      "Monitor updateReportSetup call and subsequent COMMAND/GenerateASCII flow."
+    ],
+    "expected_results": [
+      "Selections are modified.",
+      "updateReportSetup is called with asciirealtime/asciifp when selection changed.",
+      "Dialog closes and ASCII generation COMMAND flow starts after successful save."
+    ],
+    "label": "Critical"
+  },
+  {
+    "title": "Verify Generate with unchanged selections still closes dialog and runs COMMAND",
+    "steps": [
+      "Open ASCII Report dialog without changing any channel selections.",
+      "Click Generate.",
+      "Observe whether updateReportSetup is skipped and COMMAND still runs."
+    ],
+    "expected_results": [
+      "Dialog opens with current saved selections.",
+      "Generate closes dialog without updateReportSetup when selection unchanged.",
+      "startAsciiCommand still invokes GenerateASCII COMMAND path."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify Real-time channel list loads with selectable checkboxes",
+    "steps": [
+      "Open ASCII Report dialog on Real-time tab.",
+      "Wait for loading skeleton to complete.",
+      "Inspect channel rows and Select checkboxes."
+    ],
+    "expected_results": [
+      "Loading state completes.",
+      "Real-time channels populate in spreadsheet.",
+      "Each row has Channel name and Select checkbox."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify FracPro channel list loads with selectable checkboxes",
+    "steps": [
+      "Open ASCII Report dialog and switch to FracPro tab.",
+      "Wait for channel data to load.",
+      "Toggle individual channel Select checkboxes."
+    ],
+    "expected_results": [
+      "FracPro tab shows channel grid after load.",
+      "Channels are listed with Select checkboxes.",
+      "Individual checkbox toggles update row selection state."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify select-all toggles all Real-time channels in ASCII dialog",
+    "steps": [
+      "Open ASCII Report dialog on Real-time tab with multiple channels.",
+      "Use select-all in the Select column header.",
+      "Confirm all Real-time rows reflect the select-all state."
+    ],
+    "expected_results": [
+      "Multiple Real-time channels are listed.",
+      "Select-all control is available.",
+      "All Real-time channel checkboxes match select-all on/off state."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify failed reportSetup update shows error and does not start COMMAND",
+    "steps": [
+      "Open ASCII Report dialog and change channel selections.",
+      "Simulate or observe updateReportSetup API failure on Generate.",
+      "Confirm dialog behavior and COMMAND not started."
+    ],
+    "expected_results": [
+      "Selection changes are made.",
+      "Error toast 'Failed to update ASCII channel selection' is shown.",
+      "GenerateASCII COMMAND does not start; dialog remains or user can retry."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify Operator role cannot click ASCII Report button",
+    "steps": [
+      "Log in as Operator user and open Reports.",
+      "Attempt to click the ASCII Report button.",
+      "Observe disabled state and pointer behavior."
+    ],
+    "expected_results": [
+      "Reports page loads for Operator.",
+      "ASCII Report button is disabled with reduced opacity.",
+      "Click does not open dialog or start generation."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify Download Word Report button still works after ASCII dialog cancel",
+    "steps": [
+      "Open ASCII Report dialog and Cancel.",
+      "Click Download Word Report.",
+      "Confirm Word report generation flow still initiates."
+    ],
+    "expected_results": [
+      "ASCII dialog cancelled cleanly.",
+      "Word Report button is clickable.",
+      "Word report download/generation flow works without regression."
+    ],
+    "label": "Regression"
+  },
+  {
+    "title": "Verify Download WITSML Report button still works after ASCII dialog flow",
+    "steps": [
+      "Open ASCII Report dialog, change selections, Generate or Cancel.",
+      "Click Download WITSML Report.",
+      "Confirm WITSML generation still works."
+    ],
+    "expected_results": [
+      "ASCII interaction completes.",
+      "WITSML button remains enabled when applicable.",
+      "WITSML report flow works without regression."
+    ],
+    "label": "Regression"
+  },
+  {
+    "title": "Verify Save button on Reports still works after ASCII dialog interaction",
+    "steps": [
+      "Make a report change on Material Usage tab.",
+      "Open and Cancel ASCII Report dialog.",
+      "Click Save on Reports."
+    ],
+    "expected_results": [
+      "Pending report edits exist.",
+      "ASCII dialog cancelled.",
+      "Save still triggers report save workflow without regression."
+    ],
+    "label": "Regression"
+  },
+  {
+    "title": "Verify ASCII dialog shows loading skeleton while channels are fetched",
+    "steps": [
+      "Click ASCII Report on a well/treatment with channel data.",
+      "Observe dialog immediately after open before data loads.",
+      "Confirm skeleton transitions to channel grid."
+    ],
+    "expected_results": [
+      "Dialog opens quickly.",
+      "Placeholder skeleton rows appear during isLoading.",
+      "Channel spreadsheet replaces skeleton when data is ready."
+    ],
+    "label": "Regression"
+  },
+  {
+    "title": "Verify ASCII dialog Cancel is disabled while reportSetup update is in progress",
+    "steps": [
+      "Open ASCII Report dialog and change channel selections.",
+      "Click Generate to trigger updateReportSetup.",
+      "While isGenerating attempt Cancel or close X."
+    ],
+    "expected_results": [
+      "Generate starts save path.",
+      "Cancel and close controls are disabled during isGenerating.",
+      "Document behavior: user cannot cancel mid-save (potential UX gap vs AC close-anytime expectation)."
+    ],
+    "label": "Regression"
+  },
+  {
+    "title": "Verify ASCII Report flow on Material Usage tab preserves Import from XOPS button",
+    "steps": [
+      "Select Material Usage tab on Reports.",
+      "Confirm Import from XOPS button is visible alongside ASCII Report.",
+      "Open and Cancel ASCII dialog; verify Import from XOPS still works."
+    ],
+    "expected_results": [
+      "Material Usage tab shows both buttons.",
+      "ASCII dialog opens and closes normally.",
+      "Import from XOPS remains available and functional."
+    ],
+    "label": "Regression"
+  },
+  {
+    "title": "Verify default Real-time selection uses all channels when no saved asciirealtime exists",
+    "steps": [
+      "Use a well with no prior ASCII Real-time selection saved in reportSetup.",
+      "Open ASCII Report dialog on Real-time tab.",
+      "Inspect initial checkbox states."
+    ],
+    "expected_results": [
+      "Report setup has empty/null asciirealtime.",
+      "Dialog loads Real-time channels.",
+      "All Real-time channels are selected by default per implementation."
+    ],
+    "label": "Regression"
+  },
+  {
+    "title": "Verify default FracPro selection is none when no saved asciifp exists",
+    "steps": [
+      "Use a well with no prior FracPro ASCII selection in reportSetup.",
+      "Open ASCII Report dialog and switch to FracPro tab.",
+      "Inspect initial checkbox states."
+    ],
+    "expected_results": [
+      "Report setup has empty/null asciifp.",
+      "FracPro channels load in grid.",
+      "FracPro channels are unchecked by default per implementation."
+    ],
+    "label": "Regression"
+  }
+]

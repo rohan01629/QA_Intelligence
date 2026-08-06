@@ -1,0 +1,253 @@
+{
+  "ok": true,
+  "correlation_id": "38c58e46-a478-4b53-9ee5-063f1c909c9a",
+  "data": [
+    {
+      "index": 0,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify GET reportSetup loads saved asciirealtime into Real-time channel selections",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 1,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify GET reportSetup loads saved asciifp into FracPro channel selections",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 2,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify missing or empty asciirealtime selects all Real-time channels by default",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 3,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify missing or empty asciifp selects no FracPro channels by default",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 4,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify Generate with changed Real-time selection updates asciirealtime then invokes COMMAND",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 5,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify Generate with changed FracPro selection updates asciifp then invokes COMMAND",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 6,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify reportSetup update preserves non-ASCII properties when saving channel selection",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 7,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify COMMAND runs only after successful reportSetup update when selection changed",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 8,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify reopening dialog after successful Generate shows last saved channel configuration",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 9,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify Generate with unchanged selections skips reportSetup update and calls COMMAND directly",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 10,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify unchanged Generate still completes ASCII report generation via COMMAND",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 11,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify failed reportSetup update shows error and does not invoke COMMAND",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 12,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify COMMAND failure shows generation error after configuration path completes",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 13,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify Cancel closes dialog without reportSetup update or COMMAND",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 14,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify Cancel discards unsaved channel selection changes on next open",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 15,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify close X dismisses dialog without saving channel configuration",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 16,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify Real-time and FracPro tabs are available for channel configuration in ASCII dialog",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 17,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify Generate and Cancel actions are available to complete ASCII configuration flow",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 18,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify clicking ASCII Report opens configuration dialog before any COMMAND call",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 19,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify select-all Real-time change is persisted to asciirealtime on Generate",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 20,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify clearing all FracPro selections persists cleared asciifp on Generate",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 21,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify Word Report generation still works after ASCII Generate with config save",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 22,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify WITSML download still initiates after ASCII saved-channel Generate completes",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 23,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify Reports Save still works after Cancel of ASCII configuration dialog",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 24,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify ASCII generation uses current Reports wellId and treatmentId",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 25,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify Generate with both Real-time and FracPro changes updates asciirealtime and asciifp together",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 26,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify Generate is disabled while ASCII channel lists are still loading",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    }
+  ],
+  "error": null,
+  "warnings": [
+    "Generate a fresh suite only when no existing tests exist; otherwise generate only missing scenarios. Fresh/full generation must include at least 25 test cases (expand to 50\u201360 when complex; cap at 60). Never emit duplicates. Each case has only title, steps, expected_results with equal step and expected-result counts.\n\nRule 1: Never generate duplicate test cases.\nRule 2: If no existing test cases exist, generate a fresh test suite.\nRule 3: If existing test cases exist, generate only missing scenarios.\nRule 4: Always analyze the User Story before selecting test categories.\nRule 5: Core categories: Positive, Negative, Edge Cases, Validation, Regression.\nRule 6: Optional categories are included only when applicable.\nRule 7: Every test step must have exactly one corresponding expected result.\nRule 8: Each test case contains only: Test Title, Test Steps, Expected Results.\nRule 9: Reject invalid output where the number of steps and expected results differ.\nRule 10: Never infer requirements that are not present. Report requirement gaps instead.\nRule 11: Fresh/full generation: produce at least 25 test cases for typical stories. Expand to 50\u201360 only when the story is complex (high/critical risk, multiple AC items, many Scenario N blocks, or long AC text). Short/simple stories must stay near 25 \u2014 do not pad to 50 with generic cases.\nRule 12: If the User Story feature is not implemented in any configured local application codebase, do not generate test cases by default. First analyze previous/related implementation in the existing codebases and report it. Generation from related/legacy code is optional \u2014 ask the user whether to proceed based on that related implementation before generating. Only generate without asking when the story feature itself is found, or when the user explicitly approves related-implementation generation.\nRule 13: After generating the suite from the User Story and codebase analysis, classify about 30% of cases as Regression and about 10% as Critical by selecting those that genuinely qualify on impact, business importance, and risk \u2014 not by randomly assigning slots up front. Do not put 'Regression' or 'Critical' in the test title; report classifications by TC number in the generation summary."
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "user_story_id": 116559,
+  "state": "QA",
+  "codebase": "D:\\Live_Plus_QA\\fracpro-agile",
+  "feature_found": true,
+  "existing_linked_tcs": 0,
+  "draft_count": 25,
+  "dry_run": "25/25 validated_only",
+  "implementation": {
+    "button_label": "BUTTON.DOWNLOAD_ASCII_REPORT → 'ASCII Report' (en.json)",
+    "open_flow": "onOpenAsciiReportDialog() — modal only, no COMMAND",
+    "generate_flow": "onAsciiDialogGenerate() → startAsciiCommand() → handleSignalR(GenerateASCII)",
+    "dialog": "app-ascii-report-dialog — Real-time + FracPro tabs, Generate/Cancel",
+    "all_three_tabs": "app-report-buttons shared on report.component (Word/Material/Post Job)"
+  },
+  "gaps": [
+    "GAP-1 (Label): AC text says 'FrPro' tab; UI tab label is 'FracPro' — minor wording mismatch.",
+    "GAP-2 (Generate unchanged): If channel selection unchanged, updateReportSetup is skipped but COMMAND still runs on Generate — verify if AC expects save-only-when-changed.",
+    "GAP-3 (Cancel during save): Cancel/X disabled while isGenerating during updateReportSetup — user cannot dismiss mid-save.",
+    "GAP-4 (Dismiss): Modal backdrop static + keyboard false — outside click/Escape do not dismiss; X/Cancel work when not generating.",
+    "IMPLEMENTED: Button rename, dialog on click (no COMMAND on click), two tabs, Generate/Cancel, all 3 report tabs via shared report-buttons."
+  ],
+  "not_gaps": [
+    "Feature is implemented in QA (and UAT tree also has ascii-report-dialog + onOpenAsciiReportDialog).",
+    "Operator role blocked from ASCII button via isOperator checks."
+  ]
+}

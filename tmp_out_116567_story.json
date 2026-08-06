@@ -1,0 +1,24 @@
+{
+  "ok": true,
+  "correlation_id": "167c747a-7b71-4334-84de-f4b5cc4045e4",
+  "data": {
+    "id": 116567,
+    "title": "FracPro Live+- Minifrac- Update Closure Parameters on Dragging Closure Line",
+    "description": "As a Live+ user, I want the application to update the Closure parameters when I drag the Closure line so that the analysis results and Information Box remain synchronized with the selected Closure position. When the user drags the Closure line on the plot, the application shall invoke the MinifracFunc command using the updated Closure line position. After receiving the corresponding SignalR response, the application shall call the minifracParams GET API to retrieve the latest calculated values and update the Information Box. The x value passed to the MinifracFunc command shall be calculated using the same logic currently used when the user right-clicks on the tangent line. The y value shall always be -1 .",
+    "acceptance_criteria": [
+      {
+        "order": 1,
+        "text": "Scenario 1: Invoke MinifrFunc on Closure Line Drag Given the Closure line is displayed on the plot When the user drags the Closure line to a new position Then Invoke the MinifracFunc command. Pass: x = new Closure line position (using the same calculation logic as the tangent line right-click action). y = -1 . Scenario 2: Retrieve Updated Parameters Given the MinifracFunc command has been executed When the corresponding SignalR response is received Then Call the minifracParams GET API. Retrieve the updated Minifrac parameters. Scenario 3: Update Information Box Given the minifracParams GET API returns successfully When the updated parameters are received Then Refresh the Information Box with the latest values. Display the updated Closure-related parameters without requiring the user to refresh the plot. Scenario 4: X Coordinate Calculation Given the Closure line is dragged to a new location When the MinifracFunc command is prepared Then Calculate the x coordinate using the same logic implemented for the right-click on the tangent line functionality. Ensure consistent behavior between both interactions.",
+        "id": "AC-1"
+      }
+    ],
+    "state": "New",
+    "area_path": "FracPro-OPS\\Global FP\\FracPro Suite",
+    "iteration_path": "FracPro-OPS",
+    "tags": [
+      "Minifrac"
+    ]
+  },
+  "error": null,
+  "warnings": []
+}

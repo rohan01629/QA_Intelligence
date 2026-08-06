@@ -1,0 +1,24 @@
+{
+  "ok": true,
+  "correlation_id": "20aac4ee-caee-4292-af11-11af559aa636",
+  "data": {
+    "id": 115586,
+    "title": "FracPro Live + General- Add Well Dropdown to Enable Switching Between Wells Within the Current Pad",
+    "description": "As a Live+ user, I want to switch between wells within the currently selected pad using a Well dropdown, So that I can quickly navigate between wells without returning to the Dashboard.",
+    "acceptance_criteria": [
+      {
+        "order": 1,
+        "text": "Scenario 1: Display Well Dropdown Given the user has opened a pad containing one or more wells When the application loads Then a Well dropdown shall be displayed next to the pad And the current well shall be selected by default. Scenario 2: Display Wells Within Current Pad Given the user is viewing a pad When the Well dropdown is expanded Then the dropdown shall display all wells associated with the current pad And no wells from other pads shall be displayed. Scenario 3: Switch Well Given the user is viewing a well When the user selects another well from the Well dropdown Then the application shall load the selected well And all well-specific data shall be refreshed. Scenario 4: Remain Within the Same Pad Given the user switches wells using the Well dropdown When the selected well is loaded Then the current pad shall remain unchanged And only the selected well shall change. Scenario 5: Existing Functionality Given the Well dropdown has been implemented When users switch between wells Then the existing Version dropdown functionality and all other application features shall continue to work without regression. Note : Add tive & Complete well dots. which is red & green",
+        "id": "AC-1"
+      }
+    ],
+    "state": "QA",
+    "area_path": "FracPro-OPS\\Global FP\\FracPro Suite",
+    "iteration_path": "FracPro-OPS",
+    "tags": [
+      "MQTT"
+    ]
+  },
+  "error": null,
+  "warnings": []
+}

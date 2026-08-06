@@ -47,7 +47,24 @@ ADO_PROJECT=your-project
 ADO_PAT=your-pat
 ```
 
-## Safety (ADO & Azure Repos)
+## Generation volume (Rule 11)
+
+| Setting | Default | Meaning |
+|---------|---------|---------|
+| `MIN_GENERATED_TEST_CASES` | 25 | Typical / short fresh suite target |
+| `TARGET_COMPLEX_TEST_CASES` | 50 | Only when story is complex |
+| `MAX_GENERATED_TEST_CASES` | 60 | Hard cap per generation pass |
+
+**Complex** means high/critical risk, 3+ AC items, 4+ `Scenario N:` markers, long AC text, or 8+ native uncovered scenarios — not volume-seed padding.
+
+Local Code Intelligence roots (story picks best match via `CODE_INTEL_LOCAL_REPOSITORY_PATHS`):
+
+- `D:\Live_Plus_UAT`
+- `C:\Users\WalkingTree.LAPTOP-UNM23JON\Desktop\Minifrac\fracpro-agile`
+
+**Rule 12:** If the US feature is **not implemented**, analyze related/previous code and **ask before generating**. Related-based TCs are optional (`allow_related_implementation=true` after user approval). If neither the feature nor related code exists, do not generate.
+
+**Rule 13 mix:** After generation, classify ~**30%** Regression and ~**10%** Critical by impact/importance/risk (not random slotting); report by TC number, not in titles.
 
 | Guard | Default |
 |-------|---------|

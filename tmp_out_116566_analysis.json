@@ -1,0 +1,164 @@
+{
+  "ok": true,
+  "correlation_id": "d4b181de-fd31-4118-8047-3207c5b4035b",
+  "data": {
+    "user_story_id": 116566,
+    "feature_analysis": {
+      "feature_type": "other",
+      "risk_level": "medium",
+      "business_rules": [
+        "Scenario 1: Display Magenta Circle Given the LogLog plot is displayed When the plot is rendered Then Display a single magenta circle at the intersection of the Closure (magenta vertical line) and the Meas'd Btmh Press curve. Scenario 2: Update Magenta Circle Given the magenta circle is displayed When the Closure line is moved Then Update the magenta circle position to the new intersection with the Meas'd Btmh Press curve. The existing circle shall move instead of creating a new one. The update shall occur immediately without requiring the plot to be refreshed."
+      ],
+      "dependencies": [],
+      "modules": [
+        "Global FP",
+        "FracPro Suite",
+        "Minifrac"
+      ],
+      "validation_rules": [],
+      "data_flow_notes": "Other change with 1 acceptance criteria defining expected inputs/outcomes.",
+      "regression_impact": "Medium regression risk for Other changes affecting Global FP, FracPro Suite, Minifrac.",
+      "applicable_optional_categories": [],
+      "excluded_optional_categories": [
+        "boundary",
+        "ui",
+        "api",
+        "database",
+        "integration",
+        "security",
+        "accessibility",
+        "performance",
+        "compatibility",
+        "permission",
+        "localization",
+        "business_rules",
+        "state_transition",
+        "recovery",
+        "concurrency",
+        "configuration",
+        "feature_flags",
+        "notifications",
+        "reporting",
+        "file_upload",
+        "logging",
+        "audit"
+      ],
+      "rationale": "No strong feature signals found; classified as Other. Feature type is Other. Applicable optional categories: none."
+    },
+    "requirement_gaps": [],
+    "qa_strategy": {
+      "feature_type": "other",
+      "risk": "medium",
+      "testing_required": [
+        "positive",
+        "negative",
+        "edge",
+        "validation",
+        "regression"
+      ],
+      "testing_not_required": [
+        {
+          "category": "boundary",
+          "reason": "No boundary-value signals found"
+        },
+        {
+          "category": "ui",
+          "reason": "No UI surface change signals found"
+        },
+        {
+          "category": "api",
+          "reason": "No API contract signals found"
+        },
+        {
+          "category": "database",
+          "reason": "No database or persistence behavior change stated"
+        },
+        {
+          "category": "integration",
+          "reason": "No cross-service integration signals found"
+        },
+        {
+          "category": "security",
+          "reason": "No security-specific signals found"
+        },
+        {
+          "category": "accessibility",
+          "reason": "No accessibility or UI interaction signals found"
+        },
+        {
+          "category": "performance",
+          "reason": "No performance, load, or SLA requirement stated"
+        },
+        {
+          "category": "compatibility",
+          "reason": "No cross-client compatibility signals found"
+        },
+        {
+          "category": "permission",
+          "reason": "No permission or RBAC signals found"
+        },
+        {
+          "category": "localization",
+          "reason": "No localization signals found"
+        },
+        {
+          "category": "business_rules",
+          "reason": "No distinct business-rule category signals beyond core validation"
+        },
+        {
+          "category": "state_transition",
+          "reason": "No state-transition signals found"
+        },
+        {
+          "category": "recovery",
+          "reason": "No recovery/failover signals found"
+        },
+        {
+          "category": "concurrency",
+          "reason": "No concurrency signals found"
+        },
+        {
+          "category": "configuration",
+          "reason": "No configuration signals found"
+        },
+        {
+          "category": "feature_flags",
+          "reason": "No feature-flag signals found"
+        },
+        {
+          "category": "notifications",
+          "reason": "No notification signals found"
+        },
+        {
+          "category": "reporting",
+          "reason": "No reporting signals found"
+        },
+        {
+          "category": "file_upload",
+          "reason": "No file upload signals found"
+        },
+        {
+          "category": "logging",
+          "reason": "No logging requirement signals found"
+        },
+        {
+          "category": "audit",
+          "reason": "No audit requirement signals found"
+        }
+      ],
+      "reason": "Feature type is Other. Applicable optional categories: none.",
+      "estimates": {
+        "estimated_new_test_cases": 25,
+        "estimated_existing_coverage": 0,
+        "estimated_duplicate_scenarios": 0,
+        "preliminary": true
+      },
+      "blocked": false
+    },
+    "blocked": false
+  },
+  "error": null,
+  "warnings": [
+    "Analyze the User Story before selecting categories. Report requirement gaps; never invent missing acceptance criteria.\n\nRule 1: Never generate duplicate test cases.\nRule 2: If no existing test cases exist, generate a fresh test suite.\nRule 3: If existing test cases exist, generate only missing scenarios.\nRule 4: Always analyze the User Story before selecting test categories.\nRule 5: Core categories: Positive, Negative, Edge Cases, Validation, Regression.\nRule 6: Optional categories are included only when applicable.\nRule 7: Every test step must have exactly one corresponding expected result.\nRule 8: Each test case contains only: Test Title, Test Steps, Expected Results.\nRule 9: Reject invalid output where the number of steps and expected results differ.\nRule 10: Never infer requirements that are not present. Report requirement gaps instead.\nRule 11: Fresh/full generation: produce at least 25 test cases for typical stories. Expand to 50\u201360 only when the story is complex (high/critical risk, multiple AC items, many Scenario N blocks, or long AC text). Short/simple stories must stay near 25 \u2014 do not pad to 50 with generic cases."
+  ]
+}

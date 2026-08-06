@@ -1,0 +1,323 @@
+{
+  "read_only": true,
+  "window_bugs_created_any": {
+    "discovered_in": {
+      "(none)": 61
+    },
+    "deployed_to": {
+      "(none)": 21,
+      "PROD": 17,
+      "Dev": 3,
+      "UAT": 16,
+      "QA": 4
+    },
+    "board": {
+      "(none)": 7,
+      "Closed": 27,
+      "Staging": 10,
+      "On Hold": 3,
+      "UAT Complete": 5,
+      "New": 2,
+      "PRE-PROD": 3,
+      "QA": 1,
+      "QA Complete": 1,
+      "UAT": 1,
+      "Active": 1
+    },
+    "severity": {
+      "3 - Medium": 11,
+      "4 - Low": 23,
+      "2 - High": 26,
+      "1 - Critical": 1
+    },
+    "count": 61
+  },
+  "jason_during_period": {
+    "total": 105,
+    "by_discovered_in": {
+      "(none)": 104,
+      "1 - QA": 1
+    },
+    "counts_possible_red": {
+      "total_jason_bugs_during_period": 105,
+      "discovered_in_prod": 0,
+      "severity_1_critical": 18,
+      "severity_1_or_2": 39,
+      "priority_1": 21
+    }
+  },
+  "jason_newly_assigned_in_window": {
+    "total": 18,
+    "by_discovered_in": {
+      "(none)": 18
+    },
+    "by_severity": {
+      "4 - Low": 16,
+      "3 - Medium": 1,
+      "2 - High": 1
+    },
+    "counts": {
+      "newly_assigned_bugs": 18,
+      "newly_sev_critical": 0,
+      "newly_sev_high_or_critical": 1,
+      "newly_discovered_prod": 0
+    },
+    "ids": [
+      96086,
+      101465,
+      101486,
+      102857,
+      104803,
+      105044,
+      105472,
+      105475,
+      105866,
+      105868,
+      107150,
+      107708,
+      107709,
+      109437,
+      109994,
+      112162,
+      112671,
+      114398
+    ],
+    "items": [
+      {
+        "id": 96086,
+        "title": "FracPro Live+ - Fix console error on action button click",
+        "state": "UAT Complete",
+        "assigned_now": "Jason Blankenship",
+        "severity": "4 - Low",
+        "priority": 4,
+        "discovered_in": null,
+        "deployed_to": "UAT",
+        "board": "UAT Complete",
+        "created": "2026-04-24T13:42:55.033Z",
+        "tags": "Adhoc; FracPro+"
+      },
+      {
+        "id": 101465,
+        "title": "Surf PRC Plot Data Gets Cut Off in DateTime Mode",
+        "state": "PRE-PROD",
+        "assigned_now": "Jason Blankenship",
+        "severity": "4 - Low",
+        "priority": 2,
+        "discovered_in": null,
+        "deployed_to": "UAT",
+        "board": "Staging",
+        "created": "2026-05-19T06:08:42.52Z",
+        "tags": "FracPro+; MQTT"
+      },
+      {
+        "id": 101486,
+        "title": "Real-Time Plot UI Does Not Refresh Despite GetDataChart Receiving New Data",
+        "state": "PRE-PROD",
+        "assigned_now": "Jason Blankenship",
+        "severity": "4 - Low",
+        "priority": 2,
+        "discovered_in": null,
+        "deployed_to": "UAT",
+        "board": "Staging",
+        "created": "2026-05-19T06:39:19.17Z",
+        "tags": "FracPro+; MQTT"
+      },
+      {
+        "id": 102857,
+        "title": "Live X - UI/UX Issue",
+        "state": "UAT Complete",
+        "assigned_now": "Jason Blankenship",
+        "severity": "4 - Low",
+        "priority": 2,
+        "discovered_in": null,
+        "deployed_to": "UAT",
+        "board": "UAT Complete",
+        "created": "2026-05-26T19:35:26.017Z",
+        "tags": "Adhoc; FracPro+"
+      },
+      {
+        "id": 104803,
+        "title": "FracPro- Live+ real-time plot does not auto-refresh despite receiving MQTT data via GetDataChart API",
+        "state": "PRE-PROD",
+        "assigned_now": "Jason Blankenship",
+        "severity": "4 - Low",
+        "priority": 2,
+        "discovered_in": null,
+        "deployed_to": "UAT",
+        "board": "Staging",
+        "created": "2026-06-02T11:18:32.723Z",
+        "tags": "FracPro +; MQTT"
+      },
+      {
+        "id": 105044,
+        "title": "Plot: Latest Data Cant add/remove channels",
+        "state": "PRE-PROD",
+        "assigned_now": "Jason Blankenship",
+        "severity": "4 - Low",
+        "priority": 2,
+        "discovered_in": null,
+        "deployed_to": "UAT",
+        "board": "Staging",
+        "created": "2026-06-03T11:56:28.63Z",
+        "tags": "FracPro+; MQTT"
+      },
+      {
+        "id": 105472,
+        "title": "Plot Channel Color Does Not Use Default Color Configured in Settings",
+        "state": "PRE-PROD",
+        "assigned_now": "Jason Blankenship",
+        "severity": "4 - Low",
+        "priority": 2,
+        "discovered_in": null,
+        "deployed_to": "UAT",
+        "board": "Staging",
+        "created": "2026-06-04T06:57:44.853Z",
+        "tags": "FracPro+; MQTT; Plots"
+      },
+      {
+        "id": 105475,
+        "title": "autoScaleYAxis is Set to False for Live+ \"Measured Data\"  Templates",
+        "state": "PRE-PROD",
+        "assigned_now": "Jason Blankenship",
+        "severity": "4 - Low",
+        "priority": 2,
+        "discovered_in": null,
+        "deployed_to": "UAT",
+        "board": "Staging",
+        "created": "2026-06-04T07:20:39.24Z",
+        "tags": "FracPro+; MQTT"
+      },
+      {
+        "id": 105866,
+        "title": "Plot Screen - Marker Can Be Dragged Using Keyboard Without Proper Grab/Selection After Zoom or Key Release",
+        "state": "PRE-PROD",
+        "assigned_now": "Jason Blankenship",
+        "severity": "4 - Low",
+        "priority": 2,
+        "discovered_in": null,
+        "deployed_to": "UAT",
+        "board": "Staging",
+        "created": "2026-06-05T12:51:08.31Z",
+        "tags": "MQTT"
+      },
+      {
+        "id": 105868,
+        "title": "Channel Settings - Dropdown List Overlaps and Appears Behind Lower Sections When Adding/Editing a Channel",
+        "state": "PRE-PROD",
+        "assigned_now": "Jason Blankenship",
+        "severity": "4 - Low",
+        "priority": 2,
+        "discovered_in": null,
+        "deployed_to": "UAT",
+        "board": "Staging",
+        "created": "2026-06-05T12:53:06.087Z",
+        "tags": "MQTT"
+      },
+      {
+        "id": 107150,
+        "title": "Grid and Dashboard Content Cut Off \u2013 10th Row Not Fully Visible Across Different Screen Resolutions",
+        "state": "PRE-PROD",
+        "assigned_now": "Jason Blankenship",
+        "severity": "4 - Low",
+        "priority": 2,
+        "discovered_in": null,
+        "deployed_to": "UAT",
+        "board": "Staging",
+        "created": "2026-06-11T05:57:50.047Z",
+        "tags": "FracPro+; MQTT"
+      },
+      {
+        "id": 107708,
+        "title": "GetDataChart API Calls Increase on Every Dashboard Navigation Causing Duplicate Requests",
+        "state": "PRE-PROD",
+        "assigned_now": "Jason Blankenship",
+        "severity": "4 - Low",
+        "priority": 2,
+        "discovered_in": null,
+        "deployed_to": "UAT",
+        "board": "Staging",
+        "created": "2026-06-15T04:56:57.757Z",
+        "tags": "FracPro+; MQTT"
+      },
+      {
+        "id": 107709,
+        "title": "Multiple Calls Generated for Treatment API on Dashboard and Treatment Schedule Screens",
+        "state": "PRE-PROD",
+        "assigned_now": "Jason Blankenship",
+        "severity": "4 - Low",
+        "priority": 2,
+        "discovered_in": null,
+        "deployed_to": "UAT",
+        "board": "Staging",
+        "created": "2026-06-15T04:59:35.39Z",
+        "tags": "FracPro+; MQTT"
+      },
+      {
+        "id": 109437,
+        "title": "MinifracParam GET API - Remove Epoch Timestamp & treatment id from API Endpoint URL",
+        "state": "UAT Complete",
+        "assigned_now": "Jason Blankenship",
+        "severity": "4 - Low",
+        "priority": 2,
+        "discovered_in": null,
+        "deployed_to": "UAT",
+        "board": "UAT Complete",
+        "created": "2026-06-26T05:28:42.183Z",
+        "tags": "Minifrac"
+      },
+      {
+        "id": 109994,
+        "title": "Step Length Bar Disappears After Editing Step Length in Measured Data and Subsequently in Surf PRC Plot",
+        "state": "UAT Complete",
+        "assigned_now": "Jason Blankenship",
+        "severity": "4 - Low",
+        "priority": 2,
+        "discovered_in": null,
+        "deployed_to": "UAT",
+        "board": "UAT Complete",
+        "created": "2026-06-30T06:37:51.727Z",
+        "tags": "Adhoc"
+      },
+      {
+        "id": 112162,
+        "title": "Plot Slope Cannot Rotate",
+        "state": "UAT Complete",
+        "assigned_now": "Jason Blankenship",
+        "severity": "4 - Low",
+        "priority": 2,
+        "discovered_in": null,
+        "deployed_to": "UAT",
+        "board": "UAT Complete",
+        "created": "2026-07-14T06:09:33.987Z",
+        "tags": "Minifrac"
+      },
+      {
+        "id": 112671,
+        "title": "Horizontal scrollbar in Fluid List disappears when scrolled back to the left( Material Selection > Add new Fluid List)",
+        "state": "UAT Complete",
+        "assigned_now": "Jason Blankenship",
+        "severity": "3 - Medium",
+        "priority": 2,
+        "discovered_in": null,
+        "deployed_to": "UAT",
+        "board": "UAT Complete",
+        "created": "2026-07-16T05:50:29.547Z",
+        "tags": "material selection"
+      },
+      {
+        "id": 114398,
+        "title": "Incorrect X-axis values sent in command when adding pressure on SQRT and Log-Log plots",
+        "state": "UAT Complete",
+        "assigned_now": "Jason Blankenship",
+        "severity": "2 - High",
+        "priority": 2,
+        "discovered_in": null,
+        "deployed_to": "UAT",
+        "board": "UAT Complete",
+        "created": "2026-07-22T07:38:48.65Z",
+        "tags": "Minifrac"
+      }
+    ]
+  },
+  "note": "No Tag=Red found. Custom.DiscoveredIn and Severity are likely Red-bug signals. Confirm which definition you use."
+}

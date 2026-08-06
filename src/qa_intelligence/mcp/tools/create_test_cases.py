@@ -23,8 +23,11 @@ async def create_test_cases(
     Defaults to dry_run=true (no ADO writes). Real creates require
     ADO_WRITES_ENABLED=true and dry_run=false after explicit user approval.
 
-    Each test case must contain ONLY title, steps, and expected_results,
-    with step_count == expected_result_count.
+    Each test case must contain title, steps, and expected_results,
+    with step_count == expected_result_count. Optional Rule 13 flags:
+    is_regression / is_sanity map to ADO Custom.IsRegression / Custom.Sanity
+    (Critical → Sanity). After create, call link_test_cases to relate them
+    to the User Story.
     """
     try:
         from qa_intelligence.infrastructure.safety import ensure_ado_writes_allowed

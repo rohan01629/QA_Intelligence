@@ -26,7 +26,8 @@ async def analyze_codebase(
     Provide either ``repository_path`` (local) and/or ``ado_repository`` (Azure Repos).
     When ``ado_repository`` is set, Code Intelligence shallow-clones/refreshes that
     repo+branch (latest remote) into a local cache and analyzes it. If both are set,
-    Azure Repos wins. Defaults may come from ``ADO_DEFAULT_GIT_REPOSITORY`` /
+    Azure Repos wins. Defaults may come from ``CODE_INTEL_LOCAL_REPOSITORY_PATHS``
+    (story picks the best local root), ``ADO_DEFAULT_GIT_REPOSITORY``, and
     ``ADO_DEFAULT_GIT_BRANCH`` in ``.env``.
 
     Returns an Implementation Summary. Does not create test cases.

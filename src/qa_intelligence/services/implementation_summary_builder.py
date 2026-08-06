@@ -68,4 +68,9 @@ class ImplementationSummaryBuilder:
             files_considered=files_considered,
             files_read=files_read,
             notes=notes or default_notes,
+            feature_found=bool(impact.get("feature_found", True)),
+            feature_presence_notes=str(impact.get("feature_presence_notes") or ""),
+            scanned_repository_paths=list(
+                impact.get("scanned_repository_paths") or [repository_path]
+            ),
         )

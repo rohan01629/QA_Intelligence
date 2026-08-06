@@ -1,0 +1,697 @@
+{
+  "ok": true,
+  "correlation_id": "64653f64-c12f-4755-9fdf-dd2b75076329",
+  "data": [
+    {
+      "id": 116089,
+      "title": "Validate the display and position of the Well dropdown",
+      "steps": [
+        "1. Log into the Live+ application. 2. Navigate to the Pads & Wells dashboard. 3. Select a pad and open the Well & Treatment page. 4. Locate the Version dropdown in the top right area. 5. Verify the presence of a new dropdown immediately to its left or right."
+      ],
+      "expected_results": [
+        "1. Application loads successfully. 2. Dashboard is displayed. 3. Well & Treatment page loads. 4. Version dropdown is visible. 5. The Well dropdown is displayed precisely next to the Version dropdown as designed."
+      ],
+      "state": "Design",
+      "link_type": "Microsoft.VSTS.Common.TestedBy-Forward",
+      "area_path": "FracPro-OPS\\Global FP\\FracPro Suite"
+    },
+    {
+      "id": 116090,
+      "title": "Validate the default selected value in the Well dropdown",
+      "steps": [
+        "1. Log into the application and select a specific well from the dashboard. 2. Wait for the Well & Treatment page to load completely. 3. Locate the newly implemented Well dropdown. 4. Inspect the currently displayed value inside the closed dropdown. 5. Compare the displayed value with the well selected from the dashboard."
+      ],
+      "expected_results": [
+        "1. Dashboard selection is processed. 2. Page rendering completes. 3. Well dropdown is identified. 4. The dropdown clearly shows a selected value. 5. The selected value exactly matches the well that was just opened."
+      ],
+      "state": "Design",
+      "link_type": "Microsoft.VSTS.Common.TestedBy-Forward",
+      "area_path": "FracPro-OPS\\Global FP\\FracPro Suite"
+    },
+    {
+      "id": 116091,
+      "title": "Validate the textual label for the Well dropdown",
+      "steps": [
+        "1. Open the Well & Treatment page for any valid well. 2. Direct attention to the new Well dropdown component. 3. Inspect the text label positioned immediately before the dropdown box. 4. Verify the spelling and formatting of the label. 5. Compare the label formatting to the adjacent 'Version:' label."
+      ],
+      "expected_results": [
+        "1. Page loads successfully. 2. Dropdown component is visible. 3. A text label is present. 4. The label correctly reads 'Well:' or as specified in designs. 5. The font, size, and color match the adjacent 'Version:' label perfectly."
+      ],
+      "state": "Design",
+      "link_type": "Microsoft.VSTS.Common.TestedBy-Forward",
+      "area_path": "FracPro-OPS\\Global FP\\FracPro Suite"
+    },
+    {
+      "id": 116092,
+      "title": "Validate the UI styling of the Well dropdown component",
+      "steps": [
+        "1. Navigate to the Well & Treatment page. 2. Locate the Well dropdown. 3. Observe the border color, background color, and font style. 4. Compare these properties against the adjacent Version dropdown. 5. Verify the alignment and margins between the two dropdowns."
+      ],
+      "expected_results": [
+        "1. Page renders successfully. 2. Target element is located. 3. CSS properties are applied correctly. 4. Styling is perfectly consistent with the Version dropdown. 5. Elements are vertically aligned with appropriate horizontal spacing."
+      ],
+      "state": "Design",
+      "link_type": "Microsoft.VSTS.Common.TestedBy-Forward",
+      "area_path": "FracPro-OPS\\Global FP\\FracPro Suite"
+    },
+    {
+      "id": 116093,
+      "title": "Validate the hover state of the Well dropdown",
+      "steps": [
+        "1. Open the Well & Treatment page. 2. Position the mouse cursor directly over the Well dropdown box. 3. Observe any CSS visual changes (e.g., border highlight). 4. Move the mouse cursor away from the dropdown box. 5. Observe the CSS state reverting to default."
+      ],
+      "expected_results": [
+        "1. Page is fully loaded. 2. Hover event is triggered. 3. Dropdown exhibits a visual hover state (e.g., brighter border). 4. Mouse leave event is triggered. 5. Dropdown returns to its resting visual state."
+      ],
+      "state": "Design",
+      "link_type": "Microsoft.VSTS.Common.TestedBy-Forward",
+      "area_path": "FracPro-OPS\\Global FP\\FracPro Suite"
+    },
+    {
+      "id": 116094,
+      "title": "Validate the focus state of the Well dropdown",
+      "steps": [
+        "1. Open the Well & Treatment page. 2. Click inside the Well dropdown to open it, or use the Tab key to focus. 3. Observe the border and shadow styling while focused. 4. Click anywhere outside the dropdown to remove focus. 5. Observe the dropdown styling update."
+      ],
+      "expected_results": [
+        "1. Page is fully loaded. 2. Element receives active focus. 3. A distinct focus ring or border highlight appears for accessibility. 4. Focus is removed from the element. 5. Focus styling is removed, reverting to the default state."
+      ],
+      "state": "Design",
+      "link_type": "Microsoft.VSTS.Common.TestedBy-Forward",
+      "area_path": "FracPro-OPS\\Global FP\\FracPro Suite"
+    },
+    {
+      "id": 116095,
+      "title": "Validate expanding the dropdown for a multi-well pad",
+      "steps": [
+        "1. Access a pad known to contain multiple wells (e.g., 3+ wells). 2. Open the Well & Treatment page for one of those wells. 3. Click on the Well dropdown component. 4. Observe the dropdown list rendering. 5. Count the number of selectable options displayed."
+      ],
+      "expected_results": [
+        "1. Correct pad context is established. 2. Page loads for the initial well. 3. Click event triggers the dropdown state change. 4. The list expands smoothly downwards. 5. Multiple well options are visibly populated in the list."
+      ],
+      "state": "Design",
+      "link_type": "Microsoft.VSTS.Common.TestedBy-Forward",
+      "area_path": "FracPro-OPS\\Global FP\\FracPro Suite"
+    },
+    {
+      "id": 116096,
+      "title": "Validate collapsing the dropdown by clicking outside",
+      "steps": [
+        "1. Navigate to the Well & Treatment page. 2. Click the Well dropdown to expand the list. 3. Verify the list of wells is currently visible. 4. Click anywhere on the background (e.g., on the 'General' header). 5. Observe the state of the dropdown list."
+      ],
+      "expected_results": [
+        "1. Page loads successfully. 2. Dropdown expands and displays options. 3. List visibility is confirmed. 4. External click event is registered by the DOM. 5. The dropdown list collapses immediately."
+      ],
+      "state": "Design",
+      "link_type": "Microsoft.VSTS.Common.TestedBy-Forward",
+      "area_path": "FracPro-OPS\\Global FP\\FracPro Suite"
+    },
+    {
+      "id": 116097,
+      "title": "Validate dropdown contains only wells from the current pad",
+      "steps": [
+        "1. Identify a pad (Pad A) with specific wells (Well 1, Well 2). 2. Open the Well & Treatment page for Well 1. 3. Expand the Well dropdown. 4. Review the list of available well options. 5. Verify that only Well 1 and Well 2 are present."
+      ],
+      "expected_results": [
+        "1. Test data context is established. 2. Page loads within the context of Pad A. 3. Dropdown list is revealed. 4. Option values are inspected. 5. The list strictly matches the wells associated with Pad A."
+      ],
+      "state": "Design",
+      "link_type": "Microsoft.VSTS.Common.TestedBy-Forward",
+      "area_path": "FracPro-OPS\\Global FP\\FracPro Suite"
+    },
+    {
+      "id": 116098,
+      "title": "Validate dropdown strictly excludes wells from other pads",
+      "steps": [
+        "1. Identify two distinct pads (Pad A and Pad B). 2. Open the Well & Treatment page for a well in Pad A. 3. Expand the Well dropdown. 4. Search the dropdown list for any well belonging to Pad B. 5. Verify the complete absence of Pad B's wells."
+      ],
+      "expected_results": [
+        "1. Test data boundary is established. 2. Page loads in Pad A context. 3. Dropdown list is revealed. 4. Options are systematically reviewed. 5. No cross-pad data leakage occurs; Pad B wells are hidden."
+      ],
+      "state": "Design",
+      "link_type": "Microsoft.VSTS.Common.TestedBy-Forward",
+      "area_path": "FracPro-OPS\\Global FP\\FracPro Suite"
+    },
+    {
+      "id": 116099,
+      "title": "Validate absence of duplicate well entries in the dropdown",
+      "steps": [
+        "1. Open the Well & Treatment page for a multi-well pad. 2. Expand the Well dropdown. 3. Read through the entire list of available well options. 4. Check for any well names appearing more than once. 5. Verify each well in the pad is represented exactly one time."
+      ],
+      "expected_results": [
+        "1. Page is fully loaded. 2. Dropdown list is active and visible. 3. List items are evaluated. 4. No identical names or duplicate IDs are detected. 5. The list is perfectly deduplicated and accurate."
+      ],
+      "state": "Design",
+      "link_type": "Microsoft.VSTS.Common.TestedBy-Forward",
+      "area_path": "FracPro-OPS\\Global FP\\FracPro Suite"
+    },
+    {
+      "id": 116100,
+      "title": "Validate vertical scrollbar appears for long well lists",
+      "steps": [
+        "1. Prepare or identify a pad containing a large number of wells (e.g., 15+). 2. Open the Well & Treatment page for this pad. 3. Expand the Well dropdown. 4. Observe the height of the dropdown container. 5. Verify the presence and functionality of a vertical scrollbar."
+      ],
+      "expected_results": [
+        "1. High-volume pad context is established. 2. Page loads successfully. 3. Dropdown attempts to render all options. 4. Container height is constrained by CSS max-height. 5. A scrollbar appears, allowing the user to view all options."
+      ],
+      "state": "Design",
+      "link_type": "Microsoft.VSTS.Common.TestedBy-Forward",
+      "area_path": "FracPro-OPS\\Global FP\\FracPro Suite"
+    },
+    {
+      "id": 116101,
+      "title": "Validate selecting a different well from the list",
+      "steps": [
+        "1. Expand the Well dropdown on a multi-well pad. 2. Locate a well different from the currently active one. 3. Click on the new well option. 4. Observe the immediate UI response in the dropdown box. 5. Verify the dropdown collapses and shows the newly selected well."
+      ],
+      "expected_results": [
+        "1. List of alternatives is visible. 2. Target well is identified. 3. Selection click is registered. 4. The dropdown updates its primary display value instantly. 5. The dropdown list collapses, completing the selection interaction."
+      ],
+      "state": "Design",
+      "link_type": "Microsoft.VSTS.Common.TestedBy-Forward",
+      "area_path": "FracPro-OPS\\Global FP\\FracPro Suite"
+    },
+    {
+      "id": 116102,
+      "title": "Validate application reloads data upon new well selection",
+      "steps": [
+        "1. Select a new well from the Well dropdown. 2. Monitor the browser network tab or UI loading indicators. 3. Observe the data fields in the 'General Information' tab. 4. Wait for the data refresh to complete. 5. Verify the data displayed now corresponds to the newly selected well."
+      ],
+      "expected_results": [
+        "1. Well switch action is initiated. 2. API requests for the new well's data are fired. 3. A loading state (spinner or skeleton) may briefly appear. 4. Network requests resolve successfully. 5. All fields populate with the specific configuration of the new well."
+      ],
+      "state": "Design",
+      "link_type": "Microsoft.VSTS.Common.TestedBy-Forward",
+      "area_path": "FracPro-OPS\\Global FP\\FracPro Suite"
+    },
+    {
+      "id": 116103,
+      "title": "Validate Pad Name field remains unchanged after well switch",
+      "steps": [
+        "1. Note the value in the 'Pad Name *' field. 2. Select a different well using the Well dropdown. 3. Wait for the application to load the new well's data. 4. Inspect the 'Pad Name *' field again. 5. Verify the pad name value is exactly the same as before."
+      ],
+      "expected_results": [
+        "1. Initial pad name is recorded. 2. Well context is switched. 3. Page data is fully refreshed. 4. Field value is evaluated. 5. The pad name remains static, confirming the user stayed within the pad."
+      ],
+      "state": "Design",
+      "link_type": "Microsoft.VSTS.Common.TestedBy-Forward",
+      "area_path": "FracPro-OPS\\Global FP\\FracPro Suite"
+    },
+    {
+      "id": 116104,
+      "title": "Validate Well Name field updates correctly after switch",
+      "steps": [
+        "1. Note the name of the newly selected well in the dropdown. 2. Wait for the application data refresh to complete. 3. Locate the 'Well Name *' input field in the General section. 4. Read the value populated in this field. 5. Verify it perfectly matches the well chosen from the dropdown."
+      ],
+      "expected_results": [
+        "1. Target well name is known. 2. Page data finishes loading. 3. Field is identified on the UI. 4. Field value is extracted. 5. The value updates to match the new selection exactly."
+      ],
+      "state": "Design",
+      "link_type": "Microsoft.VSTS.Common.TestedBy-Forward",
+      "area_path": "FracPro-OPS\\Global FP\\FracPro Suite"
+    },
+    {
+      "id": 116105,
+      "title": "Validate Well API field updates correctly after switch",
+      "steps": [
+        "1. Note the 'Well API *' value for the initial well. 2. Select a different well from the dropdown. 3. Wait for the new well's data to load. 4. Locate the 'Well API *' input field. 5. Verify the API value has changed to match the new well."
+      ],
+      "expected_results": [
+        "1. Initial API number is recorded. 2. Well switch is executed. 3. Data refresh completes. 4. Field is evaluated. 5. The field displays the distinct API number of the newly loaded well."
+      ],
+      "state": "Design",
+      "link_type": "Microsoft.VSTS.Common.TestedBy-Forward",
+      "area_path": "FracPro-OPS\\Global FP\\FracPro Suite"
+    },
+    {
+      "id": 116106,
+      "title": "Validate Pad/Well header text updates correctly",
+      "steps": [
+        "1. Look at the top left corner (e.g., 'Pad: 27thmay | Well: 27thmay'). 2. Select a new well (e.g., 'Well-B') from the Well dropdown. 3. Wait for the page data to refresh. 4. Look at the top left header text again. 5. Verify it now reads correctly (e.g., 'Pad: 27thmay | Well: Well-B')."
+      ],
+      "expected_results": [
+        "1. Initial header text is recorded. 2. Well switch action is performed. 3. Application completes data loading. 4. Header text element is re-evaluated. 5. The well portion of the header dynamically updates to reflect the switch."
+      ],
+      "state": "Design",
+      "link_type": "Microsoft.VSTS.Common.TestedBy-Forward",
+      "area_path": "FracPro-OPS\\Global FP\\FracPro Suite"
+    },
+    {
+      "id": 116107,
+      "title": "Validate URL updates with the new wellId parameter",
+      "steps": [
+        "1. Note the current browser URL (specifically the '?wellId=' parameter). 2. Select a different well from the Well dropdown. 3. Wait for the application to load the new well. 4. Inspect the browser's address bar URL. 5. Verify the 'wellId' parameter has changed to the new well's ID."
+      ],
+      "expected_results": [
+        "1. Initial wellId is recorded. 2. Well switch is initiated. 3. Data finishes rendering. 4. URL is evaluated. 5. The URL reflects the new wellId, allowing for bookmarks/sharing."
+      ],
+      "state": "Design",
+      "link_type": "Microsoft.VSTS.Common.TestedBy-Forward",
+      "area_path": "FracPro-OPS\\Global FP\\FracPro Suite"
+    },
+    {
+      "id": 116108,
+      "title": "Validate dropdown behavior for a single well pad",
+      "steps": [
+        "1. Navigate to the dashboard and find a pad containing exactly one well. 2. Open the Well & Treatment page for this pad. 3. Locate the Well dropdown. 4. Click on the Well dropdown to expand it. 5. Verify that only the current well is listed and no others."
+      ],
+      "expected_results": [
+        "1. Single-well pad is identified. 2. Page loads successfully. 3. Dropdown is visible. 4. Dropdown expands (or is disabled depending on design). 5. Only the single active well is shown; no other navigation is possible."
+      ],
+      "state": "Design",
+      "link_type": "Microsoft.VSTS.Common.TestedBy-Forward",
+      "area_path": "FracPro-OPS\\Global FP\\FracPro Suite"
+    },
+    {
+      "id": 116109,
+      "title": "Validate Well dropdown updates when switching pads via sidebar",
+      "steps": [
+        "1. Open the Well & Treatment page for Pad A. 2. Use the left sidebar menu to navigate to a different pad (Pad B). 3. Wait for the Well & Treatment page to load for Pad B. 4. Expand the Well dropdown. 5. Verify the dropdown now exclusively lists wells from Pad B."
+      ],
+      "expected_results": [
+        "1. Initial context is established. 2. Navigation action is performed. 3. New pad context is loaded. 4. Dropdown is interacted with. 5. The component's state successfully re-initializes with the new pad's data."
+      ],
+      "state": "Design",
+      "link_type": "Microsoft.VSTS.Common.TestedBy-Forward",
+      "area_path": "FracPro-OPS\\Global FP\\FracPro Suite"
+    },
+    {
+      "id": 116110,
+      "title": "Version dropdown remains fully functional",
+      "steps": [
+        "1. Switch to a different well using the new Well dropdown. 2. Wait for the new well's data to load. 3. Click on the adjacent 'Version:' dropdown. 4. Verify the version list expands correctly. 5. Select a different version and verify it loads without error."
+      ],
+      "expected_results": [
+        "1. Well switch completes successfully. 2. Page is stable. 3. Version dropdown interaction is registered. 4. Version options are displayed properly. 5. Version switching works flawlessly, proving no regression occurred."
+      ],
+      "state": "Design",
+      "link_type": "Microsoft.VSTS.Common.TestedBy-Forward",
+      "area_path": "FracPro-OPS\\Global FP\\FracPro Suite"
+    },
+    {
+      "id": 116111,
+      "title": "Stage navigation remains functional",
+      "steps": [
+        "1. Switch to a different well using the Well dropdown. 2. Wait for the new well's data to load. 3. Locate the 'Stage:' navigation controls (e.g., '< 1 / 51 >'). 4. Click the 'Next' (>) stage arrow. 5. Verify the stage data updates correctly."
+      ],
+      "expected_results": [
+        "1. Well switch completes successfully. 2. Page is stable. 3. Stage controls are identified. 4. Click event is processed. 5. Application loads data for the next stage without any JavaScript errors."
+      ],
+      "state": "Design",
+      "link_type": "Microsoft.VSTS.Common.TestedBy-Forward",
+      "area_path": "FracPro-OPS\\Global FP\\FracPro Suite"
+    },
+    {
+      "id": 116112,
+      "title": "General Information tab data is structurally intact",
+      "steps": [
+        "1. Switch to a different well using the Well dropdown. 2. Ensure the 'General Information' tab is selected. 3. Review all input fields (Company Name, Treatment Analyst, etc.). 4. Verify no fields are missing or misaligned. 5. Verify the layout perfectly matches the pre-switch state."
+      ],
+      "expected_results": [
+        "1. Well switch completes successfully. 2. Correct tab is active. 3. UI elements are inspected. 4. Form structure is completely intact. 5. UI layout exhibits zero regressions or visual breaks."
+      ],
+      "state": "Design",
+      "link_type": "Microsoft.VSTS.Common.TestedBy-Forward",
+      "area_path": "FracPro-OPS\\Global FP\\FracPro Suite"
+    },
+    {
+      "id": 116113,
+      "title": "Comments tab remains functional",
+      "steps": [
+        "1. Switch to a different well using the Well dropdown. 2. Click on the 'Comments' tab next to General Information. 3. Verify the comments section loads correctly for the new well. 4. Enter a new comment and click save. 5. Verify the comment is successfully saved to the new well."
+      ],
+      "expected_results": [
+        "1. Well switch completes successfully. 2. Tab switch interaction is registered. 3. Comments UI renders properly. 4. Input and save actions are performed. 5. Backend confirms the save operation without cross-well data contamination."
+      ],
+      "state": "Design",
+      "link_type": "Microsoft.VSTS.Common.TestedBy-Forward",
+      "area_path": "FracPro-OPS\\Global FP\\FracPro Suite"
+    },
+    {
+      "id": 116114,
+      "title": "Location section loads new well data",
+      "steps": [
+        "1. Switch to a different well using the Well dropdown. 2. Click the 'Location' accordion header to expand it. 3. Observe the fields within the Location section (e.g., coordinates). 4. Compare data to the previous well. 5. Verify the location data corresponds accurately to the newly selected well."
+      ],
+      "expected_results": [
+        "1. Well switch completes successfully. 2. Accordion expands smoothly. 3. Data fields are visible. 4. Data is confirmed to be different (if applicable). 5. New location data is correctly bound to the UI."
+      ],
+      "state": "Design",
+      "link_type": "Microsoft.VSTS.Common.TestedBy-Forward",
+      "area_path": "FracPro-OPS\\Global FP\\FracPro Suite"
+    },
+    {
+      "id": 116115,
+      "title": "Additional Info section loads new well data",
+      "steps": [
+        "1. Switch to a different well using the Well dropdown. 2. Click the 'Additional Info' accordion header to expand it. 3. Observe the fields within this section. 4. Compare data to the previous well. 5. Verify the data corresponds accurately to the newly selected well."
+      ],
+      "expected_results": [
+        "1. Well switch completes successfully. 2. Accordion expands smoothly. 3. Data fields are visible. 4. Data is confirmed to be different (if applicable). 5. New metadata is correctly bound to the UI."
+      ],
+      "state": "Design",
+      "link_type": "Microsoft.VSTS.Common.TestedBy-Forward",
+      "area_path": "FracPro-OPS\\Global FP\\FracPro Suite"
+    },
+    {
+      "id": 116116,
+      "title": "Validate Tab key navigation focuses on the Well dropdown",
+      "steps": [
+        "1. Open the Well & Treatment page. 2. Click the browser address bar to start focus outside the DOM. 3. Press the Tab key repeatedly to navigate through the page. 4. Observe the focus outline moving through elements. 5. Verify the Well dropdown receives focus in the correct logical order."
+      ],
+      "expected_results": [
+        "1. Page is fully loaded. 2. Focus is reset. 3. Sequential keyboard navigation begins. 4. Focus moves visibly across the top navigation. 5. The Well dropdown receives active focus before the Version dropdown."
+      ],
+      "state": "Design",
+      "link_type": "Microsoft.VSTS.Common.TestedBy-Forward",
+      "area_path": "FracPro-OPS\\Global FP\\FracPro Suite"
+    },
+    {
+      "id": 116117,
+      "title": "Validate Enter key expands the focused Well dropdown",
+      "steps": [
+        "1. Use the Tab key to place active focus on the Well dropdown. 2. Ensure the visual focus ring is present. 3. Press the Enter (or Space) key on the keyboard. 4. Observe the dropdown component. 5. Verify the list of wells expands and becomes visible."
+      ],
+      "expected_results": [
+        "1. Element is focused via keyboard. 2. Focus is confirmed visually. 3. Keystroke is executed. 4. Dropdown logic intercepts the keydown event. 5. The dropdown list opens exactly as if clicked by a mouse."
+      ],
+      "state": "Design",
+      "link_type": "Microsoft.VSTS.Common.TestedBy-Forward",
+      "area_path": "FracPro-OPS\\Global FP\\FracPro Suite"
+    },
+    {
+      "id": 116118,
+      "title": "Validate Up/Down arrow keys navigate through well list",
+      "steps": [
+        "1. Expand the Well dropdown using the keyboard or mouse. 2. Press the Down arrow key. 3. Verify the highlight moves to the next well option. 4. Press the Up arrow key. 5. Verify the highlight moves back to the previous well option."
+      ],
+      "expected_results": [
+        "1. Dropdown list is open. 2. Down keystroke is executed. 3. Visual focus/highlight shifts downward in the list. 4. Up keystroke is executed. 5. Visual focus/highlight shifts upward, confirming full keyboard accessibility."
+      ],
+      "state": "Design",
+      "link_type": "Microsoft.VSTS.Common.TestedBy-Forward",
+      "area_path": "FracPro-OPS\\Global FP\\FracPro Suite"
+    },
+    {
+      "id": 116119,
+      "title": "Validate Enter key selects the highlighted well",
+      "steps": [
+        "1. Expand the Well dropdown and use arrow keys to highlight a new well. 2. Ensure the desired well has the visual highlight. 3. Press the Enter key. 4. Observe the dropdown and application state. 5. Verify the dropdown closes and the application loads the selected well."
+      ],
+      "expected_results": [
+        "1. List is open and navigated. 2. Target is highlighted. 3. Keystroke is executed. 4. Event listener captures the selection. 5. Dropdown collapses, and the data refresh sequence initiates for the new well."
+      ],
+      "state": "Design",
+      "link_type": "Microsoft.VSTS.Common.TestedBy-Forward",
+      "area_path": "FracPro-OPS\\Global FP\\FracPro Suite"
+    },
+    {
+      "id": 116120,
+      "title": "Validate rapid switching between different wells",
+      "steps": [
+        "1. Expand the Well dropdown. 2. Quickly click a new well, immediately expand again, and click another well. 3. Repeat this rapid switching 3-4 times. 4. Stop on a final selection and wait. 5. Verify the application stabilizes and loads the final well's data correctly."
+      ],
+      "expected_results": [
+        "1. Dropdown is open. 2. Rapid firing of switch events begins. 3. System processes multiple load requests. 4. Interaction ceases. 5. The application handles race conditions gracefully and settles on the correct final well."
+      ],
+      "state": "Design",
+      "link_type": "Microsoft.VSTS.Common.TestedBy-Forward",
+      "area_path": "FracPro-OPS\\Global FP\\FracPro Suite"
+    },
+    {
+      "id": 116121,
+      "title": "Validate rendering of extremely long well names",
+      "steps": [
+        "1. Create or identify a well with a name exceeding 50 characters. 2. Open the Well dropdown in that pad. 3. Locate the long well name in the list. 4. Verify the text does not break the dropdown container boundaries. 5. Verify CSS text-overflow (ellipsis) is applied correctly."
+      ],
+      "expected_results": [
+        "1. Test data is prepared. 2. Dropdown list is rendered. 3. Long text string is identified. 4. Container width remains fixed and stable. 5. Text is truncated gracefully with '...', maintaining UI integrity."
+      ],
+      "state": "Design",
+      "link_type": "Microsoft.VSTS.Common.TestedBy-Forward",
+      "area_path": "FracPro-OPS\\Global FP\\FracPro Suite"
+    },
+    {
+      "id": 116122,
+      "title": "Validate rendering of well names containing special characters",
+      "steps": [
+        "1. Create a well with name containing characters like !@#$%^&*()_+. 2. Open the Well dropdown in that pad. 3. Locate the specially named well. 4. Verify the characters render correctly without encoding errors (e.g., &amp;). 5. Select the well and verify it loads successfully."
+      ],
+      "expected_results": [
+        "1. Test data is prepared. 2. Dropdown list is rendered. 3. Special character string is located. 4. Text renders cleanly as UTF-8 without HTML entity leakage. 5. Well switch completes; URL and APIs handle the characters properly."
+      ],
+      "state": "Design",
+      "link_type": "Microsoft.VSTS.Common.TestedBy-Forward",
+      "area_path": "FracPro-OPS\\Global FP\\FracPro Suite"
+    },
+    {
+      "id": 116123,
+      "title": "Validate well switch prompt when unsaved changes exist",
+      "steps": [
+        "1. Open a well and make a change to a field (e.g., Field Name). 2. Do NOT click the Save button. 3. Attempt to switch to a different well using the Well dropdown. 4. Observe the application's response. 5. Verify a warning dialog appears prompting to save or discard changes."
+      ],
+      "expected_results": [
+        "1. Form state becomes 'dirty'. 2. Save action is deliberately skipped. 3. Navigation action is initiated. 4. System detects unsaved changes. 5. A modal intercepts the switch, preventing accidental data loss."
+      ],
+      "state": "Design",
+      "link_type": "Microsoft.VSTS.Common.TestedBy-Forward",
+      "area_path": "FracPro-OPS\\Global FP\\FracPro Suite"
+    },
+    {
+      "id": 116124,
+      "title": "Validate well list fetch API payload and endpoint",
+      "steps": [
+        "1. Open browser developer tools and navigate to the Network tab. 2. Refresh the Well & Treatment page. 3. Filter network requests to find the API call populating the Well dropdown. 4. Inspect the Request URL and Payload. 5. Verify the request sends the correct padId to fetch appropriate wells."
+      ],
+      "expected_results": [
+        "1. Network monitoring is active. 2. Page initialization begins. 3. Target API call is isolated. 4. Request details are exposed. 5. The endpoint logic is sound; it explicitly queries by the current pad ID."
+      ],
+      "state": "Design",
+      "link_type": "Microsoft.VSTS.Common.TestedBy-Forward",
+      "area_path": "FracPro-OPS\\Global FP\\FracPro Suite"
+    },
+    {
+      "id": 116125,
+      "title": "Validate system behavior during well list fetch timeout",
+      "steps": [
+        "1. Intercept the API call for fetching the well list. 2. Simulate a network timeout (e.g., delay response indefinitely). 3. Load the Well & Treatment page. 4. Observe the Well dropdown component. 5. Verify a loading indicator persists or times out with a graceful message."
+      ],
+      "expected_results": [
+        "1. Network interception is active. 2. Delay condition is injected. 3. Page attempts to render. 4. Dropdown waits for data. 5. UI shows a spinner, eventually timing out without crashing the whole page."
+      ],
+      "state": "Design",
+      "link_type": "Microsoft.VSTS.Common.TestedBy-Forward",
+      "area_path": "FracPro-OPS\\Global FP\\FracPro Suite"
+    },
+    {
+      "id": 116126,
+      "title": "Validate well details fetch API payload upon selection",
+      "steps": [
+        "1. Open browser developer tools to the Network tab. 2. Select a new well from the Well dropdown. 3. Locate the API request triggered to fetch the new well's data. 4. Inspect the Request Payload/URL parameters. 5. Verify the exact wellId of the newly selected well is transmitted."
+      ],
+      "expected_results": [
+        "1. Network monitoring is active. 2. Switch action occurs. 3. Data fetch API call is isolated. 4. Request parameters are exposed. 5. The correct wellId is passed, ensuring the backend returns the right data."
+      ],
+      "state": "Design",
+      "link_type": "Microsoft.VSTS.Common.TestedBy-Forward",
+      "area_path": "FracPro-OPS\\Global FP\\FracPro Suite"
+    },
+    {
+      "id": 116127,
+      "title": "Validate read-only user permissions on Well dropdown",
+      "steps": [
+        "1. Log in with a user account configured for read-only access. 2. Navigate to a multi-well pad's Well & Treatment page. 3. Attempt to use the Well dropdown to switch wells. 4. Verify the dropdown is interactive and allows switching. 5. Verify the user still cannot edit data after the switch."
+      ],
+      "expected_results": [
+        "1. Role-based access context is established. 2. Page loads successfully. 3. Interaction is attempted. 4. Navigation via dropdown is permitted for read-only users. 5. Form fields remain disabled/read-only on the newly loaded well."
+      ],
+      "state": "Design",
+      "link_type": "Microsoft.VSTS.Common.TestedBy-Forward",
+      "area_path": "FracPro-OPS\\Global FP\\FracPro Suite"
+    },
+    {
+      "id": 116128,
+      "title": "Validate Well dropdown rendering on tablet viewport",
+      "steps": [
+        "1. Set browser device emulation to a tablet resolution (e.g., 768px width). 2. Observe the top header layout. 3. Locate the Well and Version dropdowns. 4. Verify they fit side-by-side or adjust gracefully based on space. 5. Verify the text labels are fully visible."
+      ],
+      "expected_results": [
+        "1. Tablet view is active. 2. Header layout adjusts to constraints. 3. Dropdowns are identified. 4. Components sit side-by-side cleanly. 5. No text wrapping or clipping occurs on the 'Well:' or 'Version:' labels."
+      ],
+      "state": "Design",
+      "link_type": "Microsoft.VSTS.Common.TestedBy-Forward",
+      "area_path": "FracPro-OPS\\Global FP\\FracPro Suite"
+    },
+    {
+      "id": 116129,
+      "title": "Validate window resize behavior while dropdown is expanded",
+      "steps": [
+        "1. Open the Well dropdown so the list is visible. 2. Manually click and drag the browser window edge to resize it. 3. Observe the dropdown list's position relative to the dropdown box. 4. Verify the list remains anchored to the box or closes automatically. 5. Verify the list does not detach and float arbitrarily on the screen."
+      ],
+      "expected_results": [
+        "1. Dropdown list is active. 2. Viewport dimensions change dynamically. 3. Anchor positioning recalculates. 4. The list tracks with the parent element perfectly (or intentionally closes). 5. UI layout integrity is maintained during viewport manipulation."
+      ],
+      "state": "Design",
+      "link_type": "Microsoft.VSTS.Common.TestedBy-Forward",
+      "area_path": "FracPro-OPS\\Global FP\\FracPro Suite"
+    },
+    {
+      "id": 116130,
+      "title": "Validate page refresh (F5) behavior after switching wells",
+      "steps": [
+        "1. Switch to a new well (e.g., Well B) using the dropdown. 2. Wait for the page to fully load Well B's data. 3. Press F5 or the browser refresh button. 4. Wait for the page to reload. 5. Verify the application reloads with Well B active, not the original well."
+      ],
+      "expected_results": [
+        "1. Well switch completes. 2. State is established. 3. Refresh action is triggered. 4. Page re-initializes. 5. The URL wellId parameter or session state successfully restores the user to Well B."
+      ],
+      "state": "Design",
+      "link_type": "Microsoft.VSTS.Common.TestedBy-Forward",
+      "area_path": "FracPro-OPS\\Global FP\\FracPro Suite"
+    },
+    {
+      "id": 116131,
+      "title": "Validate browser Back button behavior after well switch",
+      "steps": [
+        "1. Start on Well A and use the dropdown to switch to Well B. 2. Wait for Well B to fully load. 3. Click the browser's native Back button. 4. Observe the page routing and rendering. 5. Verify the application returns to Well A and reloads its data."
+      ],
+      "expected_results": [
+        "1. State transition from A to B occurs. 2. Well B is stable. 3. History popstate event is triggered. 4. Application routing intercepts the event. 5. The UI successfully reverts to Well A's context and data."
+      ],
+      "state": "Design",
+      "link_type": "Microsoft.VSTS.Common.TestedBy-Forward",
+      "area_path": "FracPro-OPS\\Global FP\\FracPro Suite"
+    },
+    {
+      "id": 116132,
+      "title": "Validate 'Next' button routing logic after well switch",
+      "steps": [
+        "1. Switch to a new well using the Well dropdown. 2. Wait for the new well data to load. 3. Scroll to the bottom of the 'General Information' section. 4. Click the green 'Next' button. 5. Verify the application navigates to the next logical workflow step for the new well."
+      ],
+      "expected_results": [
+        "1. Well switch is complete. 2. State is stable. 3. Button is located. 4. Click event is registered. 5. User is routed to the next form/page, maintaining the context of the new well."
+      ],
+      "state": "Design",
+      "link_type": "Microsoft.VSTS.Common.TestedBy-Forward",
+      "area_path": "FracPro-OPS\\Global FP\\FracPro Suite"
+    },
+    {
+      "id": 116133,
+      "title": "Validate 'Save' button functionality for newly selected well",
+      "steps": [
+        "1. Switch to a new well using the dropdown. 2. Modify a benign field (e.g., Company Representative). 3. Click the 'Save' button. 4. Observe the success notification. 5. Refresh the page and verify the change persisted for the new well."
+      ],
+      "expected_results": [
+        "1. Well switch is complete. 2. Form state is dirty. 3. Save action initiates API call. 4. Toast or message confirms success. 5. Backend confirms data was written correctly to the newly selected well's record."
+      ],
+      "state": "Design",
+      "link_type": "Microsoft.VSTS.Common.TestedBy-Forward",
+      "area_path": "FracPro-OPS\\Global FP\\FracPro Suite"
+    },
+    {
+      "id": 116134,
+      "title": "Validate 'Run Model' button enablement for new well",
+      "steps": [
+        "1. Switch to a new well using the dropdown. 2. Ensure the new well has all required parameters filled out. 3. Locate the 'Run Model' button in the bottom left corner. 4. Verify the button is enabled and clickable. 5. Click it and verify the model execution sequence begins for the correct well."
+      ],
+      "expected_results": [
+        "1. Well switch is complete. 2. Validation prerequisites are met. 3. Target button is identified. 4. Button state is active (not disabled). 5. The execution payload sends the correct wellId to the modeling engine."
+      ],
+      "state": "Design",
+      "link_type": "Microsoft.VSTS.Common.TestedBy-Forward",
+      "area_path": "FracPro-OPS\\Global FP\\FracPro Suite"
+    },
+    {
+      "id": 116135,
+      "title": "Validate complete well switch functionality on Google Chrome",
+      "steps": [
+        "1. Open the latest stable version of Google Chrome. 2. Navigate to the Well & Treatment page. 3. Expand the Well dropdown and select a different well. 4. Verify the dropdown UI renders without glitches. 5. Verify the data reload completes without JavaScript console errors."
+      ],
+      "expected_results": [
+        "1. Browser initializes cleanly. 2. Page loads successfully. 3. Interaction is smooth. 4. CSS styling is perfect. 5. Logic executes flawlessly on the V8 engine."
+      ],
+      "state": "Design",
+      "link_type": "Microsoft.VSTS.Common.TestedBy-Forward",
+      "area_path": "FracPro-OPS\\Global FP\\FracPro Suite"
+    },
+    {
+      "id": 116136,
+      "title": "Validate complete well switch functionality on Microsoft Edge",
+      "steps": [
+        "1. Open the latest stable version of Microsoft Edge. 2. Navigate to the Well & Treatment page. 3. Expand the Well dropdown and select a different well. 4. Verify the dropdown UI renders without glitches. 5. Verify the data reload completes without JavaScript console errors."
+      ],
+      "expected_results": [
+        "1. Browser initializes cleanly. 2. Page loads successfully. 3. Interaction is smooth. 4. CSS styling is perfect. 5. Logic executes flawlessly on the Chromium engine."
+      ],
+      "state": "Design",
+      "link_type": "Microsoft.VSTS.Common.TestedBy-Forward",
+      "area_path": "FracPro-OPS\\Global FP\\FracPro Suite"
+    },
+    {
+      "id": 116137,
+      "title": "Validate dropdown list Z-index prevents hiding under elements",
+      "steps": [
+        "1. Open the Well & Treatment page. 2. Expand the Well dropdown. 3. Observe the expanded list as it overlaps elements below it (e.g., 'General Information' tab). 4. Verify the list renders strictly on top of all underlying UI components. 5. Verify no text or borders from lower elements bleed through the dropdown list."
+      ],
+      "expected_results": [
+        "1. Page loads successfully. 2. List expands downward. 3. Intersection with other DOM elements occurs. 4. CSS Z-index is configured correctly. 5. The dropdown list perfectly occludes everything behind it."
+      ],
+      "state": "Design",
+      "link_type": "Microsoft.VSTS.Common.TestedBy-Forward",
+      "area_path": "FracPro-OPS\\Global FP\\FracPro Suite"
+    },
+    {
+      "id": 116138,
+      "title": "Validate loading indicator appears within dropdown during fetch",
+      "steps": [
+        "1. Open browser network throttling and set to 'Slow 3G'. 2. Navigate to the Well & Treatment page. 3. Observe the Well dropdown immediately after page render begins. 4. Verify a loading spinner or 'Loading...' text appears inside the dropdown. 5. Verify it is replaced by the actual well name once the API resolves."
+      ],
+      "expected_results": [
+        "1. Network speeds are restricted. 2. Page initialization begins. 3. UI mounts before data arrives. 4. Appropriate UX fallback (spinner) is displayed to indicate background work. 5. State transitions smoothly to displaying data upon fetch completion."
+      ],
+      "state": "Design",
+      "link_type": "Microsoft.VSTS.Common.TestedBy-Forward",
+      "area_path": "FracPro-OPS\\Global FP\\FracPro Suite"
+    },
+    {
+      "id": 116139,
+      "title": "Validate behavior if selected well is deleted simultaneously",
+      "steps": [
+        "1. Open the Well & Treatment page for a pad in Browser A. 2. In Browser B (different user), delete 'Well X' from that pad. 3. In Browser A, expand the Well dropdown (assuming it cached Well X). 4. Attempt to select 'Well X'. 5. Verify the application handles the 404/Not Found error gracefully with a message."
+      ],
+      "expected_results": [
+        "1. Initial state is established. 2. Background data mutation occurs. 3. Stale data is presented to User A. 4. Action is attempted on deleted entity. 5. System catches the backend error and alerts the user the well no longer exists."
+      ],
+      "state": "Design",
+      "link_type": "Microsoft.VSTS.Common.TestedBy-Forward",
+      "area_path": "FracPro-OPS\\Global FP\\FracPro Suite"
+    },
+    {
+      "id": 116140,
+      "title": "Validate behavior upon network disconnect during well switch",
+      "steps": [
+        "1. Expand the Well dropdown and hover over a new well. 2. Disconnect the computer's network connection. 3. Click the new well option. 4. Observe the application's loading state. 5. Verify the system detects the network failure and displays an offline error message."
+      ],
+      "expected_results": [
+        "1. UI is ready for interaction. 2. Connectivity is severed. 3. Action triggers API call. 4. Request hangs or fails immediately at the browser level. 5. Application handles the network exception gracefully without freezing."
+      ],
+      "state": "Design",
+      "link_type": "Microsoft.VSTS.Common.TestedBy-Forward",
+      "area_path": "FracPro-OPS\\Global FP\\FracPro Suite"
+    },
+    {
+      "id": 116141,
+      "title": "Validate regression: Sidebar menu routes correctly for new well",
+      "steps": [
+        "1. Switch to a new well using the Well dropdown. 2. Wait for the new well's data to load completely. 3. Click on 'Wellbore Configuration' in the left-hand navigation menu. 4. Observe the page routing. 5. Verify the Wellbore Configuration page loads data for the newly selected well."
+      ],
+      "expected_results": [
+        "1. Well switch completes. 2. Global state (selected wellId) is updated. 3. Sidebar navigation is utilized. 4. Routing executes with context. 5. The new page successfully reads the updated global state and fetches correct data."
+      ],
+      "state": "Design",
+      "link_type": "Microsoft.VSTS.Common.TestedBy-Forward",
+      "area_path": "FracPro-OPS\\Global FP\\FracPro Suite"
+    }
+  ],
+  "error": null,
+  "warnings": []
+}

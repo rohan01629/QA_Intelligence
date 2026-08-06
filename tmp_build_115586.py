@@ -1,0 +1,468 @@
+"""Corrected US 115586 gap-fill — Well Active/Complete dots ARE implemented (latest QA)."""
+from __future__ import annotations
+
+import asyncio
+import json
+from collections import Counter
+from pathlib import Path
+
+from dotenv import load_dotenv
+
+load_dotenv()
+
+from qa_intelligence.mcp.tools.create_test_cases import create_test_cases
+
+US = 115586
+STORY = (
+    "FracPro Live + General- Add Well Dropdown to Enable Switching "
+    "Between Wells Within the Current Pad"
+)
+CODEBASE = r"D:\Live_Plus_QA\fracpro-agile"
+EXISTING = 53
+DOTS_COMMIT = "a2b9d7ab4 well dropdown red and green dot (origin/wtt/liveplus/QA)"
+
+CASES: list[dict] = [
+    {
+        "title": "Verify Well dropdown renders beside Pad label with current well selected on load",
+        "steps": [
+            "Open a pad with one or more wells and load Well & Treatment.",
+            "Inspect left sub-menubar: Pad label and Well control.",
+            "Confirm Well dropdown selected value matches the active well.",
+        ],
+        "expected_results": [
+            "Pad/well context loads.",
+            "Well ng-select appears next to Pad (left cluster); Version remains on the right.",
+            "Current well is selected by default.",
+        ],
+    },
+    # AC Note — implemented via realtimewell → live-dot / completed-dot
+    {
+        "title": "Verify Active realtime well shows green live-dot in Well dropdown options",
+        "steps": [
+            "Open a pad that includes a realtime/Active well (realtimewell truthy).",
+            "Expand the Well dropdown and locate that well row.",
+            "Inspect the status indicator beside the well name.",
+        ],
+        "expected_results": [
+            "Realtime/Active well is listed.",
+            "Option row is visible with well name.",
+            "Green live-dot is shown for the Active/realtime well.",
+        ],
+    },
+    {
+        "title": "Verify non-realtime Complete well shows red completed-dot in Well dropdown options",
+        "steps": [
+            "Open a pad that includes a non-realtime Complete well (realtimewell falsy).",
+            "Expand the Well dropdown and locate that well row.",
+            "Inspect the status indicator beside the well name.",
+        ],
+        "expected_results": [
+            "Complete/non-realtime well is listed.",
+            "Option row is visible with well name.",
+            "Red completed-dot is shown for the Complete well.",
+        ],
+    },
+    {
+        "title": "Verify closed Well dropdown label also shows green or red status dot for selected well",
+        "steps": [
+            "Select an Active realtime well and close the dropdown.",
+            "Inspect the closed Well control label for a green live-dot.",
+            "Select a Complete non-realtime well and inspect the closed label for a red completed-dot.",
+        ],
+        "expected_results": [
+            "Active well selected.",
+            "Closed label shows green live-dot for realtimewell.",
+            "Closed label shows red completed-dot when selected well is not realtime.",
+        ],
+    },
+    {
+        "title": "Verify Active green and Complete red dots appear together when pad has both well types",
+        "steps": [
+            "Open a pad containing both realtime Active and non-realtime Complete wells.",
+            "Expand the Well dropdown.",
+            "Compare status dots across Active vs Complete rows.",
+        ],
+        "expected_results": [
+            "Both well types are listed.",
+            "Dropdown options show status indicators.",
+            "Active rows show green live-dot; Complete rows show red completed-dot.",
+        ],
+    },
+    {
+        "title": "Verify Well status dots use realtimewell and remain distinct from Stage inProgress dots",
+        "steps": [
+            "Expand the Well dropdown and note green/red dots driven by well realtimewell.",
+            "Expand the Stage dropdown and note live/completed dots driven by stage inProgress.",
+            "Confirm both controls show their own status indicators independently.",
+        ],
+        "expected_results": [
+            "Well dots reflect realtimewell Active/Complete status.",
+            "Stage dots reflect inProgress status.",
+            "Well and Stage status indicators operate independently without conflict.",
+        ],
+    },
+    {
+        "title": "Verify Well dropdown lists only current-pad wells and excludes other pads",
+        "steps": [
+            "Open pad A with known wells.",
+            "Expand the Well dropdown and list all well names.",
+            "Confirm no wells belonging only to other pads appear.",
+        ],
+        "expected_results": [
+            "Pad A context is active.",
+            "Dropdown lists pad A wells with status dots as applicable.",
+            "Other-pad wells are excluded.",
+        ],
+    },
+    {
+        "title": "Verify Well dropdown search filters pad wells by typed well name",
+        "steps": [
+            "Open a multi-well pad and expand Well dropdown.",
+            "Type a partial well name into the searchable input.",
+            "Select a matching well from filtered results.",
+        ],
+        "expected_results": [
+            "Full list available before search.",
+            "List filters to matching names; status dots remain on visible rows.",
+            "Matching well can be selected.",
+        ],
+    },
+    {
+        "title": "Verify Well dropdown pad wells are alphabetically sorted by wellName",
+        "steps": [
+            "Open a multi-well pad.",
+            "Expand Well dropdown without typing a search.",
+            "Read well names top to bottom.",
+        ],
+        "expected_results": [
+            "Multi-well pad loaded.",
+            "List opens.",
+            "Names are sorted alphabetically by wellName.",
+        ],
+    },
+    {
+        "title": "Verify duplicate wellName and wellAPI pairs are deduplicated in Well list",
+        "steps": [
+            "Use a pad where source data could return duplicate wellName|wellAPI rows.",
+            "Open the Well dropdown.",
+            "Count duplicate physical well entries.",
+        ],
+        "expected_results": [
+            "Pad loads.",
+            "Dropdown opens.",
+            "Each wellName|wellAPI key appears once.",
+        ],
+    },
+    {
+        "title": "Verify selecting another well loads that well and refreshes well-specific data",
+        "steps": [
+            "On well A note visible well-specific header/data and status dot.",
+            "Select well B from the Well dropdown and wait for navigation/reload.",
+            "Confirm URL/header/data and status dot reflect well B.",
+        ],
+        "expected_results": [
+            "Well A baseline noted.",
+            "Well B change path runs.",
+            "Well B loads with refreshed data; pad unchanged; status dot matches well B realtimewell.",
+        ],
+    },
+    {
+        "title": "Verify Cancel on unsaved-changes alert reverts Well dropdown to previous well",
+        "steps": [
+            "On well A make an unsaved change.",
+            "Select well B from Well dropdown.",
+            "Cancel/dismiss the unsaved-changes alert without Save or Discard.",
+            "Inspect Well dropdown selection and status dot.",
+        ],
+        "expected_results": [
+            "Unsaved state exists on well A.",
+            "Alert appears.",
+            "User cancels.",
+            "Dropdown reverts to well A with well A status dot.",
+        ],
+    },
+    {
+        "title": "Verify Discard on unsaved-changes alert completes switch to selected well",
+        "steps": [
+            "On well A make an unsaved change.",
+            "Select well B from Well dropdown.",
+            "Choose Discard on the alert.",
+            "Confirm well B becomes active.",
+        ],
+        "expected_results": [
+            "Unsaved state exists.",
+            "Alert appears.",
+            "Discard chosen.",
+            "Well B loads and data refreshes.",
+        ],
+    },
+    {
+        "title": "Verify Save on unsaved-changes alert then switches to the newly selected well",
+        "steps": [
+            "On well A with owned/single version, make an unsaved change.",
+            "Select well B from Well dropdown.",
+            "Choose Save on the alert and wait for save path.",
+            "Confirm well B is active afterward.",
+        ],
+        "expected_results": [
+            "Editable owned/single-version context on well A.",
+            "Alert appears.",
+            "Save completes.",
+            "Well B loads; pad remains the same.",
+        ],
+    },
+    {
+        "title": "Verify padName stays unchanged in header and storage after well switch",
+        "steps": [
+            "Record Pad header text and padName storage for pad A / well A.",
+            "Switch to well B via Well dropdown.",
+            "Re-check Pad header and padName storage.",
+        ],
+        "expected_results": [
+            "Baseline pad name recorded.",
+            "Well B loads.",
+            "Pad name unchanged; only well selection changes.",
+        ],
+    },
+    {
+        "title": "Verify refresh keeps Well selection and status dot via originalWellId",
+        "steps": [
+            "Switch to well B and wait until load completes; note its status dot.",
+            "Refresh the browser.",
+            "Inspect Well dropdown selected value and status dot after reload.",
+        ],
+        "expected_results": [
+            "Well B active before refresh.",
+            "Page reloads.",
+            "Well B remains selected with the same Active/Complete status dot.",
+        ],
+    },
+    {
+        "title": "Verify selecting same current well is a no-op and does not reload",
+        "steps": [
+            "Note current well A selection.",
+            "Re-select the same well A from the Well dropdown.",
+            "Observe whether a full well-change reload occurs.",
+        ],
+        "expected_results": [
+            "Well A is current.",
+            "Same well re-selected.",
+            "No full well-change reload when selected id equals current well.",
+        ],
+    },
+    {
+        "title": "Verify Well Version and Stage stay enabled during MQTT Live Actual Treatment Schedule",
+        "steps": [
+            "Enter Actual Treatment Schedule live MQTT mode for the current well.",
+            "Attempt to open Well dropdown and change wells if multiple exist.",
+            "Confirm Version and Stage controls remain enabled.",
+        ],
+        "expected_results": [
+            "MQTT live ATS mode is active.",
+            "Well control remains enabled.",
+            "Version/Stage remain usable without Well-dropdown regression.",
+        ],
+    },
+    {
+        "title": "Verify Version dropdown still works after repeated Well dropdown switches",
+        "steps": [
+            "Switch wells twice using Well dropdown.",
+            "Change Version on the newly selected well.",
+            "Confirm version load succeeds and well selection stays correct.",
+        ],
+        "expected_results": [
+            "Well switches succeed; pad unchanged.",
+            "Version change accepted.",
+            "No regression in Version dropdown after Well switches.",
+        ],
+    },
+    {
+        "title": "Verify Reports data refreshes for newly selected well after header switch",
+        "steps": [
+            "From well A switch to well B using header Well dropdown.",
+            "Open Reports for current context.",
+            "Confirm report content belongs to well B.",
+        ],
+        "expected_results": [
+            "Well B active.",
+            "Reports opens.",
+            "Report data is for well B not stale well A.",
+        ],
+    },
+    {
+        "title": "Verify Plots templates refresh for newly selected well after header switch",
+        "steps": [
+            "On well A open Plots and note template context.",
+            "Switch to well B via Well dropdown.",
+            "Open Plots and verify templates/data for well B.",
+        ],
+        "expected_results": [
+            "Well A plot context noted.",
+            "Well B loads.",
+            "Plots reflect well B without stale well A context.",
+        ],
+    },
+    {
+        "title": "Verify Material Selection and Treatment Schedule refresh after well switch",
+        "steps": [
+            "Note Material Selection and Treatment Schedule context on well A.",
+            "Switch to well B via Well dropdown.",
+            "Re-open both modules and verify well B data.",
+        ],
+        "expected_results": [
+            "Well A baselines recorded.",
+            "Well B loads.",
+            "Both modules show well B data.",
+        ],
+    },
+    {
+        "title": "Verify well switch clears prior stage and treatment selection state",
+        "steps": [
+            "On well A select a non-default stage/treatment.",
+            "Switch to well B via Well dropdown.",
+            "Inspect stage/treatment selection after load.",
+        ],
+        "expected_results": [
+            "Non-default stage set on well A.",
+            "Well B loads.",
+            "Prior stage/treatment selection is cleared.",
+        ],
+    },
+    {
+        "title": "Verify Well dropdown hidden in fullscreen plot and restored after exit",
+        "steps": [
+            "Enter fullscreen plot view.",
+            "Confirm sub-menubar Well dropdown is not shown.",
+            "Exit fullscreen and confirm Well dropdown returns with status dots.",
+        ],
+        "expected_results": [
+            "Fullscreen active.",
+            "Well dropdown hidden.",
+            "Well dropdown visible again after exit with correct status dot.",
+        ],
+    },
+    {
+        "title": "Verify plot popout open does not break well switch context sync",
+        "steps": [
+            "Open a plot popout.",
+            "Switch wells using header Well dropdown.",
+            "Confirm main page well context remains consistent.",
+        ],
+        "expected_results": [
+            "Popout open.",
+            "Well switch completes.",
+            "Well context stays consistent without corrupted payload sync.",
+        ],
+    },
+]
+
+CRITICAL = [1, 2, 11, 15]
+REGRESSION = [18, 19, 20, 21, 22, 23, 24, 25]
+
+
+def write_artifacts() -> list[dict]:
+    n = len(CASES)
+    for i, c in enumerate(CASES, 1):
+        if len(c["steps"]) != len(c["expected_results"]):
+            raise SystemExit(f"parity fail TC-{i}")
+
+    reg_n = int(n * 0.30 + 0.5)
+    crit_n = int(n * 0.10 + 0.5)
+    critical = [i for i in CRITICAL if i <= n][:crit_n]
+    regression = [i for i in REGRESSION if i <= n and i not in critical][:reg_n]
+    labels = {
+        i: "Critical" if i in critical else "Regression" if i in regression else "Standard"
+        for i in range(1, n + 1)
+    }
+    enriched = [{**c, "label": labels[i]} for i, c in enumerate(CASES, 1)]
+
+    gaps = [
+        "CORRECTED: Active/Complete well dots ARE implemented (commit a2b9d7ab4 on origin/wtt/liveplus/QA).",
+        "Mapping: realtimewell truthy → green live-dot (Active); realtimewell falsy → red completed-dot (Complete).",
+        "Shown in both ng-label-tmp (closed) and ng-option-tmp (open list) via well-option-row.",
+        "NOTE: Local branch wtt/liveplus/qa-rohan may lag; analyze/pull origin/wtt/liveplus/QA for latest dots.",
+        "Residual risk: Active/Complete is keyed off realtimewell only — if product defines Complete differently than !realtimewell, clarify with BA.",
+        "IMPLEMENTED: Well ng-select switcher, pad filter/dedupe/sort, unsaved alert paths, MQTT keeps well enabled.",
+        f"ADO: {EXISTING} linked TCs; add gap-fill for dots + implementation edges not in 116089–116141.",
+    ]
+
+    md = [
+        f"STORY: {STORY}",
+        f"US: {US}",
+        f"COUNT: {n} (gap-fill — {EXISTING} TCs already linked)",
+        "NOTE: Dry-run drafts — not uploaded to ADO",
+        f"CODEBASE: {CODEBASE}",
+        f"DOTS: {DOTS_COMMIT}",
+        "AC: Scenarios 1–5 + Note (Active green / Complete red well dots) — dots implemented",
+        f"RULE 13 MIX: Critical {crit_n} / Regression {reg_n}",
+        "",
+        "## Implementation gaps (code vs US)",
+    ]
+    md.extend(f"- {g}" for g in gaps)
+    md.extend(["", "## Label summary", "", f"### Critical ({crit_n})"])
+    md.extend(f"- TC-{i}: {CASES[i - 1]['title']}" for i in critical)
+    md.extend(["", f"### Regression ({reg_n})"])
+    md.extend(f"- TC-{i}: {CASES[i - 1]['title']}" for i in regression)
+    md.extend(["", "### Standard"])
+    md.extend(
+        f"- TC-{i}: {CASES[i - 1]['title']}"
+        for i in range(1, n + 1)
+        if labels[i] == "Standard"
+    )
+    md.extend(["", "---", ""])
+    for i, c in enumerate(CASES, 1):
+        md.append(f"### TC-{i}: {c['title']}")
+        md.append(f"**Label:** {labels[i]}")
+        md.append("**Steps**")
+        md.extend(f"{j}. {s}" for j, s in enumerate(c["steps"], 1))
+        md.append("**Expected Results**")
+        md.extend(f"{j}. {e}" for j, e in enumerate(c["expected_results"], 1))
+        md.append("")
+
+    for name in (f"tmp_drafts_{US}_gapfill.md", f"tmp_drafts_{US}_curated_qa.md"):
+        Path(name).write_text("\n".join(md), encoding="utf-8")
+    payload_json = json.dumps(enriched, indent=2, ensure_ascii=False)
+    for name in (f"tmp_drafts_{US}_gapfill.json", f"tmp_drafts_{US}_curated_qa.json"):
+        Path(name).write_text(payload_json, encoding="utf-8")
+    Path(f"tmp_out_{US}_gaps.json").write_text(
+        json.dumps(
+            {
+                "gaps": gaps,
+                "codebase": CODEBASE,
+                "dots_implemented": True,
+                "dots_commit": DOTS_COMMIT,
+                "mapping": {
+                    "active_green": "live-dot when item.realtimewell",
+                    "complete_red": "completed-dot when !item.realtimewell",
+                },
+                "existing_linked_tcs": EXISTING,
+                "gap_fill_count": n,
+            },
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
+    print(f"wrote n={n} critical={critical} regression={regression}")
+    return enriched
+
+
+async def dry_run(enriched: list[dict]) -> None:
+    payload = [
+        {"title": c["title"], "steps": c["steps"], "expected_results": c["expected_results"]}
+        for c in enriched
+    ]
+    result = await create_test_cases(test_cases=payload, dry_run=True, user_story_id=US)
+    data = result.get("data") or []
+    print(
+        "dry_run",
+        result.get("ok"),
+        Counter(x.get("status") for x in data) if isinstance(data, list) else result.get("error"),
+    )
+    Path(f"tmp_out_{US}_dry_run_gapfill.json").write_text(
+        json.dumps(result, indent=2, default=str), encoding="utf-8"
+    )
+
+
+if __name__ == "__main__":
+    enriched = write_artifacts()
+    asyncio.run(dry_run(enriched))

@@ -3,9 +3,10 @@
 from __future__ import annotations
 
 from functools import lru_cache
+from typing import Annotated
 
 from pydantic import Field, field_validator
-from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic_settings import BaseSettings, NoDecode, SettingsConfigDict
 
 
 class Settings(BaseSettings):
@@ -32,11 +33,17 @@ class Settings(BaseSettings):
     ado_bug_type: str = "Bug"
     ado_ac_field: str | None = "Microsoft.VSTS.Common.AcceptanceCriteria"
     ado_tested_by_relation: str = "Microsoft.VSTS.Common.TestedBy-Forward"
+    ado_is_regression_field: str = "Custom.IsRegression"
+    ado_sanity_field: str = "Custom.Sanity"
 
     # Code Intelligence — optional Azure Repos defaults
     ado_default_git_repository: str | None = None
     ado_default_git_branch: str = "main"
     code_intel_cache_dir: str | None = None
+    # Comma/semicolon/newline-separated local app roots (story picks best match)
+    code_intel_local_repository_paths: Annotated[list[str], NoDecode] = Field(
+        default_factory=list
+    )
 
     @field_validator("ado_default_git_branch", mode="before")
     @classmethod
@@ -55,6 +62,11 @@ class Settings(BaseSettings):
         default=False,
         description="When false, create_test_cases/link_test_cases refuse non-dry-run writes",
     )
+
+    # Generation volume (Rule 11)
+    min_generated_test_cases: int = Field(default=25, ge=1)
+    target_complex_test_cases: int = Field(default=50, ge=1)
+    max_generated_test_cases: int = Field(default=60, ge=1)
 
     mcp_transport: str = "stdio"
     log_level: str = "INFO"
@@ -78,6 +90,19 @@ class Settings(BaseSettings):
         if value == "" or value is None:
             return None
         return value
+
+    @field_validator("code_intel_local_repository_paths", mode="before")
+    @classmethod
+    def parse_local_paths(cls, value: object) -> object:
+        if value is None or value == "":
+            return []
+        if isinstance(value, list):
+            return value
+        from qa_intelligence.domain.policies.local_repository_paths import (
+            parse_local_repository_paths,
+        )
+
+        return parse_local_repository_paths(str(value))
 
     @field_validator("ado_base_url")
     @classmethod

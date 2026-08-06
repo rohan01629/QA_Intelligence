@@ -1,0 +1,352 @@
+[
+  {
+    "title": "Verify Save Template dialog prepopulates current name for an existing user-defined template",
+    "steps": [
+      "Open Plots and load an existing user-defined template (type 2) with a saved name.",
+      "Click the Save button in the plot toolbar.",
+      "Inspect the Plot Name field in the Save Plot dialog."
+    ],
+    "expected_results": [
+      "Existing template is active and name shows in the Plots header.",
+      "Save Plot dialog opens.",
+      "Plot Name field is automatically populated with the current template name."
+    ],
+    "label": "Critical"
+  },
+  {
+    "title": "Verify prepopulated Save dialog name matches the Plots header template title",
+    "steps": [
+      "Load an existing named template and note the header title.",
+      "Open Save via the Save button.",
+      "Compare header title to the dialog Plot Name value."
+    ],
+    "expected_results": [
+      "Header displays the template name.",
+      "Dialog opens.",
+      "Dialog Plot Name exactly matches the header template name."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify Save prepopulation works for an existing Pad plot template",
+    "steps": [
+      "Open an existing Pad/company plot template where Save is enabled.",
+      "Click Save and inspect the dialog title.",
+      "Inspect Plot Name and Pad Plots checkbox state."
+    ],
+    "expected_results": [
+      "Pad template loads.",
+      "Save Plot dialog opens.",
+      "Plot Name is prepopulated with the Pad template name and Pad Plots checkbox reflects type 3."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify unchanged prepopulated name shows warning and disables Save after blur",
+    "steps": [
+      "Open Save for an existing user-defined template with prepopulated current name.",
+      "Do not edit the name; click or tab out of the Plot Name field (blur).",
+      "Observe inline warning message and Save button state."
+    ],
+    "expected_results": [
+      "Name field contains the current template name unchanged.",
+      "After blur, duplicate/conflict warning is displayed.",
+      "Save button becomes disabled after blur."
+    ],
+    "label": "Critical"
+  },
+  {
+    "title": "Verify Save click with unchanged name is blocked even if Save appears enabled on open",
+    "steps": [
+      "Open Save for an existing template with prepopulated unchanged name.",
+      "Without blurring the name field, click Save immediately.",
+      "Observe whether save proceeds or is blocked."
+    ],
+    "expected_results": [
+      "Dialog opens with prepopulated unchanged name.",
+      "Save may appear enabled on open before blur.",
+      "Save action is blocked; no successful save toast or duplicate create."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify unchanged-name path does not create a duplicate template list entry",
+    "steps": [
+      "Note template list count for an existing template.",
+      "Attempt Save with unchanged prepopulated name so conflict blocks save.",
+      "Refresh or reopen the plot list."
+    ],
+    "expected_results": [
+      "Baseline list count is recorded.",
+      "Save does not complete while name is unchanged and conflict-blocked.",
+      "No additional list entry appears for the same template name."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify editing prepopulated name and saving applies the updated template name",
+    "steps": [
+      "Open Save on an existing template.",
+      "Change Plot Name to a new valid unique name and click Save.",
+      "Inspect plot list and header for the updated name."
+    ],
+    "expected_results": [
+      "Original name was prepopulated.",
+      "Edited name is accepted.",
+      "Template is saved using the updated name."
+    ],
+    "label": "Critical"
+  },
+  {
+    "title": "Verify empty plot name is rejected when clearing a prepopulated name",
+    "steps": [
+      "Open Save on an existing template with prepopulated name.",
+      "Clear the Plot Name field completely and click Save.",
+      "Observe validation or error feedback."
+    ],
+    "expected_results": [
+      "Name was prepopulated.",
+      "Field is cleared.",
+      "Save is blocked with empty-name error; template is not saved."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify restricted name surf prc is rejected when editing from prepopulated name",
+    "steps": [
+      "Open Save on an existing template.",
+      "Replace the prepopulated name with 'surf prc' and attempt Save.",
+      "Observe validation feedback."
+    ],
+    "expected_results": [
+      "Dialog opens with original name.",
+      "Restricted name is entered.",
+      "Save is rejected with existing restricted-name validation."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify restricted name btm prc is rejected on Save Plot",
+    "steps": [
+      "Open Save on an existing template.",
+      "Change name to 'btm prc' and attempt Save.",
+      "Observe validation feedback."
+    ],
+    "expected_results": [
+      "Dialog is open.",
+      "Restricted name is submitted.",
+      "Save is rejected per existing rules."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify restricted name measured data is rejected on Save Plot",
+    "steps": [
+      "Open Save on an existing template.",
+      "Change name to 'measured data' and attempt Save.",
+      "Observe validation feedback."
+    ],
+    "expected_results": [
+      "Dialog is open.",
+      "Restricted name is submitted.",
+      "Save is rejected per existing rules."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify duplicate existing template name conflict when renaming via Save Plot",
+    "steps": [
+      "Open template A and Save with name prepopulated as A.",
+      "Change name to an existing different template B name and attempt Save.",
+      "Observe conflict validation message."
+    ],
+    "expected_results": [
+      "Dialog shows A initially.",
+      "Name is changed to B.",
+      "Conflict validation prevents invalid overwrite; Save blocked with conflict message."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify plot name max length 50 validation applies with prepopulated names",
+    "steps": [
+      "Open Save on an existing template.",
+      "Edit name beyond 50 characters or paste over limit.",
+      "Attempt Save and observe feedback."
+    ],
+    "expected_results": [
+      "Dialog opens with current name.",
+      "Over-limit input is attempted.",
+      "Max-length validation prevents invalid save."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify whitespace-only name is rejected when replacing prepopulated name",
+    "steps": [
+      "Open Save on an existing template.",
+      "Replace name with spaces only and attempt Save.",
+      "Observe validation feedback."
+    ],
+    "expected_results": [
+      "Dialog opens.",
+      "Whitespace-only name is entered.",
+      "Save is blocked by non-empty name validation."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify Rename Plot still prepopulates current name",
+    "steps": [
+      "Open an existing named template.",
+      "Use Rename Plot from the plot menu.",
+      "Inspect the Plot Name field."
+    ],
+    "expected_results": [
+      "Template is active.",
+      "Rename Plot dialog opens.",
+      "Plot Name is prepopulated with the current template name."
+    ],
+    "label": "Regression"
+  },
+  {
+    "title": "Verify Cancel on Save Plot does not change the loaded template name",
+    "steps": [
+      "Open Save on an existing template with prepopulated name.",
+      "Edit the name optionally, then Cancel without saving.",
+      "Confirm active template name unchanged."
+    ],
+    "expected_results": [
+      "Dialog shows prepopulated name.",
+      "Dialog closes without save.",
+      "Active template name and content remain unchanged."
+    ],
+    "label": "Regression"
+  },
+  {
+    "title": "Verify reopening Save after Cancel still prepopulates current existing name",
+    "steps": [
+      "Open Save on an existing template and Cancel.",
+      "Open Save again on the same template.",
+      "Inspect Plot Name."
+    ],
+    "expected_results": [
+      "First dialog cancelled.",
+      "Second dialog opens.",
+      "Plot Name is again prepopulated with the current template name."
+    ],
+    "label": "Regression"
+  },
+  {
+    "title": "Verify switching from template A to template B updates prepopulated Save name",
+    "steps": [
+      "Open template A, open Save, note name A, close.",
+      "Switch to template B and open Save.",
+      "Inspect Plot Name."
+    ],
+    "expected_results": [
+      "A was prepopulated on first open.",
+      "B is active.",
+      "Dialog shows B name not stale A."
+    ],
+    "label": "Regression"
+  },
+  {
+    "title": "Verify Duplicate Plot still prepopulates name and content",
+    "steps": [
+      "Open an existing saved template.",
+      "Use Duplicate Plot.",
+      "Inspect prepopulated name and content handling."
+    ],
+    "expected_results": [
+      "Template is eligible.",
+      "Duplicate dialog opens.",
+      "Duplicate workflow prepopulates current name/content without regression."
+    ],
+    "label": "Regression"
+  },
+  {
+    "title": "Verify channel settings dialog still opens after Save Plot interaction",
+    "steps": [
+      "Open an existing template and open Save Plot once.",
+      "Close Save Plot if still open.",
+      "Open Channel Selection from Plots toolbar."
+    ],
+    "expected_results": [
+      "Save Plot opened successfully.",
+      "Save Plot dialog is closed.",
+      "Channel settings UI opens and remains usable."
+    ],
+    "label": "Regression"
+  },
+  {
+    "title": "Verify built-in Fracpro Live+ templates keep Save toolbar disabled",
+    "steps": [
+      "Open a built-in Live+ system plot such as Measured Data or Surf PRC.",
+      "Locate the Save toolbar button.",
+      "Attempt to click Save or confirm it is disabled."
+    ],
+    "expected_results": [
+      "System/built-in template is active.",
+      "Save toolbar remains disabled.",
+      "User cannot open Save Plot prepopulation flow from disabled Save for type 0."
+    ],
+    "label": "Regression"
+  },
+  {
+    "title": "Verify opening Save Plot does not mutate plot content before Save is clicked",
+    "steps": [
+      "Note current plot channel/configuration state.",
+      "Open Save Plot with prepopulated name and Cancel.",
+      "Re-check plot configuration."
+    ],
+    "expected_results": [
+      "Baseline configuration recorded.",
+      "Dialog cancelled.",
+      "No unintended plot content mutation from merely opening the dialog."
+    ],
+    "label": "Regression"
+  },
+  {
+    "title": "Verify end-to-end save with new unique name keeps header and list consistent",
+    "steps": [
+      "Open existing template T, open Save, change to a new valid unique name, Save.",
+      "Verify header and sidebar list.",
+      "Open Save again and inspect prepopulated name."
+    ],
+    "expected_results": [
+      "Save with new name succeeds.",
+      "Header and list show the new name consistently.",
+      "Subsequent Save prepopulates the newly saved name."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify Save and Rename show the same prepopulated name for the same template",
+    "steps": [
+      "Open the same existing template.",
+      "Open Rename Plot and note the prepopulated name; close.",
+      "Open Save and compare the prepopulated name."
+    ],
+    "expected_results": [
+      "Same template context is used for both dialogs.",
+      "Rename shows the current template name.",
+      "Save shows the identical current template name."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify user can save after changing prepopulated name to a new unique valid name",
+    "steps": [
+      "Open Save on an existing template with prepopulated name.",
+      "Change the name slightly to a new unique valid name and Save.",
+      "Confirm list and header reflect the new name."
+    ],
+    "expected_results": [
+      "Dialog opens with original name prepopulated.",
+      "New unique name is accepted.",
+      "Template saves under the updated name successfully."
+    ],
+    "label": "Standard"
+  }
+]

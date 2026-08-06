@@ -1,0 +1,8 @@
+{
+  "user_story_id": 116559,
+  "status": "blocked_rule_12",
+  "feature_found": false,
+  "generated_count": 0,
+  "reason": "US feature (ASCII Report rename + dialog with Real-time/FrPro tabs) is not implemented in Live_Plus_UAT or Minifrac. Legacy Download ASCII Report / GenerateASCII path is not sufficient.",
+  "cases": []
+}

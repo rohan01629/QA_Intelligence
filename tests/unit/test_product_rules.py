@@ -32,8 +32,8 @@ from qa_intelligence.services.test_case_generation_service import TestCaseGenera
 from qa_intelligence.services.test_case_service import TestCaseService
 
 
-def test_product_rules_catalog_has_ten_rules() -> None:
-    assert len(PRODUCT_RULES) == 10
+def test_product_rules_catalog_has_thirteen_rules() -> None:
+    assert len(PRODUCT_RULES) == 13
     assert CORE_CATEGORIES_ORDERED == (
         TestCategory.POSITIVE,
         TestCategory.NEGATIVE,
@@ -41,7 +41,13 @@ def test_product_rules_catalog_has_ten_rules() -> None:
         TestCategory.VALIDATION,
         TestCategory.REGRESSION,
     )
-    assert TEST_CASE_ALLOWED_FIELDS == {"title", "steps", "expected_results"}
+    assert TEST_CASE_ALLOWED_FIELDS == {
+        "title",
+        "steps",
+        "expected_results",
+        "is_regression",
+        "is_sanity",
+    }
 
 
 def _strategy(*, estimated_new: int = 4) -> TestStrategy:

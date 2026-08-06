@@ -1,0 +1,756 @@
+{
+  "ok": true,
+  "blocked": false,
+  "directive": "fresh_suite",
+  "story_title": "FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections",
+  "description": "As a Live+ user, I want to view and modify the Real-time and FracPro channels included in the ASCII report so that I can control the report content.",
+  "ac_texts": [
+    "On opening the dialog, invoke the GET reportSetup API . The dialog shall contain two tabs: Real-time Columns: # Channel Select Display all Real-time channels. Display a checkbox for eh channel. Display a header checkbox to Select FracPro Columns: # Channel Select Display all FracPro channels. Display a checkbox for each channel. Display a header checkbox to Select . If asciirealtime is returned with values, only those channels shall be selected. If asciirealtime is missing or empty, all Real-time channels shall be selected by default. If asciifp is returned with values, only those channels shall be selected. If asciifp is missing or empty, no FracPro channels shall be selected by default. Users shall be able to modify individual channel selections."
+  ],
+  "existing_tc_count": 0,
+  "existing_titles": [],
+  "bugs_count": 25,
+  "code_source": "local",
+  "code_files": [
+    "fracpro-agile/Helm/values.yaml",
+    "fracpro-agile/azure-pipelines.yml",
+    "fracpro-agile/src/app/core/directives/select-tooltip.directive.spec.ts",
+    "fracpro-agile/src/app/core/directives/select-tooltip.directive.ts",
+    "fracpro-agile/src/app/core/helpers/app.constants.ts",
+    "fracpro-agile/src/app/core/pipes/minutes-to-time.pipe.spec.ts",
+    "fracpro-agile/src/app/core/services/channel-inputs.service.spec.ts",
+    "fracpro-agile/src/app/core/services/channel-inputs.service.ts",
+    "fracpro-agile/src/app/core/services/default-diagnostic-points.service.ts",
+    "fracpro-agile/src/app/core/services/plot-highcharts.service.ts",
+    "fracpro-agile/src/app/core/services/plot-popout.service.ts",
+    "fracpro-agile/src/app/core/services/seismos.service.spec.ts",
+    "fracpro-agile/src/app/core/services/settings-channels-api.service.spec.ts",
+    "fracpro-agile/src/app/core/services/settings-channels-api.service.ts",
+    "fracpro-agile/src/app/core/services/treatments-channels.service.spec.ts",
+    "fracpro-agile/src/app/core/services/treatments-channels.service.ts",
+    "fracpro-agile/src/app/core/services/version-control.service.spec.ts",
+    "fracpro-agile/src/app/core/services/version-control.service.ts",
+    "fracpro-agile/src/app/layouts/sidebar/run-simulator/run-simulator.component.ts",
+    "fracpro-agile/src/app/layouts/sidebar/sidebar.component.spec.ts"
+  ],
+  "code_validation_rules": [
+    "Duplicate values are not allowed",
+    "Leading/trailing whitespace is trimmed or rejected"
+  ],
+  "code_notes": "Source: local path 'D:\\Live_Plus_UAT'.",
+  "generated_count": 50,
+  "drafts": [
+    {
+      "title": "Verify On opening the dialog, invoke the GET reportSetup API . The dialog shall contain two tabs: Real-time Columns: # Channel Select Display all Real-time channels. Display a checkbox for eh channel. Display a header checkbox to Select FracPro Co - Positive",
+      "steps": [
+        "Prepare a valid precondition for 'FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections'.",
+        "Execute the Reporting behavior for: On opening the dialog, invoke the GET reportSetup API . The dialog shall contain two tabs: Real-time Columns: # Channel Select Display all Real-time channels. Display a checkbox for eh channel. Display a header checkbox to Select FracPro Co.",
+        "Observe the primary outcome."
+      ],
+      "expected_results": [
+        "Preconditions are ready and valid.",
+        "The Reporting behavior executes without error.",
+        "The outcome satisfies: On opening the dialog, invoke the GET reportSetup API . The dialog shall contain two tabs: Real-time Columns: # Channel Select Display all Real-time channels. Display a checkbox for eh channel. Display a header checkbox to Select FracPro Co."
+      ]
+    },
+    {
+      "title": "Verify On opening the dialog, invoke the GET reportSetup API - Negative",
+      "steps": [
+        "Prepare an invalid or unauthorized condition related to 'FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections'.",
+        "Attempt the Reporting behavior for: On opening the dialog, invoke the GET reportSetup API.",
+        "Capture the system response."
+      ],
+      "expected_results": [
+        "Invalid condition is in place.",
+        "The Reporting behavior rejects the request.",
+        "An appropriate error or failure response is returned."
+      ]
+    },
+    {
+      "title": "Verify The dialog shall contain two tabs: Real-time Columns: # Channel Select Display all Real-time channels - Edge Case",
+      "steps": [
+        "Prepare boundary or unusual input data.",
+        "Execute the Reporting behavior for: The dialog shall contain two tabs: Real-time Columns: # Channel Select Display all Real-time channels.",
+        "Review system handling of the edge input."
+      ],
+      "expected_results": [
+        "Boundary/unusual input is prepared.",
+        "The Reporting behavior accepts or rejects the edge input per rules.",
+        "No unexpected failure or data corruption occurs."
+      ]
+    },
+    {
+      "title": "Verify Display a checkbox for eh channel - Validation",
+      "steps": [
+        "Prepare input that violates a validation rule.",
+        "Submit the input through the Reporting path for: Display a checkbox for eh channel.",
+        "Inspect validation messaging and status."
+      ],
+      "expected_results": [
+        "Invalid input is prepared.",
+        "Submission is blocked or flagged by validation.",
+        "Clear validation feedback is returned."
+      ]
+    },
+    {
+      "title": "Verify Display a header checkbox to Select FracPro Columns: # Channel Select Display all FracPro channels - Regression",
+      "steps": [
+        "Identify an adjacent workflow impacted by 'FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections'.",
+        "Execute the previously working adjacent workflow.",
+        "Confirm baseline behavior still holds alongside: Display a header checkbox to Select FracPro Columns: # Channel Select Display all FracPro channels."
+      ],
+      "expected_results": [
+        "Impacted adjacent workflow is identified.",
+        "Adjacent workflow completes successfully.",
+        "No regression is introduced relative to the change."
+      ]
+    },
+    {
+      "title": "Verify Display a checkbox for each channel - API",
+      "steps": [
+        "Prepare a valid API request payload and headers.",
+        "Call the API endpoint related to: Display a checkbox for each channel.",
+        "Inspect HTTP status code and response body."
+      ],
+      "expected_results": [
+        "Request payload and headers are valid.",
+        "API call is accepted by the service.",
+        "Status code and body match the acceptance criterion."
+      ]
+    },
+    {
+      "title": "Verify Display a header checkbox to Select - Reporting",
+      "steps": [
+        "Prepare conditions required for Reporting testing of 'FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections'.",
+        "Execute the Reporting scenario for: Display a header checkbox to Select.",
+        "Evaluate Reporting outcome."
+      ],
+      "expected_results": [
+        "Reporting preconditions are satisfied.",
+        "The Reporting scenario executes.",
+        "Reporting expectations for the criterion are met."
+      ]
+    },
+    {
+      "title": "Verify If asciirealtime is returned with values, only those channels shall be selected - Positive",
+      "steps": [
+        "Prepare a valid precondition for 'FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections'.",
+        "Execute the Reporting behavior for: If asciirealtime is returned with values, only those channels shall be selected.",
+        "Observe the primary outcome."
+      ],
+      "expected_results": [
+        "Preconditions are ready and valid.",
+        "The Reporting behavior executes without error.",
+        "The outcome satisfies: If asciirealtime is returned with values, only those channels shall be selected."
+      ]
+    },
+    {
+      "title": "Verify If asciirealtime is missing or empty, all Real-time channels shall be selected by default - Negative",
+      "steps": [
+        "Prepare an invalid or unauthorized condition related to 'FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections'.",
+        "Attempt the Reporting behavior for: If asciirealtime is missing or empty, all Real-time channels shall be selected by default.",
+        "Capture the system response."
+      ],
+      "expected_results": [
+        "Invalid condition is in place.",
+        "The Reporting behavior rejects the request.",
+        "An appropriate error or failure response is returned."
+      ]
+    },
+    {
+      "title": "Verify If asciifp is returned with values, only those channels shall be selected - Edge Case",
+      "steps": [
+        "Prepare boundary or unusual input data.",
+        "Execute the Reporting behavior for: If asciifp is returned with values, only those channels shall be selected.",
+        "Review system handling of the edge input."
+      ],
+      "expected_results": [
+        "Boundary/unusual input is prepared.",
+        "The Reporting behavior accepts or rejects the edge input per rules.",
+        "No unexpected failure or data corruption occurs."
+      ]
+    },
+    {
+      "title": "Verify If asciifp is missing or empty, no FracPro channels shall be selected by default - Validation",
+      "steps": [
+        "Prepare input that violates a validation rule.",
+        "Submit the input through the Reporting path for: If asciifp is missing or empty, no FracPro channels shall be selected by default.",
+        "Inspect validation messaging and status."
+      ],
+      "expected_results": [
+        "Invalid input is prepared.",
+        "Submission is blocked or flagged by validation.",
+        "Clear validation feedback is returned."
+      ]
+    },
+    {
+      "title": "Verify Users shall be able to modify individual channel selections - Regression",
+      "steps": [
+        "Identify an adjacent workflow impacted by 'FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections'.",
+        "Execute the previously working adjacent workflow.",
+        "Confirm baseline behavior still holds alongside: Users shall be able to modify individual channel selections."
+      ],
+      "expected_results": [
+        "Impacted adjacent workflow is identified.",
+        "Adjacent workflow completes successfully.",
+        "No regression is introduced relative to the change."
+      ]
+    },
+    {
+      "title": "Verify Duplicate values are not allowed - API",
+      "steps": [
+        "Prepare a valid API request payload and headers.",
+        "Call the API endpoint related to: Duplicate values are not allowed.",
+        "Inspect HTTP status code and response body."
+      ],
+      "expected_results": [
+        "Request payload and headers are valid.",
+        "API call is accepted by the service.",
+        "Status code and body match the acceptance criterion."
+      ]
+    },
+    {
+      "title": "Verify Leading/trailing whitespace is trimmed or rejected - Reporting",
+      "steps": [
+        "Prepare conditions required for Reporting testing of 'FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections'.",
+        "Execute the Reporting scenario for: Leading/trailing whitespace is trimmed or rejected.",
+        "Evaluate Reporting outcome."
+      ],
+      "expected_results": [
+        "Reporting preconditions are satisfied.",
+        "The Reporting scenario executes.",
+        "Reporting expectations for the criterion are met."
+      ]
+    },
+    {
+      "title": "Verify Regression: FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections - Positive",
+      "steps": [
+        "Prepare a valid precondition for 'FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections'.",
+        "Execute the Reporting behavior for: Regression: FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections.",
+        "Observe the primary outcome."
+      ],
+      "expected_results": [
+        "Preconditions are ready and valid.",
+        "The Reporting behavior executes without error.",
+        "The outcome satisfies: Regression: FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections."
+      ]
+    },
+    {
+      "title": "Verify Regression: channel inputs.service.spec - Negative",
+      "steps": [
+        "Prepare an invalid or unauthorized condition related to 'FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections'.",
+        "Attempt the Reporting behavior for: Regression: channel inputs.service.spec.",
+        "Capture the system response."
+      ],
+      "expected_results": [
+        "Invalid condition is in place.",
+        "The Reporting behavior rejects the request.",
+        "An appropriate error or failure response is returned."
+      ]
+    },
+    {
+      "title": "Verify Regression: channel inputs.service - Edge Case",
+      "steps": [
+        "Prepare boundary or unusual input data.",
+        "Execute the Reporting behavior for: Regression: channel inputs.service.",
+        "Review system handling of the edge input."
+      ],
+      "expected_results": [
+        "Boundary/unusual input is prepared.",
+        "The Reporting behavior accepts or rejects the edge input per rules.",
+        "No unexpected failure or data corruption occurs."
+      ]
+    },
+    {
+      "title": "Verify Regression: default diagnostic points.service - Validation",
+      "steps": [
+        "Prepare input that violates a validation rule.",
+        "Submit the input through the Reporting path for: Regression: default diagnostic points.service.",
+        "Inspect validation messaging and status."
+      ],
+      "expected_results": [
+        "Invalid input is prepared.",
+        "Submission is blocked or flagged by validation.",
+        "Clear validation feedback is returned."
+      ]
+    },
+    {
+      "title": "Verify Regression: plot highcharts.service - Regression",
+      "steps": [
+        "Identify an adjacent workflow impacted by 'FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections'.",
+        "Execute the previously working adjacent workflow.",
+        "Confirm baseline behavior still holds alongside: Regression: plot highcharts.service."
+      ],
+      "expected_results": [
+        "Impacted adjacent workflow is identified.",
+        "Adjacent workflow completes successfully.",
+        "No regression is introduced relative to the change."
+      ]
+    },
+    {
+      "title": "Verify Regression: plot popout.service - API",
+      "steps": [
+        "Prepare a valid API request payload and headers.",
+        "Call the API endpoint related to: Regression: plot popout.service.",
+        "Inspect HTTP status code and response body."
+      ],
+      "expected_results": [
+        "Request payload and headers are valid.",
+        "API call is accepted by the service.",
+        "Status code and body match the acceptance criterion."
+      ]
+    },
+    {
+      "title": "Verify Regression: seismos.service.spec - Reporting",
+      "steps": [
+        "Prepare conditions required for Reporting testing of 'FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections'.",
+        "Execute the Reporting scenario for: Regression: seismos.service.spec.",
+        "Evaluate Reporting outcome."
+      ],
+      "expected_results": [
+        "Reporting preconditions are satisfied.",
+        "The Reporting scenario executes.",
+        "Reporting expectations for the criterion are met."
+      ]
+    },
+    {
+      "title": "Verify Regression: settings channels api.service.spec - Positive",
+      "steps": [
+        "Prepare a valid precondition for 'FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections'.",
+        "Execute the Reporting behavior for: Regression: settings channels api.service.spec.",
+        "Observe the primary outcome."
+      ],
+      "expected_results": [
+        "Preconditions are ready and valid.",
+        "The Reporting behavior executes without error.",
+        "The outcome satisfies: Regression: settings channels api.service.spec."
+      ]
+    },
+    {
+      "title": "Verify Regression: treatments channels.service - Validation",
+      "steps": [
+        "Prepare input that violates a validation rule.",
+        "Submit the input through the Reporting path for: Regression: treatments channels.service.",
+        "Inspect validation messaging and status."
+      ],
+      "expected_results": [
+        "Invalid input is prepared.",
+        "Submission is blocked or flagged by validation.",
+        "Clear validation feedback is returned."
+      ]
+    },
+    {
+      "title": "Verify Regression: version control.service.spec - Regression",
+      "steps": [
+        "Identify an adjacent workflow impacted by 'FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections'.",
+        "Execute the previously working adjacent workflow.",
+        "Confirm baseline behavior still holds alongside: Regression: version control.service.spec."
+      ],
+      "expected_results": [
+        "Impacted adjacent workflow is identified.",
+        "Adjacent workflow completes successfully.",
+        "No regression is introduced relative to the change."
+      ]
+    },
+    {
+      "title": "Verify Regression: version control.service - API",
+      "steps": [
+        "Prepare a valid API request payload and headers.",
+        "Call the API endpoint related to: Regression: version control.service.",
+        "Inspect HTTP status code and response body."
+      ],
+      "expected_results": [
+        "Request payload and headers are valid.",
+        "API call is accepted by the service.",
+        "Status code and body match the acceptance criterion."
+      ]
+    },
+    {
+      "title": "Verify Regression: run simulator.component - Reporting",
+      "steps": [
+        "Prepare conditions required for Reporting testing of 'FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections'.",
+        "Execute the Reporting scenario for: Regression: run simulator.component.",
+        "Evaluate Reporting outcome."
+      ],
+      "expected_results": [
+        "Reporting preconditions are satisfied.",
+        "The Reporting scenario executes.",
+        "Reporting expectations for the criterion are met."
+      ]
+    },
+    {
+      "title": "Verify Regression: sidebar.component.spec - Positive",
+      "steps": [
+        "Prepare a valid precondition for 'FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections'.",
+        "Execute the Reporting behavior for: Regression: sidebar.component.spec.",
+        "Observe the primary outcome."
+      ],
+      "expected_results": [
+        "Preconditions are ready and valid.",
+        "The Reporting behavior executes without error.",
+        "The outcome satisfies: Regression: sidebar.component.spec."
+      ]
+    },
+    {
+      "title": "Verify Regression: topbar.component.spec - Negative",
+      "steps": [
+        "Prepare an invalid or unauthorized condition related to 'FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections'.",
+        "Attempt the Reporting behavior for: Regression: topbar.component.spec.",
+        "Capture the system response."
+      ],
+      "expected_results": [
+        "Invalid condition is in place.",
+        "The Reporting behavior rejects the request.",
+        "An appropriate error or failure response is returned."
+      ]
+    },
+    {
+      "title": "Verify Regression: entry friction.component.spec - Edge Case",
+      "steps": [
+        "Prepare boundary or unusual input data.",
+        "Execute the Reporting behavior for: Regression: entry friction.component.spec.",
+        "Review system handling of the edge input."
+      ],
+      "expected_results": [
+        "Boundary/unusual input is prepared.",
+        "The Reporting behavior accepts or rejects the edge input per rules.",
+        "No unexpected failure or data corruption occurs."
+      ]
+    },
+    {
+      "title": "Verify Regression: entry friction.component - Validation",
+      "steps": [
+        "Prepare input that violates a validation rule.",
+        "Submit the input through the Reporting path for: Regression: entry friction.component.",
+        "Inspect validation messaging and status."
+      ],
+      "expected_results": [
+        "Invalid input is prepared.",
+        "Submission is blocked or flagged by validation.",
+        "Clear validation feedback is returned."
+      ]
+    },
+    {
+      "title": "Verify Regression: default.component.spec - Regression",
+      "steps": [
+        "Identify an adjacent workflow impacted by 'FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections'.",
+        "Execute the previously working adjacent workflow.",
+        "Confirm baseline behavior still holds alongside: Regression: default.component.spec."
+      ],
+      "expected_results": [
+        "Impacted adjacent workflow is identified.",
+        "Adjacent workflow completes successfully.",
+        "No regression is introduced relative to the change."
+      ]
+    },
+    {
+      "title": "Verify Regression: default.component - API",
+      "steps": [
+        "Prepare a valid API request payload and headers.",
+        "Call the API endpoint related to: Regression: default.component.",
+        "Inspect HTTP status code and response body."
+      ],
+      "expected_results": [
+        "Request payload and headers are valid.",
+        "API call is accepted by the service.",
+        "Status code and body match the acceptance criterion."
+      ]
+    },
+    {
+      "title": "Verify Positive path for FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections - Reporting",
+      "steps": [
+        "Prepare conditions required for Reporting testing of 'FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections'.",
+        "Execute the Reporting scenario for: Positive path for FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections.",
+        "Evaluate Reporting outcome."
+      ],
+      "expected_results": [
+        "Reporting preconditions are satisfied.",
+        "The Reporting scenario executes.",
+        "Reporting expectations for the criterion are met."
+      ]
+    },
+    {
+      "title": "Verify Negative path / rejection for FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections - Positive",
+      "steps": [
+        "Prepare a valid precondition for 'FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections'.",
+        "Execute the Reporting behavior for: Negative path / rejection for FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections.",
+        "Observe the primary outcome."
+      ],
+      "expected_results": [
+        "Preconditions are ready and valid.",
+        "The Reporting behavior executes without error.",
+        "The outcome satisfies: Negative path / rejection for FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections."
+      ]
+    },
+    {
+      "title": "Verify Edge case for FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections - Negative",
+      "steps": [
+        "Prepare an invalid or unauthorized condition related to 'FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections'.",
+        "Attempt the Reporting behavior for: Edge case for FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections.",
+        "Capture the system response."
+      ],
+      "expected_results": [
+        "Invalid condition is in place.",
+        "The Reporting behavior rejects the request.",
+        "An appropriate error or failure response is returned."
+      ]
+    },
+    {
+      "title": "Verify Validation rules for FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections - Edge Case",
+      "steps": [
+        "Prepare boundary or unusual input data.",
+        "Execute the Reporting behavior for: Validation rules for FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections.",
+        "Review system handling of the edge input."
+      ],
+      "expected_results": [
+        "Boundary/unusual input is prepared.",
+        "The Reporting behavior accepts or rejects the edge input per rules.",
+        "No unexpected failure or data corruption occurs."
+      ]
+    },
+    {
+      "title": "Verify Regression safety for adjacent screens after FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections - Validation",
+      "steps": [
+        "Prepare input that violates a validation rule.",
+        "Submit the input through the Reporting path for: Regression safety for adjacent screens after FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections.",
+        "Inspect validation messaging and status."
+      ],
+      "expected_results": [
+        "Invalid input is prepared.",
+        "Submission is blocked or flagged by validation.",
+        "Clear validation feedback is returned."
+      ]
+    },
+    {
+      "title": "Verify UI label and control visibility for FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections - Regression",
+      "steps": [
+        "Identify an adjacent workflow impacted by 'FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections'.",
+        "Execute the previously working adjacent workflow.",
+        "Confirm baseline behavior still holds alongside: UI label and control visibility for FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections."
+      ],
+      "expected_results": [
+        "Impacted adjacent workflow is identified.",
+        "Adjacent workflow completes successfully.",
+        "No regression is introduced relative to the change."
+      ]
+    },
+    {
+      "title": "Verify Cancel / dismiss without save for FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections - API",
+      "steps": [
+        "Prepare a valid API request payload and headers.",
+        "Call the API endpoint related to: Cancel / dismiss without save for FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections.",
+        "Inspect HTTP status code and response body."
+      ],
+      "expected_results": [
+        "Request payload and headers are valid.",
+        "API call is accepted by the service.",
+        "Status code and body match the acceptance criterion."
+      ]
+    },
+    {
+      "title": "Verify Operator / permission guard for FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections - Reporting",
+      "steps": [
+        "Prepare conditions required for Reporting testing of 'FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections'.",
+        "Execute the Reporting scenario for: Operator / permission guard for FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections.",
+        "Evaluate Reporting outcome."
+      ],
+      "expected_results": [
+        "Reporting preconditions are satisfied.",
+        "The Reporting scenario executes.",
+        "Reporting expectations for the criterion are met."
+      ]
+    },
+    {
+      "title": "Verify No premature command invocation for FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections - Negative",
+      "steps": [
+        "Prepare an invalid or unauthorized condition related to 'FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections'.",
+        "Attempt the Reporting behavior for: No premature command invocation for FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections.",
+        "Capture the system response."
+      ],
+      "expected_results": [
+        "Invalid condition is in place.",
+        "The Reporting behavior rejects the request.",
+        "An appropriate error or failure response is returned."
+      ]
+    },
+    {
+      "title": "Verify Dialog / modal open behavior for FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections - Edge Case",
+      "steps": [
+        "Prepare boundary or unusual input data.",
+        "Execute the Reporting behavior for: Dialog / modal open behavior for FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections.",
+        "Review system handling of the edge input."
+      ],
+      "expected_results": [
+        "Boundary/unusual input is prepared.",
+        "The Reporting behavior accepts or rejects the edge input per rules.",
+        "No unexpected failure or data corruption occurs."
+      ]
+    },
+    {
+      "title": "Verify Dialog Generate action for FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections - Validation",
+      "steps": [
+        "Prepare input that violates a validation rule.",
+        "Submit the input through the Reporting path for: Dialog Generate action for FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections.",
+        "Inspect validation messaging and status."
+      ],
+      "expected_results": [
+        "Invalid input is prepared.",
+        "Submission is blocked or flagged by validation.",
+        "Clear validation feedback is returned."
+      ]
+    },
+    {
+      "title": "Verify Dialog Cancel action for FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections - Regression",
+      "steps": [
+        "Identify an adjacent workflow impacted by 'FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections'.",
+        "Execute the previously working adjacent workflow.",
+        "Confirm baseline behavior still holds alongside: Dialog Cancel action for FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections."
+      ],
+      "expected_results": [
+        "Impacted adjacent workflow is identified.",
+        "Adjacent workflow completes successfully.",
+        "No regression is introduced relative to the change."
+      ]
+    },
+    {
+      "title": "Verify Configuration retained only after explicit Generate for FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections - Reporting",
+      "steps": [
+        "Prepare conditions required for Reporting testing of 'FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections'.",
+        "Execute the Reporting scenario for: Configuration retained only after explicit Generate for FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections.",
+        "Evaluate Reporting outcome."
+      ],
+      "expected_results": [
+        "Reporting preconditions are satisfied.",
+        "The Reporting scenario executes.",
+        "Reporting expectations for the criterion are met."
+      ]
+    },
+    {
+      "title": "Verify Tooltip / i18n label update for FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections - Positive",
+      "steps": [
+        "Prepare a valid precondition for 'FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections'.",
+        "Execute the Reporting behavior for: Tooltip / i18n label update for FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections.",
+        "Observe the primary outcome."
+      ],
+      "expected_results": [
+        "Preconditions are ready and valid.",
+        "The Reporting behavior executes without error.",
+        "The outcome satisfies: Tooltip / i18n label update for FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections."
+      ]
+    },
+    {
+      "title": "Verify Disabled state when prerequisite connection missing for FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections - Negative",
+      "steps": [
+        "Prepare an invalid or unauthorized condition related to 'FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections'.",
+        "Attempt the Reporting behavior for: Disabled state when prerequisite connection missing for FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections.",
+        "Capture the system response."
+      ],
+      "expected_results": [
+        "Invalid condition is in place.",
+        "The Reporting behavior rejects the request.",
+        "An appropriate error or failure response is returned."
+      ]
+    },
+    {
+      "title": "Verify Concurrent click / double-click protection for FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections - Edge Case",
+      "steps": [
+        "Prepare boundary or unusual input data.",
+        "Execute the Reporting behavior for: Concurrent click / double-click protection for FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections.",
+        "Review system handling of the edge input."
+      ],
+      "expected_results": [
+        "Boundary/unusual input is prepared.",
+        "The Reporting behavior accepts or rejects the edge input per rules.",
+        "No unexpected failure or data corruption occurs."
+      ]
+    },
+    {
+      "title": "Verify Neighbor report buttons remain unchanged for FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections - Validation",
+      "steps": [
+        "Prepare input that violates a validation rule.",
+        "Submit the input through the Reporting path for: Neighbor report buttons remain unchanged for FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections.",
+        "Inspect validation messaging and status."
+      ],
+      "expected_results": [
+        "Invalid input is prepared.",
+        "Submission is blocked or flagged by validation.",
+        "Clear validation feedback is returned."
+      ]
+    },
+    {
+      "title": "Verify Persist / refresh behavior after completing FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections - Regression",
+      "steps": [
+        "Identify an adjacent workflow impacted by 'FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections'.",
+        "Execute the previously working adjacent workflow.",
+        "Confirm baseline behavior still holds alongside: Persist / refresh behavior after completing FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections."
+      ],
+      "expected_results": [
+        "Impacted adjacent workflow is identified.",
+        "Adjacent workflow completes successfully.",
+        "No regression is introduced relative to the change."
+      ]
+    }
+  ],
+  "steps": [
+    {
+      "name": "fetch_user_story",
+      "status": "succeeded",
+      "message": "Fetched user story 'FracPro Live+ - Reports - Load and display Real-time and FracPro channel selections'"
+    },
+    {
+      "name": "analyze_requirement",
+      "status": "succeeded",
+      "message": "Requirement analysis completed"
+    },
+    {
+      "name": "code_intelligence",
+      "status": "succeeded",
+      "message": "Code intelligence analyzed 25 file(s)"
+    },
+    {
+      "name": "fetch_existing_test_cases",
+      "status": "succeeded",
+      "message": "Fetched 0 existing test case(s)"
+    },
+    {
+      "name": "fetch_bugs",
+      "status": "succeeded",
+      "message": "Fetched 25 related bug(s)"
+    },
+    {
+      "name": "duplicate_detection",
+      "status": "succeeded",
+      "message": "Duplicate detection completed"
+    },
+    {
+      "name": "coverage_analysis",
+      "status": "succeeded",
+      "message": "Coverage analysis found 1 uncovered scenario(s)"
+    },
+    {
+      "name": "test_strategy",
+      "status": "succeeded",
+      "message": "Strategy directive=fresh_suite"
+    },
+    {
+      "name": "generate_test_cases",
+      "status": "succeeded",
+      "message": "Generated 50 draft test case(s)"
+    },
+    {
+      "name": "validate_test_cases",
+      "status": "succeeded",
+      "message": "Validated 50 case(s); rejected 0"
+    },
+    {
+      "name": "publish_to_azure_devops",
+      "status": "skipped",
+      "message": "Publish disabled by caller"
+    },
+    {
+      "name": "link_test_cases",
+      "status": "skipped",
+      "message": "Link skipped because publish was disabled"
+    }
+  ]
+}

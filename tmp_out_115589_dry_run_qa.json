@@ -1,0 +1,235 @@
+{
+  "ok": true,
+  "correlation_id": "fd96c931-5bff-4b2e-8ac4-0a4071573277",
+  "data": [
+    {
+      "index": 0,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify Save Template dialog prepopulates current name for an existing user-defined template",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 1,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify prepopulated Save dialog name matches the Plots header template title",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 2,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify Save prepopulation works for an existing Pad plot template",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 3,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify unchanged prepopulated name shows warning and disables Save after blur",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 4,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify Save click with unchanged name is blocked even if Save appears enabled on open",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 5,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify unchanged-name path does not create a duplicate template list entry",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 6,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify editing prepopulated name and saving applies the updated template name",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 7,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify empty plot name is rejected when clearing a prepopulated name",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 8,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify restricted name surf prc is rejected when editing from prepopulated name",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 9,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify restricted name btm prc is rejected on Save Plot",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 10,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify restricted name measured data is rejected on Save Plot",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 11,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify duplicate existing template name conflict when renaming via Save Plot",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 12,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify plot name max length 50 validation applies with prepopulated names",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 13,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify whitespace-only name is rejected when replacing prepopulated name",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 14,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify Rename Plot still prepopulates current name",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 15,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify Cancel on Save Plot does not change the loaded template name",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 16,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify reopening Save after Cancel still prepopulates current existing name",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 17,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify switching from template A to template B updates prepopulated Save name",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 18,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify Duplicate Plot still prepopulates name and content",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 19,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify channel settings dialog still opens after Save Plot interaction",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 20,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify built-in Fracpro Live+ templates keep Save toolbar disabled",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 21,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify opening Save Plot does not mutate plot content before Save is clicked",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 22,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify end-to-end save with new unique name keeps header and list consistent",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 23,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify Save and Rename show the same prepopulated name for the same template",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 24,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify user can save after changing prepopulated name to a new unique valid name",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    }
+  ],
+  "error": null,
+  "warnings": [
+    "Generate a fresh suite only when no existing tests exist; otherwise generate only missing scenarios. Fresh/full generation must include at least 25 test cases (expand to 50\u201360 when complex; cap at 60). Never emit duplicates. Each case has only title, steps, expected_results with equal step and expected-result counts.\n\nRule 1: Never generate duplicate test cases.\nRule 2: If no existing test cases exist, generate a fresh test suite.\nRule 3: If existing test cases exist, generate only missing scenarios.\nRule 4: Always analyze the User Story before selecting test categories.\nRule 5: Core categories: Positive, Negative, Edge Cases, Validation, Regression.\nRule 6: Optional categories are included only when applicable.\nRule 7: Every test step must have exactly one corresponding expected result.\nRule 8: Each test case contains only: Test Title, Test Steps, Expected Results.\nRule 9: Reject invalid output where the number of steps and expected results differ.\nRule 10: Never infer requirements that are not present. Report requirement gaps instead.\nRule 11: Fresh/full generation: produce at least 25 test cases for typical stories. Expand to 50\u201360 only when the story is complex (high/critical risk, multiple AC items, many Scenario N blocks, or long AC text). Short/simple stories must stay near 25 \u2014 do not pad to 50 with generic cases.\nRule 12: If the User Story feature is not implemented in any configured local application codebase, do not generate test cases by default. First analyze previous/related implementation in the existing codebases and report it. Generation from related/legacy code is optional \u2014 ask the user whether to proceed based on that related implementation before generating. Only generate without asking when the story feature itself is found, or when the user explicitly approves related-implementation generation.\nRule 13: After generating the suite from the User Story and codebase analysis, classify about 30% of cases as Regression and about 10% as Critical by selecting those that genuinely qualify on impact, business importance, and risk \u2014 not by randomly assigning slots up front. Do not put 'Regression' or 'Critical' in the test title; report classifications by TC number in the generation summary."
+  ]
+}

@@ -1,0 +1,702 @@
+[
+  {
+    "title": "Verify dragging Closure line invokes MinifracFunc command",
+    "steps": [
+      "Open Minifrac Analysis for a well/treatment with a Closure line visible on the plot.",
+      "Drag the Closure line to a new X position and release.",
+      "Capture the outbound command/request issued for the drag."
+    ],
+    "expected_results": [
+      "Minifrac plot loads with Closure line displayed.",
+      "Closure line moves to the new position.",
+      "MinifracFunc command is invoked as a result of the drag."
+    ],
+    "label": "Critical"
+  },
+  {
+    "title": "Verify MinifracFunc is not invoked until Closure drag completes to a new position",
+    "steps": [
+      "Open Minifrac with Closure line displayed.",
+      "Begin dragging Closure but return it to the original position before release (or cancel if supported).",
+      "Observe whether MinifracFunc is invoked."
+    ],
+    "expected_results": [
+      "Closure line is available for drag.",
+      "Drag gesture completes without a lasting new position (or cancel).",
+      "Behavior remains stable; no spurious MinifracFunc for a non-change if product treats it as no-op (document actual)."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify MinifracFunc payload y value is always -1 on Closure drag",
+    "steps": [
+      "Open Minifrac with Closure line displayed.",
+      "Drag Closure to a new position.",
+      "Inspect the MinifracFunc command payload y field."
+    ],
+    "expected_results": [
+      "Plot and Closure are ready.",
+      "Drag completes and MinifracFunc is sent.",
+      "Payload y equals -1."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify MinifracFunc payload y remains -1 across multiple Closure drag positions",
+    "steps": [
+      "Open Minifrac with Closure line displayed.",
+      "Drag Closure to at least three different X positions in sequence.",
+      "Inspect y on each MinifracFunc invocation."
+    ],
+    "expected_results": [
+      "Closure line is draggable.",
+      "Each drag triggers MinifracFunc.",
+      "Every invocation has y = -1."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify MinifracFunc payload x reflects the new Closure line position",
+    "steps": [
+      "Open Minifrac and note the Closure line starting X.",
+      "Drag Closure to a clearly different X position.",
+      "Compare MinifracFunc payload x to the new Closure position."
+    ],
+    "expected_results": [
+      "Initial Closure X is known.",
+      "Closure settles at the new position.",
+      "Payload x matches the new Closure line position (per product coordinate calculation)."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify x for Closure drag uses same calculation logic as tangent-line right-click",
+    "steps": [
+      "On a Minifrac/related plot where tangent right-click MinifracFunc (or equivalent) exists, right-click the tangent at a known plot location and capture computed x.",
+      "Drag Closure so its position maps to the same plot location used for that calculation.",
+      "Compare Closure-drag MinifracFunc x to the tangent right-click x for the same location."
+    ],
+    "expected_results": [
+      "Tangent right-click x is captured.",
+      "Closure drag MinifracFunc is invoked for the matching location.",
+      "x values are consistent between Closure drag and tangent right-click calculation logic."
+    ],
+    "label": "Critical"
+  },
+  {
+    "title": "Verify Closure-drag x calculation remains consistent when repeating the same target position",
+    "steps": [
+      "Drag Closure to position A and capture MinifracFunc x.",
+      "Move Closure away, then drag back to the same position A.",
+      "Compare the second MinifracFunc x to the first."
+    ],
+    "expected_results": [
+      "First x for position A is recorded.",
+      "Second drag to A completes.",
+      "Second x equals first x (deterministic calculation)."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify MinifracFunc is invoked after drag ends (not only on mouse-down)",
+    "steps": [
+      "Open Minifrac with Closure displayed.",
+      "Press on Closure to start drag without moving, then move to a new position and release.",
+      "Correlate MinifracFunc timing with drag start vs drag end."
+    ],
+    "expected_results": [
+      "Drag interaction is available.",
+      "Closure moves and is released at new position.",
+      "MinifracFunc is associated with completing the move to the new position (per AC: when user drags to a new position)."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify SignalR response after MinifracFunc triggers minifracParams GET",
+    "steps": [
+      "Open Minifrac and drag Closure to a new position so MinifracFunc is invoked.",
+      "Wait for the corresponding SignalR response for that command.",
+      "Capture the next HTTP call related to Minifrac parameters."
+    ],
+    "expected_results": [
+      "MinifracFunc is sent.",
+      "Matching SignalR response is received.",
+      "Application calls minifracParams GET API after the SignalR response."
+    ],
+    "label": "Critical"
+  },
+  {
+    "title": "Verify minifracParams GET is not called before SignalR response for the drag command",
+    "steps": [
+      "Prepare network monitoring before dragging Closure.",
+      "Drag Closure to invoke MinifracFunc.",
+      "Observe request order: MinifracFunc → SignalR response → minifracParams GET."
+    ],
+    "expected_results": [
+      "Monitoring is active.",
+      "MinifracFunc is issued on drag.",
+      "minifracParams GET occurs after the corresponding SignalR response, not before."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify minifracParams GET retrieves updated Minifrac parameters for current context",
+    "steps": [
+      "Drag Closure and wait for SignalR success path.",
+      "Inspect minifracParams GET request (well/treatment/context identifiers).",
+      "Inspect response payload for updated Minifrac/Closure-related parameters."
+    ],
+    "expected_results": [
+      "SignalR path completes.",
+      "GET targets minifracParams for the active analysis context.",
+      "Response contains updated Minifrac parameters."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify Information Box refreshes after successful minifracParams GET",
+    "steps": [
+      "Note Closure-related values shown in the Information Box before drag.",
+      "Drag Closure so MinifracFunc → SignalR → minifracParams GET succeeds.",
+      "Observe the Information Box contents."
+    ],
+    "expected_results": [
+      "Pre-drag Information Box values are known.",
+      "API returns successfully.",
+      "Information Box refreshes with the latest Closure-related parameter values."
+    ],
+    "label": "Critical"
+  },
+  {
+    "title": "Verify Information Box updates without requiring a manual plot refresh",
+    "steps": [
+      "Open Minifrac with Information Box visible; do not use an explicit plot Refresh control.",
+      "Drag Closure through the full update path (command → SignalR → GET).",
+      "Confirm Information Box shows updated values while the plot session remains open."
+    ],
+    "expected_results": [
+      "No manual plot refresh is performed.",
+      "Update path completes.",
+      "Information Box shows updated Closure-related parameters without user-initiated plot refresh."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify Information Box Closure-related fields change when Closure moves to a different pressure/time region",
+    "steps": [
+      "Record Information Box Closure-related values at Closure position A.",
+      "Drag Closure to position B where analysis results are expected to differ.",
+      "Compare Information Box values after the update path completes."
+    ],
+    "expected_results": [
+      "Values at A are recorded.",
+      "Update path for B completes.",
+      "Displayed Closure-related parameters reflect the new selection (not stale A values)."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify end-to-end Closure drag synchronizes plot position, command, API, and Information Box",
+    "steps": [
+      "Drag Closure to a new position.",
+      "Confirm Closure visual position, MinifracFunc x/y, minifracParams success, and Information Box update.",
+      "Ensure all four remain aligned to the same Closure selection."
+    ],
+    "expected_results": [
+      "Closure is at the new position.",
+      "Command and API path succeed for that position.",
+      "Information Box matches the updated parameters for that Closure selection."
+    ],
+    "label": "Critical"
+  },
+  {
+    "title": "Verify successive Closure drags each run a fresh MinifracFunc → SignalR → minifracParams → Information Box cycle",
+    "steps": [
+      "Drag Closure to position A and wait for Information Box update.",
+      "Drag Closure to position B and wait for Information Box update.",
+      "Confirm a distinct update cycle occurred for B (new command/API/box values)."
+    ],
+    "expected_results": [
+      "Cycle for A completes.",
+      "Cycle for B completes.",
+      "B cycle uses new Closure position; Information Box shows B values."
+    ],
+    "label": "Regression"
+  },
+  {
+    "title": "Verify rapid successive Closure drags do not leave Information Box on an older position",
+    "steps": [
+      "Rapidly drag Closure across several positions, ending at a final position F.",
+      "Allow in-flight SignalR/API calls to settle.",
+      "Compare Information Box and Closure line to position F."
+    ],
+    "expected_results": [
+      "Final Closure position is F.",
+      "Outstanding updates finish or resolve.",
+      "Information Box reflects parameters for F (not an intermediate stale drag)."
+    ],
+    "label": "Regression"
+  },
+  {
+    "title": "Verify behavior when SignalR response for MinifracFunc fails or times out",
+    "steps": [
+      "Simulate or encounter a failed/timed-out SignalR response after Closure drag MinifracFunc.",
+      "Observe whether minifracParams GET is called.",
+      "Observe Information Box and UI stability."
+    ],
+    "expected_results": [
+      "MinifracFunc was invoked.",
+      "minifracParams GET is not treated as success path when SignalR did not succeed (no false success refresh).",
+      "UI remains stable; user is not left with a silently corrupted Information Box (error handling per product)."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify behavior when minifracParams GET returns an error after SignalR success",
+    "steps": [
+      "Complete Closure drag so MinifracFunc and SignalR succeed.",
+      "Cause or observe minifracParams GET failure (4xx/5xx/network).",
+      "Check Information Box and error feedback."
+    ],
+    "expected_results": [
+      "SignalR success occurred.",
+      "GET fails.",
+      "Information Box is not shown as successfully updated with new values; UI remains usable / shows failure appropriately."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify behavior when minifracParams GET returns empty or incomplete Closure parameters",
+    "steps": [
+      "Complete drag path through SignalR.",
+      "Receive a successful HTTP response with empty/missing Closure-related fields (if reproducible).",
+      "Observe Information Box rendering."
+    ],
+    "expected_results": [
+      "GET returns successfully at HTTP level.",
+      "Payload lacks expected Closure fields.",
+      "UI handles missing fields without crash (blank/placeholder/unchanged per product rules)."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify dragging Closure when SignalR is disconnected",
+    "steps": [
+      "Disconnect or block SignalR while Minifrac plot is open with Closure visible.",
+      "Drag Closure to a new position.",
+      "Observe command attempt, retries/errors, and Information Box."
+    ],
+    "expected_results": [
+      "SignalR is not connected.",
+      "Drag is attempted.",
+      "Update path does not falsely refresh Information Box as success; UI remains stable."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify no MinifracFunc invocation when Closure line is not displayed",
+    "steps": [
+      "Open Minifrac/plot context without a Closure line (or before Closure is defined).",
+      "Attempt drag interactions on the plot area.",
+      "Confirm MinifracFunc is not fired for Closure-drag semantics."
+    ],
+    "expected_results": [
+      "Closure line is absent.",
+      "Plot remains interactive as otherwise allowed.",
+      "No Closure-drag MinifracFunc is invoked."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify Closure drag still works after leaving and returning to Minifrac",
+    "steps": [
+      "Open Minifrac, confirm Closure drag update path works once.",
+      "Navigate away and return to Minifrac for the same well/treatment.",
+      "Drag Closure again and confirm MinifracFunc → SignalR → GET → Information Box."
+    ],
+    "expected_results": [
+      "Initial path works.",
+      "Re-entry loads Minifrac context.",
+      "Second session drag again updates parameters and Information Box."
+    ],
+    "label": "Regression"
+  },
+  {
+    "title": "Verify Closure line visual position updates during/after drag independently of Information Box timing",
+    "steps": [
+      "Drag Closure to a new X.",
+      "Observe Closure line position immediately after release.",
+      "Observe Information Box before and after API completion."
+    ],
+    "expected_results": [
+      "Drag completes.",
+      "Closure line shows the new position on the plot.",
+      "Information Box updates when params arrive; plot Closure position is not stuck at old X."
+    ],
+    "label": "Regression"
+  },
+  {
+    "title": "Verify dragging Closure near plot min X edge still sends valid MinifracFunc x and y=-1",
+    "steps": [
+      "Drag Closure near the minimum visible/allowed X of the plot.",
+      "Capture MinifracFunc payload.",
+      "Confirm update path continues if command is accepted."
+    ],
+    "expected_results": [
+      "Closure can be placed near min edge (or clamped per UI).",
+      "Payload has valid x for that position and y = -1.",
+      "UI remains stable."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify Closure dragged to plot rightmost allowed X still triggers full parameter refresh path",
+    "steps": [
+      "Move Closure from a mid-plot position to the rightmost allowed X on the plot.",
+      "Confirm MinifracFunc fires, then wait for SignalR and minifracParams GET.",
+      "Confirm Information Box refreshes for that right-edge Closure selection."
+    ],
+    "expected_results": [
+      "Closure settles at the rightmost allowed position (or UI clamp).",
+      "Full command → SignalR → GET sequence runs for that position.",
+      "Information Box shows updated Closure-related parameters for the right-edge selection."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify Closure drag does not require plot reload to re-enable subsequent drags",
+    "steps": [
+      "Drag Closure once through a successful update.",
+      "Without refreshing the page/plot, drag Closure again.",
+      "Confirm second MinifracFunc is invoked."
+    ],
+    "expected_results": [
+      "First update succeeds.",
+      "Second drag is possible in-session.",
+      "Second MinifracFunc fires for the new position."
+    ],
+    "label": "Regression"
+  },
+  {
+    "title": "Verify Information Box does not require page navigation to show updated Closure parameters",
+    "steps": [
+      "Keep Minifrac and Information Box open.",
+      "Drag Closure and complete successful minifracParams GET.",
+      "Confirm updated values appear in-place in the Information Box."
+    ],
+    "expected_results": [
+      "Information Box stays open.",
+      "GET succeeds.",
+      "Updated Closure-related parameters display without navigating away."
+    ],
+    "label": "Regression"
+  },
+  {
+    "title": "Verify only Closure drag uses this update path — unrelated plot clicks do not call MinifracFunc with y=-1",
+    "steps": [
+      "Open Minifrac with Closure displayed.",
+      "Click/pan elsewhere on the plot without dragging Closure.",
+      "Confirm MinifracFunc Closure-drag payload (x new, y=-1) is not wrongly issued."
+    ],
+    "expected_results": [
+      "Plot is interactive.",
+      "Non-Closure interactions occur.",
+      "Closure-drag MinifracFunc path is not falsely triggered."
+    ],
+    "label": "Regression"
+  },
+  {
+    "title": "Verify MinifracFunc command name/identifier is MinifracFunc (not a different analysis Func)",
+    "steps": [
+      "Drag Closure to a new position.",
+      "Inspect the command name/type on the outbound request.",
+      "Compare against other analysis commands (e.g. step-down) if visible in traffic."
+    ],
+    "expected_results": [
+      "Drag completes.",
+      "Command identifier is MinifracFunc.",
+      "It is distinct from unrelated plot commands."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify API: minifracParams is invoked via GET method",
+    "steps": [
+      "Complete Closure drag through SignalR success.",
+      "Inspect the minifracParams HTTP method.",
+      "Confirm it is GET."
+    ],
+    "expected_results": [
+      "SignalR success occurred.",
+      "HTTP call to minifracParams is observed.",
+      "Method is GET."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify API: minifracParams GET uses the active well/treatment context after Closure drag",
+    "steps": [
+      "Open Minifrac for a known well/treatment.",
+      "Drag Closure and capture minifracParams request URL/body/query.",
+      "Confirm identifiers match the open well/treatment/analysis context."
+    ],
+    "expected_results": [
+      "Correct context is open.",
+      "GET is issued after SignalR.",
+      "Request is scoped to that well/treatment/analysis context."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify UI: Closure line remains selectable/draggable after Information Box update",
+    "steps": [
+      "Drag Closure and wait for Information Box refresh.",
+      "Attempt another Closure drag.",
+      "Confirm the line remains interactive."
+    ],
+    "expected_results": [
+      "First update completes.",
+      "Second drag can start.",
+      "Closure control is not disabled after refresh."
+    ],
+    "label": "Regression"
+  },
+  {
+    "title": "Verify UI: Information Box layout remains usable when values update after drag",
+    "steps": [
+      "Open Information Box with Closure-related parameters visible.",
+      "Drag Closure so values change.",
+      "Inspect layout overflow/clipping/readability of updated fields."
+    ],
+    "expected_results": [
+      "Box is visible pre-update.",
+      "Values update.",
+      "Box remains readable and usable (no broken layout/crash)."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify UI: dragging Closure shows immediate line movement feedback",
+    "steps": [
+      "Press and drag the Closure line slowly across the plot.",
+      "Observe the line while the pointer moves.",
+      "Release at the new position."
+    ],
+    "expected_results": [
+      "Drag starts on Closure.",
+      "Line tracks the drag visually.",
+      "Line remains at the released position."
+    ],
+    "label": "Regression"
+  },
+  {
+    "title": "Verify validation: MinifracFunc x is numeric/finite for a normal Closure drag",
+    "steps": [
+      "Drag Closure to a normal mid-plot position.",
+      "Inspect MinifracFunc payload x.",
+      "Confirm x is a valid numeric value (not NaN/null/undefined)."
+    ],
+    "expected_results": [
+      "Drag completes.",
+      "Payload is available.",
+      "x is a finite number consistent with plot coordinates."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify validation: y is exactly -1 (not 0, 1, or omitted) on Closure drag",
+    "steps": [
+      "Drag Closure to a new position.",
+      "Inspect MinifracFunc payload for y.",
+      "Confirm exact value and presence."
+    ],
+    "expected_results": [
+      "Command is sent.",
+      "y field is present.",
+      "y is exactly -1."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify regression: Entry Friction analysis still opens and functions after Minifrac Closure-drag work",
+    "steps": [
+      "From analysis area, open Entry Friction for a well.",
+      "Confirm Entry Friction loads core UI/data as before.",
+      "Return to Minifrac and confirm Closure drag path still works."
+    ],
+    "expected_results": [
+      "Entry Friction opens.",
+      "No new regression blocking Entry Friction.",
+      "Minifrac Closure update path still works."
+    ],
+    "label": "Regression"
+  },
+  {
+    "title": "Verify regression: existing plot command flows (e.g. step-down callCommand) still work",
+    "steps": [
+      "Open a plots workflow that uses existing callCommand / step-down commands (if available on the build).",
+      "Execute a previously working command action.",
+      "Confirm it still succeeds independently of Minifrac Closure drag."
+    ],
+    "expected_results": [
+      "Plots command UI is available.",
+      "Existing command runs.",
+      "No regression from Minifrac Closure-drag changes."
+    ],
+    "label": "Regression"
+  },
+  {
+    "title": "Verify regression: SignalR connection used by the app still starts for non-Minifrac features",
+    "steps": [
+      "Load Live+ so SignalR starts (app bootstrap).",
+      "Exercise a non-Minifrac SignalR-dependent notification/alert if available.",
+      "Open Minifrac and perform one Closure drag update."
+    ],
+    "expected_results": [
+      "SignalR starts on app load.",
+      "Non-Minifrac SignalR behavior still works.",
+      "Minifrac Closure path can still use SignalR for its response."
+    ],
+    "label": "Regression"
+  },
+  {
+    "title": "Verify regression: navigating Analysis miniFrac route still reaches Minifrac screen",
+    "steps": [
+      "Navigate to Analysis miniFrac route (`miniFrac` child route).",
+      "Confirm Minifrac Analysis view loads.",
+      "Confirm Closure (when implemented) is available for drag testing."
+    ],
+    "expected_results": [
+      "Route navigation succeeds.",
+      "Minifrac view is shown.",
+      "Screen is ready for Closure interactions when feature is implemented."
+    ],
+    "label": "Regression"
+  },
+  {
+    "title": "Verify edge: dragging Closure by a very small delta still follows AC update path",
+    "steps": [
+      "Drag Closure by a minimal visible amount to a slightly new position.",
+      "Check whether MinifracFunc fires with updated x and y=-1.",
+      "Confirm Information Box refresh path if command is accepted."
+    ],
+    "expected_results": [
+      "Small move is recognized as new position (or documented threshold).",
+      "If treated as new position, MinifracFunc uses new x and y=-1.",
+      "Update path remains stable."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify edge: switching wells/treatments then dragging Closure uses new context for minifracParams",
+    "steps": [
+      "Complete a Closure drag update on well/treatment A.",
+      "Switch to well/treatment B Minifrac context.",
+      "Drag Closure on B and inspect minifracParams GET context."
+    ],
+    "expected_results": [
+      "A update completed.",
+      "B context is active.",
+      "GET for B uses B identifiers (not stale A)."
+    ],
+    "label": "Regression"
+  },
+  {
+    "title": "Verify edge: Information Box retains non-Closure fields while Closure-related fields update",
+    "steps": [
+      "Note any non-Closure fields in the Information Box (if present).",
+      "Drag Closure and complete successful parameter refresh.",
+      "Compare Closure vs non-Closure fields."
+    ],
+    "expected_results": [
+      "Baseline fields recorded.",
+      "Update completes.",
+      "Closure-related fields update; unrelated fields are not incorrectly wiped unless API replaces full box content by design."
+    ],
+    "label": "Regression"
+  },
+  {
+    "title": "Verify negative: Closure drag while minifracParams is still in-flight from prior drag",
+    "steps": [
+      "Drag Closure to A; before minifracParams returns, drag to B.",
+      "Allow requests to finish.",
+      "Confirm final Information Box aligns with final Closure position B."
+    ],
+    "expected_results": [
+      "Overlapping requests occur or are queued.",
+      "Requests complete.",
+      "Final UI state matches B (no stuck A values)."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify current build gap — Minifrac Closure drag update path not implemented yet",
+    "steps": [
+      "Open Analysis miniFrac in current Live_Plus_UAT build.",
+      "Inspect mini-frac-analysis UI for Closure line, MinifracFunc drag wiring, Information Box update.",
+      "Compare to US 116567 AC."
+    ],
+    "expected_results": [
+      "Route may load stub content (`mini-frac-analysis works!`).",
+      "No implemented Closure-drag → MinifracFunc → SignalR → minifracParams → Information Box flow found yet.",
+      "Feature gap vs US 116567 is documented for implementation tracking."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify after implementation: first Closure drag updates Information Box without prior page refresh",
+    "steps": [
+      "After implementation, open Minifrac with Closure and Information Box visible.",
+      "Drag Closure once to a new position.",
+      "Confirm full path without refreshing the browser page."
+    ],
+    "expected_results": [
+      "Feature is available.",
+      "MinifracFunc → SignalR → GET completes.",
+      "Information Box shows updated Closure parameters without page refresh."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify after implementation: x calculation parity sample against tangent right-click at two locations",
+    "steps": [
+      "After implementation, pick two distinct plot locations L1 and L2.",
+      "For each location, capture x from tangent right-click logic and from Closure drag to that location.",
+      "Compare pairs."
+    ],
+    "expected_results": [
+      "L1 and L2 samples are collected.",
+      "Both interaction types produce x for each location.",
+      "For each location, Closure-drag x matches tangent right-click calculation logic."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify after implementation: y stays -1 while x changes across a drag sequence",
+    "steps": [
+      "After implementation, drag Closure across a sequence of positions.",
+      "Collect MinifracFunc payloads.",
+      "Assert y and x properties across the sequence."
+    ],
+    "expected_results": [
+      "Multiple payloads collected.",
+      "x changes with Closure position.",
+      "y is -1 on every payload."
+    ],
+    "label": "Standard"
+  },
+  {
+    "title": "Verify after implementation: successful path displays updated Closure parameters in Information Box on final drag only once settled",
+    "steps": [
+      "After implementation, drag Closure to a final position and wait for idle network.",
+      "Read Information Box Closure-related parameters once.",
+      "Confirm they match minifracParams response for that final position."
+    ],
+    "expected_results": [
+      "Network is idle after final drag.",
+      "Information Box values are readable.",
+      "Displayed values match the successful minifracParams payload for the final Closure position."
+    ],
+    "label": "Standard"
+  }
+]

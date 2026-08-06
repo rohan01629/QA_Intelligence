@@ -1,0 +1,162 @@
+{
+  "ok": true,
+  "correlation_id": "b4284c23-e053-4b3a-bea1-a74ca46390a3",
+  "data": {
+    "user_story_id": 116561,
+    "feature_analysis": {
+      "feature_type": "ui",
+      "risk_level": "medium",
+      "business_rules": [
+        "Scenario 1: Load Existing Configuration Given the user opens the ASCII Report dialog When the application calls the GET reportSetup API Then Load the values from asciirealtime and asciifp . If asciirealtime is missing or empty, all Real-time channels shall be selected by default. If asciifp is missing or empty, no FrPro channels shall be selected by default. Scenario 2: Generate Report with Updated Channel Selection Given the user has modified one or more channel selections When the user clicks Generate Then Compare the current selections with the values retrieved from the GET reportSetup API. Call the PUT reportSetup API to update: asciirealtime asciifp Preserve all other existing reportSetup properties. After the PUT API returns a successful response, invoke the COMMAND API to generate the ASCII report. Scenario 3: Generate Report without Configuration Changes Given the user has not modified any channel selections When the user clicks Generate Then Do not call the PUT reportSetup API. Invoke the COMMAND API directly to generate the ASCII report. Scenario 4: Error Handling If the PUT reportSetup API fails: Display an appropriate error message. Do not invoke the COMMAND API. If the COMMAND API fails: Display an appropriate error message indicating that report generation was unsuccessful. Scenario 5: Cancel Action Given the ASCII Report dialog is open When the user clicks Cancel Then Close the dialog. Do not call the PUT reportSetup API. Do not invoke the COMMAND API. Do not save any changes made during the current session. json for refrence - \"reportSetup\": { \"Options\": [], \"ProFrac\": 0, \"Python\": 0, \"EWS\": 0, \"AutoPlots\": 0, \"NoDupPlots\": 0, \"WarnDupPlots\": 1, \"Plots\": [ \"Surf PRC\" ], \"asciirealtime\": [ \"Pressure1\" ], \"asciifp\": [ \"Btmh Pressure\" ] }",
+        "As a Live+ user, I want to generate an ASCII report using configurable Real-time and FracPro channel selections so that the report includes only the channels I have selected and my preferences are saved for future use. The ASCII Report dialog shall provide Generate and Cancel buttons. When the user clicks Generate , the application shall retrieve the existing channel configuration from the reportSetup API, determine whether the channel selection has changed, update the configuration if required, and then generate the ASCII report using the COMMAND API. The Cancel button shall close the dialog without saving any changes."
+      ],
+      "dependencies": [
+        "the get reportsetup",
+        "the put reportsetup"
+      ],
+      "modules": [
+        "Global FP",
+        "FracPro Suite",
+        "MQTT"
+      ],
+      "validation_rules": [
+        "As a Live+ user, I want to generate an ASCII report using configurable Real-time and FracPro channel selections so that the report includes only the channels I have selected and my preferences are saved for future use. The ASCII Report dialog shall provide Generate and Cancel buttons. When the user clicks Generate , the application shall retrieve the existing channel configuration from the reportSetup API, determine whether the channel selection has changed, update the configuration if required, and then generate the ASCII report using the COMMAND API. The Cancel button shall close the dialog without saving any changes."
+      ],
+      "data_flow_notes": "UI change with 1 acceptance criteria defining expected inputs/outcomes.",
+      "regression_impact": "Medium regression risk for UI changes affecting Global FP, FracPro Suite, MQTT.",
+      "applicable_optional_categories": [
+        "ui",
+        "api",
+        "reporting"
+      ],
+      "excluded_optional_categories": [
+        "boundary",
+        "database",
+        "integration",
+        "security",
+        "accessibility",
+        "performance",
+        "compatibility",
+        "permission",
+        "localization",
+        "business_rules",
+        "state_transition",
+        "recovery",
+        "concurrency",
+        "configuration",
+        "feature_flags",
+        "notifications",
+        "file_upload",
+        "logging",
+        "audit"
+      ],
+      "rationale": "Classified as UI based on requirement signals. Feature type is UI. Applicable optional categories: UI, API, Reporting."
+    },
+    "requirement_gaps": [],
+    "qa_strategy": {
+      "feature_type": "ui",
+      "risk": "medium",
+      "testing_required": [
+        "positive",
+        "negative",
+        "edge",
+        "validation",
+        "regression",
+        "ui",
+        "api",
+        "reporting"
+      ],
+      "testing_not_required": [
+        {
+          "category": "boundary",
+          "reason": "No boundary-value signals found"
+        },
+        {
+          "category": "database",
+          "reason": "No database or persistence behavior change stated"
+        },
+        {
+          "category": "integration",
+          "reason": "No cross-service integration signals found"
+        },
+        {
+          "category": "security",
+          "reason": "No security-specific signals found"
+        },
+        {
+          "category": "accessibility",
+          "reason": "No accessibility or UI interaction signals found"
+        },
+        {
+          "category": "performance",
+          "reason": "No performance, load, or SLA requirement stated"
+        },
+        {
+          "category": "compatibility",
+          "reason": "No cross-client compatibility signals found"
+        },
+        {
+          "category": "permission",
+          "reason": "No permission or RBAC signals found"
+        },
+        {
+          "category": "localization",
+          "reason": "No localization signals found"
+        },
+        {
+          "category": "business_rules",
+          "reason": "No distinct business-rule category signals beyond core validation"
+        },
+        {
+          "category": "state_transition",
+          "reason": "No state-transition signals found"
+        },
+        {
+          "category": "recovery",
+          "reason": "No recovery/failover signals found"
+        },
+        {
+          "category": "concurrency",
+          "reason": "No concurrency signals found"
+        },
+        {
+          "category": "configuration",
+          "reason": "No configuration signals found"
+        },
+        {
+          "category": "feature_flags",
+          "reason": "No feature-flag signals found"
+        },
+        {
+          "category": "notifications",
+          "reason": "No notification signals found"
+        },
+        {
+          "category": "file_upload",
+          "reason": "No file upload signals found"
+        },
+        {
+          "category": "logging",
+          "reason": "No logging requirement signals found"
+        },
+        {
+          "category": "audit",
+          "reason": "No audit requirement signals found"
+        }
+      ],
+      "reason": "Feature type is UI. Applicable optional categories: UI, API, Reporting.",
+      "estimates": {
+        "estimated_new_test_cases": 50,
+        "estimated_existing_coverage": 0,
+        "estimated_duplicate_scenarios": 0,
+        "preliminary": true
+      },
+      "blocked": false
+    },
+    "blocked": false
+  },
+  "error": null,
+  "warnings": [
+    "Analyze the User Story before selecting categories. Report requirement gaps; never invent missing acceptance criteria.\n\nRule 1: Never generate duplicate test cases.\nRule 2: If no existing test cases exist, generate a fresh test suite.\nRule 3: If existing test cases exist, generate only missing scenarios.\nRule 4: Always analyze the User Story before selecting test categories.\nRule 5: Core categories: Positive, Negative, Edge Cases, Validation, Regression.\nRule 6: Optional categories are included only when applicable.\nRule 7: Every test step must have exactly one corresponding expected result.\nRule 8: Each test case contains only: Test Title, Test Steps, Expected Results.\nRule 9: Reject invalid output where the number of steps and expected results differ.\nRule 10: Never infer requirements that are not present. Report requirement gaps instead.\nRule 11: Fresh/full generation: produce at least 25 test cases for typical stories. Expand to 50\u201360 only when the story is complex (high/critical risk, multiple AC items, many Scenario N blocks, or long AC text). Short/simple stories must stay near 25 \u2014 do not pad to 50 with generic cases.\nRule 12: If the User Story feature is not implemented in any configured local application codebase, do not generate test cases by default. First analyze previous/related implementation in the existing codebases and report it. Generation from related/legacy code is optional \u2014 ask the user whether to proceed based on that related implementation before generating. Only generate without asking when the story feature itself is found, or when the user explicitly approves related-implementation generation.\nRule 13: After generating the suite from the User Story and codebase analysis, classify about 30% of cases as Regression and about 10% as Critical by selecting those that genuinely qualify on impact, business importance, and risk \u2014 not by randomly assigning slots up front. Do not put 'Regression' or 'Critical' in the test title; report classifications by TC number in the generation summary."
+  ]
+}

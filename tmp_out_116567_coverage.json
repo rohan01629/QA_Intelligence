@@ -1,0 +1,129 @@
+{
+  "ok": true,
+  "correlation_id": "defd1da3-8936-44e9-b0da-262598522953",
+  "data": {
+    "user_story_id": 116567,
+    "covered_scenarios": [],
+    "duplicate_scenarios": [],
+    "bug_covered_scenarios": [],
+    "missing_scenarios": [
+      {
+        "key": "AC-1",
+        "title": "Scenario 1: Invoke MinifrFunc on Closure Line Drag Given the Closure line is displayed on the plot When the user drags the Closure line to a new position Then Invoke the MinifracFunc command. Pass: x = new Closure line position (using the same calculation logic as the tangent line right-click action). y = -1 . Scenario 2: Retrieve Updated Parameters Given the MinifracFunc command has been executed When the corresponding SignalR response is received Then Call the minifracParams GET API. Retrieve the updated Minifrac parameters. Scenario 3: Update Information Box Given the minifracParams GET API returns successfully When the updated parameters are received Then Refresh the Information Box with the latest values. Display the updated Closure-related parameters without requiring the user to refresh the plot. Scenario 4: X Coordinate Calculation Given the Closure line is dragged to a new location When the MinifracFunc command is prepared Then Calculate the x coordinate using the same logic implemented for the right-click on the tangent line functionality. Ensure consistent behavior between both interactions.",
+        "category": null,
+        "source": "missing",
+        "related_ids": [
+          114398
+        ]
+      }
+    ],
+    "qa_strategy_final": {
+      "feature_type": "ui",
+      "risk": "medium",
+      "testing_required": [
+        "positive",
+        "negative",
+        "edge",
+        "validation",
+        "regression",
+        "ui",
+        "api"
+      ],
+      "testing_not_required": [
+        {
+          "category": "boundary",
+          "reason": "No boundary-value signals found"
+        },
+        {
+          "category": "database",
+          "reason": "No database or persistence behavior change stated"
+        },
+        {
+          "category": "integration",
+          "reason": "No cross-service integration signals found"
+        },
+        {
+          "category": "security",
+          "reason": "No security-specific signals found"
+        },
+        {
+          "category": "accessibility",
+          "reason": "No accessibility or UI interaction signals found"
+        },
+        {
+          "category": "performance",
+          "reason": "No performance, load, or SLA requirement stated"
+        },
+        {
+          "category": "compatibility",
+          "reason": "No cross-client compatibility signals found"
+        },
+        {
+          "category": "permission",
+          "reason": "No permission or RBAC signals found"
+        },
+        {
+          "category": "localization",
+          "reason": "No localization signals found"
+        },
+        {
+          "category": "business_rules",
+          "reason": "No distinct business-rule category signals beyond core validation"
+        },
+        {
+          "category": "state_transition",
+          "reason": "No state-transition signals found"
+        },
+        {
+          "category": "recovery",
+          "reason": "No recovery/failover signals found"
+        },
+        {
+          "category": "concurrency",
+          "reason": "No concurrency signals found"
+        },
+        {
+          "category": "configuration",
+          "reason": "No configuration signals found"
+        },
+        {
+          "category": "feature_flags",
+          "reason": "No feature-flag signals found"
+        },
+        {
+          "category": "notifications",
+          "reason": "No notification signals found"
+        },
+        {
+          "category": "reporting",
+          "reason": "No reporting signals found"
+        },
+        {
+          "category": "file_upload",
+          "reason": "No file upload signals found"
+        },
+        {
+          "category": "logging",
+          "reason": "No logging requirement signals found"
+        },
+        {
+          "category": "audit",
+          "reason": "No audit requirement signals found"
+        }
+      ],
+      "reason": "Feature type is UI. Applicable optional categories: UI, API.",
+      "estimates": {
+        "estimated_new_test_cases": 1,
+        "estimated_existing_coverage": 0,
+        "estimated_duplicate_scenarios": 0,
+        "preliminary": false
+      },
+      "blocked": false
+    },
+    "generation_directive": "fresh_suite"
+  },
+  "error": null,
+  "warnings": [
+    "Generate a fresh suite only when no existing tests exist; otherwise generate only missing scenarios. Fresh/full generation must include at least 25 test cases (expand to 50\u201360 when complex; cap at 60). Never emit duplicates. Each case has only title, steps, expected_results with equal step and expected-result counts.\n\nRule 1: Never generate duplicate test cases.\nRule 2: If no existing test cases exist, generate a fresh test suite.\nRule 3: If existing test cases exist, generate only missing scenarios.\nRule 4: Always analyze the User Story before selecting test categories.\nRule 5: Core categories: Positive, Negative, Edge Cases, Validation, Regression.\nRule 6: Optional categories are included only when applicable.\nRule 7: Every test step must have exactly one corresponding expected result.\nRule 8: Each test case contains only: Test Title, Test Steps, Expected Results.\nRule 9: Reject invalid output where the number of steps and expected results differ.\nRule 10: Never infer requirements that are not present. Report requirement gaps instead.\nRule 11: Fresh/full generation: produce at least 25 test cases for typical stories. Expand to 50\u201360 only when the story is complex (high/critical risk, multiple AC items, many Scenario N blocks, or long AC text). Short/simple stories must stay near 25 \u2014 do not pad to 50 with generic cases.\nRule 12: If the User Story feature is not implemented in any configured local application codebase, do not generate test cases by default. First analyze previous/related implementation in the existing codebases and report it. Generation from related/legacy code is optional \u2014 ask the user whether to proceed based on that related implementation before generating. Only generate without asking when the story feature itself is found, or when the user explicitly approves related-implementation generation.\nRule 13: After generating the suite from the User Story and codebase analysis, classify about 30% of cases as Regression and about 10% as Critical by selecting those that genuinely qualify on impact, business importance, and risk \u2014 not by randomly assigning slots up front. Do not put 'Regression' or 'Critical' in the test title; report classifications by TC number in the generation summary."
+  ]
+}

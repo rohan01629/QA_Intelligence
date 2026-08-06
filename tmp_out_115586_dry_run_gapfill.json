@@ -1,0 +1,235 @@
+{
+  "ok": true,
+  "correlation_id": "0a913e4c-489d-4df8-ae41-99c582a5c81e",
+  "data": [
+    {
+      "index": 0,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify Well dropdown renders beside Pad label with current well selected on load",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 1,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify Active realtime well shows green live-dot in Well dropdown options",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 2,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify non-realtime Complete well shows red completed-dot in Well dropdown options",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 3,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify closed Well dropdown label also shows green or red status dot for selected well",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 4,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify Active green and Complete red dots appear together when pad has both well types",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 5,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify Well status dots use realtimewell and remain distinct from Stage inProgress dots",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 6,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify Well dropdown lists only current-pad wells and excludes other pads",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 7,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify Well dropdown search filters pad wells by typed well name",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 8,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify Well dropdown pad wells are alphabetically sorted by wellName",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 9,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify duplicate wellName and wellAPI pairs are deduplicated in Well list",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 10,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify selecting another well loads that well and refreshes well-specific data",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 11,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify Cancel on unsaved-changes alert reverts Well dropdown to previous well",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 12,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify Discard on unsaved-changes alert completes switch to selected well",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 13,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify Save on unsaved-changes alert then switches to the newly selected well",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 14,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify padName stays unchanged in header and storage after well switch",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 15,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify refresh keeps Well selection and status dot via originalWellId",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 16,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify selecting same current well is a no-op and does not reload",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 17,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify Well Version and Stage stay enabled during MQTT Live Actual Treatment Schedule",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 18,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify Version dropdown still works after repeated Well dropdown switches",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 19,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify Reports data refreshes for newly selected well after header switch",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 20,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify Plots templates refresh for newly selected well after header switch",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 21,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify Material Selection and Treatment Schedule refresh after well switch",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 22,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify well switch clears prior stage and treatment selection state",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 23,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify Well dropdown hidden in fullscreen plot and restored after exit",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 24,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify plot popout open does not break well switch context sync",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    }
+  ],
+  "error": null,
+  "warnings": [
+    "Generate a fresh suite only when no existing tests exist; otherwise generate only missing scenarios. Fresh/full generation must include at least 25 test cases (expand to 50\u201360 when complex; cap at 60). Never emit duplicates. Each case has only title, steps, expected_results with equal step and expected-result counts.\n\nRule 1: Never generate duplicate test cases.\nRule 2: If no existing test cases exist, generate a fresh test suite.\nRule 3: If existing test cases exist, generate only missing scenarios.\nRule 4: Always analyze the User Story before selecting test categories.\nRule 5: Core categories: Positive, Negative, Edge Cases, Validation, Regression.\nRule 6: Optional categories are included only when applicable.\nRule 7: Every test step must have exactly one corresponding expected result.\nRule 8: Each test case contains only: Test Title, Test Steps, Expected Results.\nRule 9: Reject invalid output where the number of steps and expected results differ.\nRule 10: Never infer requirements that are not present. Report requirement gaps instead.\nRule 11: Fresh/full generation: produce at least 25 test cases for typical stories. Expand to 50\u201360 only when the story is complex (high/critical risk, multiple AC items, many Scenario N blocks, or long AC text). Short/simple stories must stay near 25 \u2014 do not pad to 50 with generic cases.\nRule 12: If the User Story feature is not implemented in any configured local application codebase, do not generate test cases by default. First analyze previous/related implementation in the existing codebases and report it. Generation from related/legacy code is optional \u2014 ask the user whether to proceed based on that related implementation before generating. Only generate without asking when the story feature itself is found, or when the user explicitly approves related-implementation generation.\nRule 13: After generating the suite from the User Story and codebase analysis, classify about 30% of cases as Regression and about 10% as Critical by selecting those that genuinely qualify on impact, business importance, and risk \u2014 not by randomly assigning slots up front. Do not put 'Regression' or 'Critical' in the test title; report classifications by TC number in the generation summary."
+  ]
+}

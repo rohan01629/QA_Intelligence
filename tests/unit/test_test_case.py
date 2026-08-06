@@ -75,6 +75,29 @@ def test_rejects_blank_step_entry() -> None:
         )
 
 
+def test_allows_optional_ado_mix_flags() -> None:
+    case = TestCase(
+        title="Verify login",
+        steps=["Open login page."],
+        expected_results=["Login page opens."],
+        is_regression=True,
+    )
+    assert case.is_regression is True
+    assert case.is_sanity is False
+
+
+def test_sanity_takes_precedence_over_regression() -> None:
+    case = TestCase(
+        title="Verify login",
+        steps=["Open login page."],
+        expected_results=["Login page opens."],
+        is_regression=True,
+        is_sanity=True,
+    )
+    assert case.is_sanity is True
+    assert case.is_regression is False
+
+
 def test_rejects_extra_fields() -> None:
     with pytest.raises(ValidationError):
         TestCase.model_validate(

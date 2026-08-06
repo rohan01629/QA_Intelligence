@@ -68,6 +68,7 @@ class OrchestrationService:
         *,
         dry_run: bool = True,
         override_requirement_block: bool = False,
+        allow_related_implementation: bool = False,
         publish: bool = False,
         link: bool = True,
         repository_path: str | None = None,
@@ -85,6 +86,10 @@ class OrchestrationService:
         Code Intelligence runs when ``repository_path`` and/or ``ado_repository``
         (or ``ADO_DEFAULT_GIT_REPOSITORY``) is available. Azure Repos access is
         read-only (clone/fetch only; never push).
+
+        Rule 12: if the US feature is not implemented, related/legacy code is
+        analyzed and generation pauses for user confirmation unless
+        ``allow_related_implementation=True``.
         """
         from qa_intelligence.infrastructure.config import get_settings
 
@@ -181,8 +186,19 @@ class OrchestrationService:
 
         # 2b. Code Intelligence (optional — skipped when no local/ADO source)
         implementation_summary = None
+        effective_local = self._code_intelligence_service.resolve_local_repository_path(
+            repository_path,
+            user_story=story,
+        )
+        local_roots = self._code_intelligence_service.configured_local_repository_paths(
+            require_existing=True,
+            user_story=story,
+        )
+        # Rule 12: when caller did not pin a path, scan all configured local roots.
+        scan_all_local = not (repository_path and repository_path.strip()) and len(local_roots) > 1
         has_code_source = bool(
-            (repository_path and repository_path.strip())
+            effective_local
+            or local_roots
             or (ado_repository and ado_repository.strip())
             or self._code_intelligence_service.has_default_ado_repository
         )
@@ -190,10 +206,11 @@ class OrchestrationService:
             try:
                 implementation_summary = self._code_intelligence_service.analyze(
                     story,
-                    repository_path,
+                    None if scan_all_local else effective_local,
                     ado_repository=ado_repository,
                     ado_branch=ado_branch,
                     ado_project=ado_project,
+                    scan_all_local=scan_all_local,
                 )
                 summary.implementation_summary = implementation_summary
                 summary.steps.append(
@@ -209,9 +226,86 @@ class OrchestrationService:
                             "ado_repository": implementation_summary.ado_repository,
                             "ado_branch": implementation_summary.ado_branch,
                             "ado_commit": implementation_summary.ado_commit,
+                            "feature_found": implementation_summary.feature_found,
+                            "related_implementation_available": (
+                                implementation_summary.related_implementation_available
+                            ),
+                            "related_files": implementation_summary.related_file_paths[:8],
+                            "scanned_paths": implementation_summary.scanned_repository_paths,
                         },
                     )
                 )
+                # Rule 12: feature missing → related analysis; ask before generating.
+                scanned_locals = self._code_intelligence_service.configured_local_repository_paths(
+                    require_existing=True,
+                    user_story=story,
+                )
+                if (
+                    scanned_locals
+                    and not implementation_summary.feature_found
+                    and not allow_related_implementation
+                    and not override_requirement_block
+                ):
+                    from qa_intelligence.domain.policies.implementation_presence import (
+                        confirmation_prompt_for_related,
+                    )
+                    from qa_intelligence.domain.policies.implementation_presence import (
+                        RelatedImplementation,
+                    )
+
+                    related = RelatedImplementation(
+                        available=implementation_summary.related_implementation_available,
+                        notes=implementation_summary.related_implementation_notes,
+                        file_paths=tuple(implementation_summary.related_file_paths),
+                    )
+                    summary.related_implementation_available = related.available
+                    summary.awaiting_user_confirmation = True
+                    summary.generation_directive = GenerationDirective.BLOCKED
+                    summary.blocked = False
+                    if related.available:
+                        prompt = confirmation_prompt_for_related(
+                            user_story=story,
+                            related=related,
+                            presence_notes=implementation_summary.feature_presence_notes,
+                        )
+                        summary.confirmation_prompt = prompt
+                        summary.notes = (
+                            "Rule 12: feature not implemented. Related/previous "
+                            "implementation was analyzed. TC generation is optional — "
+                            "waiting for your confirmation. "
+                            "Re-run with allow_related_implementation=true after you approve. "
+                            f"{prompt}"
+                        )
+                    else:
+                        summary.confirmation_prompt = (
+                            f"Rule 12: User Story #{story.id} feature is not implemented "
+                            f"and no related/previous implementation was found in configured "
+                            "codebases. TC generation skipped. "
+                            f"Details: {implementation_summary.feature_presence_notes}"
+                        )
+                        summary.notes = summary.confirmation_prompt
+                        summary.blocked = True
+                    self._mark_remaining_skipped(
+                        summary,
+                        from_step=WorkflowStepName.FETCH_EXISTING_TEST_CASES,
+                        reason=(
+                            "Awaiting confirmation: related-implementation generation (Rule 12)"
+                            if related.available
+                            else "Blocked: feature not found and no related implementation (Rule 12)"
+                        ),
+                    )
+                    summary.ok = True
+                    return summary
+                if (
+                    scanned_locals
+                    and not implementation_summary.feature_found
+                    and allow_related_implementation
+                ):
+                    summary.notes = (
+                        "Rule 12: generating from related/previous implementation "
+                        "after user approval. "
+                        f"{implementation_summary.related_implementation_notes}"
+                    )
             except QaIntelligenceError as exc:
                 summary.steps.append(
                     _step(
@@ -402,6 +496,7 @@ class OrchestrationService:
                 existing_test_cases=existing,
                 uncovered_scenarios=list(coverage.uncovered_scenarios),
                 implementation_summary=summary.implementation_summary,
+                allow_related_implementation=allow_related_implementation,
             )
         except QaIntelligenceError as exc:
             summary.steps.append(

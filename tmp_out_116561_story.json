@@ -1,0 +1,24 @@
+{
+  "ok": true,
+  "correlation_id": "f4625f89-5410-4fe7-91f2-0476cc71acb7",
+  "data": {
+    "id": 116561,
+    "title": "FracPro Live+ Reports -  Generate ASCII Report using saved channel configuration",
+    "description": "As a Live+ user, I want to generate an ASCII report using configurable Real-time and FracPro channel selections so that the report includes only the channels I have selected and my preferences are saved for future use. The ASCII Report dialog shall provide Generate and Cancel buttons. When the user clicks Generate , the application shall retrieve the existing channel configuration from the reportSetup API, determine whether the channel selection has changed, update the configuration if required, and then generate the ASCII report using the COMMAND API. The Cancel button shall close the dialog without saving any changes.",
+    "acceptance_criteria": [
+      {
+        "order": 1,
+        "text": "Scenario 1: Load Existing Configuration Given the user opens the ASCII Report dialog When the application calls the GET reportSetup API Then Load the values from asciirealtime and asciifp . If asciirealtime is missing or empty, all Real-time channels shall be selected by default. If asciifp is missing or empty, no FrPro channels shall be selected by default. Scenario 2: Generate Report with Updated Channel Selection Given the user has modified one or more channel selections When the user clicks Generate Then Compare the current selections with the values retrieved from the GET reportSetup API. Call the PUT reportSetup API to update: asciirealtime asciifp Preserve all other existing reportSetup properties. After the PUT API returns a successful response, invoke the COMMAND API to generate the ASCII report. Scenario 3: Generate Report without Configuration Changes Given the user has not modified any channel selections When the user clicks Generate Then Do not call the PUT reportSetup API. Invoke the COMMAND API directly to generate the ASCII report. Scenario 4: Error Handling If the PUT reportSetup API fails: Display an appropriate error message. Do not invoke the COMMAND API. If the COMMAND API fails: Display an appropriate error message indicating that report generation was unsuccessful. Scenario 5: Cancel Action Given the ASCII Report dialog is open When the user clicks Cancel Then Close the dialog. Do not call the PUT reportSetup API. Do not invoke the COMMAND API. Do not save any changes made during the current session. json for refrence - \"reportSetup\": { \"Options\": [], \"ProFrac\": 0, \"Python\": 0, \"EWS\": 0, \"AutoPlots\": 0, \"NoDupPlots\": 0, \"WarnDupPlots\": 1, \"Plots\": [ \"Surf PRC\" ], \"asciirealtime\": [ \"Pressure1\" ], \"asciifp\": [ \"Btmh Pressure\" ] }",
+        "id": "AC-1"
+      }
+    ],
+    "state": "QA",
+    "area_path": "FracPro-OPS\\Global FP\\FracPro Suite",
+    "iteration_path": "FracPro-OPS",
+    "tags": [
+      "MQTT"
+    ]
+  },
+  "error": null,
+  "warnings": []
+}

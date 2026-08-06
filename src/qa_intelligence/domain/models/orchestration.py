@@ -84,3 +84,7 @@ class WorkflowExecutionSummary(DomainModel):
     linked_ids: list[int] = Field(default_factory=list)
     rejected_count: Annotated[int, Field(ge=0)] = 0
     notes: str = ""
+    # Rule 12 — feature missing; user may opt into related-implementation generation.
+    awaiting_user_confirmation: bool = False
+    related_implementation_available: bool = False
+    confirmation_prompt: str = ""

@@ -1,0 +1,235 @@
+{
+  "ok": true,
+  "correlation_id": "96942920-c867-4ed8-b668-585cd57664d5",
+  "data": [
+    {
+      "index": 0,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify LogLog plot renders a single magenta circle at Closure \u00d7 Meas'd Btmh Press",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 1,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify magenta circle sits on the Meas'd Btmh Press curve (not another series)",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 2,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify magenta circle aligns with the Closure vertical line X position",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 3,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify only one magenta circle exists (no duplicates on initial render)",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 4,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify circle color is magenta (matches Closure line styling intent)",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 5,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify moving Closure line updates the magenta circle to the new intersection",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 6,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify Closure move updates the existing circle instead of creating a new one",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 7,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify circle update does not require a full plot refresh",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 8,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify successive Closure moves keep a single moving circle",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 9,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify circle follows Meas'd Btmh Press when Closure crosses varying pressure values",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 10,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify behavior when Meas'd Btmh Press series is missing",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 11,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify behavior when Closure line is not yet defined",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 12,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify circle appears after Closure is first set on an already-open LogLog",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 13,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify no duplicate circles when plot data refreshes while Closure is fixed",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 14,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify Closure drag to plot edge updates or clears circle per available curve data",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 15,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify other Minifrac / analysis plots are not broken by the LogLog circle change",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 16,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify Entry Friction / Meas'd Btmh Press consumers remain unaffected",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 17,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify LogLog zoom/pan does not spawn extra magenta circles",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 18,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify circle remains correct after leaving and re-entering LogLog",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 19,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify rapid Closure moves do not leave orphan circles",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 20,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify circle is not drawn for non-Closure vertical lines (if other lines exist)",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 21,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify immediate visual update latency is acceptable (no deferred refresh needed)",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 22,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify current build gap \u2014 LogLog magenta circle not implemented yet",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 23,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify after implementation, initial render shows circle without prior Closure move",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    },
+    {
+      "index": 24,
+      "status": "validated_only",
+      "id": null,
+      "title": "Verify after implementation, move-then-stop leaves one correctly placed circle",
+      "validation_errors": [],
+      "warnings": [],
+      "message": "Validated"
+    }
+  ],
+  "error": null,
+  "warnings": [
+    "Generate a fresh suite only when no existing tests exist; otherwise generate only missing scenarios. Fresh/full generation must include at least 25 test cases (expand to 50\u201360 when complex; cap at 60). Never emit duplicates. Each case has only title, steps, expected_results with equal step and expected-result counts.\n\nRule 1: Never generate duplicate test cases.\nRule 2: If no existing test cases exist, generate a fresh test suite.\nRule 3: If existing test cases exist, generate only missing scenarios.\nRule 4: Always analyze the User Story before selecting test categories.\nRule 5: Core categories: Positive, Negative, Edge Cases, Validation, Regression.\nRule 6: Optional categories are included only when applicable.\nRule 7: Every test step must have exactly one corresponding expected result.\nRule 8: Each test case contains only: Test Title, Test Steps, Expected Results.\nRule 9: Reject invalid output where the number of steps and expected results differ.\nRule 10: Never infer requirements that are not present. Report requirement gaps instead.\nRule 11: Fresh/full generation: produce at least 25 test cases for typical stories. Expand to 50\u201360 only when the story is complex (high/critical risk, multiple AC items, many Scenario N blocks, or long AC text). Short/simple stories must stay near 25 \u2014 do not pad to 50 with generic cases."
+  ]
+}

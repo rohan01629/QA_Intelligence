@@ -1,0 +1,24 @@
+{
+  "ok": true,
+  "correlation_id": "e4b37e06-8b44-49d8-9813-a3405a3e35cd",
+  "data": {
+    "id": 116559,
+    "title": "FracPro Live+ - Reports- Rename Download ASCII Report button and launch ASCII Report dialog",
+    "description": "As a Live+ user, I want the \"Download ASCII Report\" button to be renamed to \"ASCII Report\" and open a configuration dialog so that I can configure the channels before generating the report.",
+    "acceptance_criteria": [
+      {
+        "order": 1,
+        "text": "Rename the \"Download ASCII Report\" button to \"ASCII Report\" . Clicking the ASCII Report button shall not invoke the COMMAND API. Clicking the button shall open the ASCII Report modal dialog. The dialog shall contain two tabs: Real-time FrPro The dialog shall contain two action buttons: Generate Cancel Clicking Cancel or closing the dialog shall dismiss the dialog without saving any changes. Note : It will be done for All three Tabs ( Word Report , Material Usage , Post Job Data",
+        "id": "AC-1"
+      }
+    ],
+    "state": "QA",
+    "area_path": "FracPro-OPS\\Global FP\\FracPro Suite",
+    "iteration_path": "FracPro-OPS",
+    "tags": [
+      "MQTT"
+    ]
+  },
+  "error": null,
+  "warnings": []
+}

@@ -100,14 +100,27 @@ def test_fresh_suite_when_no_existing_tests() -> None:
     )
     assert result.mode == GenerationMode.FRESH_SUITE
     assert result.blocked is False
-    assert len(result.generated) == 4
+    # Rule 11: fresh suite enforces at least 25 cases (may expand for complexity).
+    assert len(result.generated) >= 25
+    assert len(result.generated) <= 60
     for case in result.generated:
         assert case.step_count == case.expected_result_count
         assert case.title
         assert case.steps
         assert case.expected_results
-        # Only three fields in serialized contract
-        assert set(case.model_dump().keys()) == {"title", "steps", "expected_results"}
+        assert set(case.model_dump().keys()) == {
+            "title",
+            "steps",
+            "expected_results",
+            "is_regression",
+            "is_sanity",
+        }
+        assert not (case.is_regression and case.is_sanity)
+    regression_n = sum(1 for c in result.generated if c.is_regression)
+    sanity_n = sum(1 for c in result.generated if c.is_sanity)
+    assert regression_n >= 1
+    assert sanity_n >= 1
+    assert regression_n + sanity_n < len(result.generated)
 
 
 def test_gap_fill_only_missing_scenarios_when_existing_exist() -> None:

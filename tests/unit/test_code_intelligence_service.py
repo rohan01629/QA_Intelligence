@@ -97,6 +97,8 @@ def test_code_intelligence_missing_repo_raises(tmp_path: Path) -> None:
 def test_generation_enriches_from_implementation_summary(tmp_path: Path) -> None:
     _write_sample_repo(tmp_path)
     summary = CodeIntelligenceService().analyze(_rename_story(), str(tmp_path))
+    # This test covers enrichment, not Rule 12 presence gating.
+    summary.feature_found = True
     result = TestCaseGenerationService().generate(
         _strategy(estimated_new=8),
         _story(),

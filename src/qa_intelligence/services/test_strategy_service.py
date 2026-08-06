@@ -32,6 +32,8 @@ from qa_intelligence.domain.models.test_strategy import (
     TestStrategy,
 )
 
+from qa_intelligence.domain.policies.generation_volume import clamp_generation_budget
+
 logger = structlog.get_logger(__name__)
 
 _RISK_CASE_MULTIPLIER: dict[RiskLevel, float] = {
@@ -93,6 +95,17 @@ class TestStrategyService:
                 directive = GenerationDirective.BLOCKED
             else:
                 directive = GenerationDirective.GAP_FILL_ONLY
+
+            ac_count, ac_texts = _acceptance_signals(coverage_report)
+            estimated_new = clamp_generation_budget(
+                estimated_new,
+                directive=directive,
+                risk=risk,
+                scenario_count=max(uncovered_count, gap_basis),
+                ac_count=ac_count,
+                ac_texts=ac_texts,
+                existing_count=covered_count,
+            )
 
         estimated_existing = covered_count + bug_covered_count
         estimates = CoverageEstimates(
@@ -243,6 +256,19 @@ def _coverage_counts(
         len(coverage.covered_scenarios),
         len(coverage.bug_covered_scenarios),
     )
+
+
+def _acceptance_signals(
+    coverage: CoverageReport | CoverageAnalysisResult,
+) -> tuple[int, list[str]]:
+    """Story-native AC count/text for Rule 11 complexity (not gap padding)."""
+    if isinstance(coverage, CoverageAnalysisResult) and coverage.acceptance_criteria:
+        texts = [ac.text for ac in coverage.acceptance_criteria]
+        return len(texts), texts
+    if isinstance(coverage, CoverageReport):
+        texts = [s.title for s in coverage.missing_scenarios[:20] if s.title]
+        return max(len(coverage.missing_scenarios), 1), texts
+    return 1, []
 
 
 def _duplicate_count(

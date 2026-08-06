@@ -97,6 +97,9 @@ def build_container(settings: Settings | None = None) -> Container:
         default_ado_repository=resolved.ado_default_git_repository,
         default_ado_branch=resolved.ado_default_git_branch,
         default_ado_project=resolved.ado_project,
+        default_local_repository_paths=list(
+            resolved.code_intel_local_repository_paths or []
+        ),
     )
     orchestration_service = OrchestrationService(
         story_service=story_service,

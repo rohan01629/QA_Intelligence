@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-from qa_intelligence.domain.enums import RiskLevel, TestCategory
+from qa_intelligence.domain.enums import GenerationDirective, RiskLevel, TestCategory
 from qa_intelligence.domain.models.qa_strategy import CoverageEstimates
 from qa_intelligence.domain.models.user_story import UserStory
+from qa_intelligence.domain.policies.generation_volume import clamp_generation_budget
 
 
 _RISK_MULTIPLIER = {
@@ -31,16 +32,22 @@ def preliminary_estimates(
         )
 
     ac_count = max(len(story.acceptance_criteria), 1)
+    ac_texts = [ac.text for ac in story.acceptance_criteria]
     category_count = max(len(testing_required), 1)
-    # Rough budget: ~1 scenario per AC per category group, scaled by risk.
     raw_new = ac_count * max(category_count // 2, 2)
     estimated_new = max(1, int(round(raw_new * _RISK_MULTIPLIER[risk])))
-    # Without inventory we cannot know existing/duplicates; keep conservative placeholders.
-    estimated_existing = 0
-    estimated_duplicates = 0
+    estimated_new = clamp_generation_budget(
+        estimated_new,
+        directive=GenerationDirective.FRESH_SUITE,
+        risk=risk,
+        scenario_count=ac_count,
+        ac_count=ac_count,
+        ac_texts=ac_texts,
+        existing_count=0,
+    )
     return CoverageEstimates(
         estimated_new_test_cases=estimated_new,
-        estimated_existing_coverage=estimated_existing,
-        estimated_duplicate_scenarios=estimated_duplicates,
+        estimated_existing_coverage=0,
+        estimated_duplicate_scenarios=0,
         preliminary=True,
     )

@@ -211,14 +211,33 @@ def extract_related_ids(
     return results
 
 
-def build_test_case_create_document(test_case: TestCase) -> list[dict[str, Any]]:
-    """JSON Patch document for creating a Test Case work item."""
+def build_test_case_create_document(
+    test_case: TestCase,
+    *,
+    is_regression_field: str = "Custom.IsRegression",
+    sanity_field: str = "Custom.Sanity",
+) -> list[dict[str, Any]]:
+    """JSON Patch document for creating a Test Case work item.
+
+    Always writes Rule 13 mix toggles (``Custom.IsRegression`` / ``Custom.Sanity``)
+    so ADO Custom fields match classification — Critical maps to Sanity.
+    """
     return [
         {"op": "add", "path": "/fields/System.Title", "value": test_case.title},
         {
             "op": "add",
             "path": "/fields/Microsoft.VSTS.TCM.Steps",
             "value": build_tcm_steps_xml(test_case),
+        },
+        {
+            "op": "add",
+            "path": f"/fields/{is_regression_field}",
+            "value": bool(test_case.is_regression),
+        },
+        {
+            "op": "add",
+            "path": f"/fields/{sanity_field}",
+            "value": bool(test_case.is_sanity),
         },
     ]
 

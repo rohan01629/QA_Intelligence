@@ -97,3 +97,11 @@ class ImplementationSummary(DomainModel):
     files_considered: Annotated[int, Field(ge=0)] = 0
     files_read: Annotated[int, Field(ge=0)] = 0
     notes: str = ""
+    # Rule 12 — False when US feature evidence was not found in scanned code.
+    feature_found: bool = True
+    feature_presence_notes: str = ""
+    scanned_repository_paths: list[str] = Field(default_factory=list)
+    # Related/legacy surface when the US feature itself is missing.
+    related_implementation_available: bool = False
+    related_implementation_notes: str = ""
+    related_file_paths: list[str] = Field(default_factory=list)

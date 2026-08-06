@@ -1,0 +1,352 @@
+[
+  {
+    "n": 1,
+    "title": "Verify Rename the \"Download ASCII Report\" button to \"ASCII Report\" . Clicking the ASCII Report button shall not invoke the COMMAND API. Clicking the button shall open the ASCII Report modal dialog. The dialog shall contain two tabs: Real-time FrPr - Positive",
+    "steps": [
+      "Prepare a valid precondition for 'FracPro Live+ - Reports- Rename Download ASCII Report button and launch ASCII Report dialog'.",
+      "Execute the UI behavior for: Rename the \"Download ASCII Report\" button to \"ASCII Report\" . Clicking the ASCII Report button shall not invoke the COMMAND API. Clicking the button shall open the ASCII Report modal dialog. The dialog shall contain two tabs: Real-time FrPr.",
+      "Observe the primary outcome."
+    ],
+    "expected_results": [
+      "Preconditions are ready and valid.",
+      "The UI behavior executes without error.",
+      "The outcome satisfies: Rename the \"Download ASCII Report\" button to \"ASCII Report\" . Clicking the ASCII Report button shall not invoke the COMMAND API. Clicking the button shall open the ASCII Report modal dialog. The dialog shall contain two tabs: Real-time FrPr."
+    ]
+  },
+  {
+    "n": 2,
+    "title": "Verify Rename the \"Download ASCII Report\" button to \"ASCII Report\" - Negative",
+    "steps": [
+      "Prepare an invalid or unauthorized condition related to 'FracPro Live+ - Reports- Rename Download ASCII Report button and launch ASCII Report dialog'.",
+      "Attempt the UI behavior for: Rename the \"Download ASCII Report\" button to \"ASCII Report\".",
+      "Capture the system response."
+    ],
+    "expected_results": [
+      "Invalid condition is in place.",
+      "The UI behavior rejects the request.",
+      "An appropriate error or failure response is returned."
+    ]
+  },
+  {
+    "n": 3,
+    "title": "Verify Clicking the ASCII Report button shall not invoke the COMMAND API - Edge Case",
+    "steps": [
+      "Prepare boundary or unusual input data.",
+      "Execute the UI behavior for: Clicking the ASCII Report button shall not invoke the COMMAND API.",
+      "Review system handling of the edge input."
+    ],
+    "expected_results": [
+      "Boundary/unusual input is prepared.",
+      "The UI behavior accepts or rejects the edge input per rules.",
+      "No unexpected failure or data corruption occurs."
+    ]
+  },
+  {
+    "n": 4,
+    "title": "Verify Clicking the button shall open the ASCII Report modal dialog - Validation",
+    "steps": [
+      "Prepare input that violates a validation rule.",
+      "Submit the input through the UI path for: Clicking the button shall open the ASCII Report modal dialog.",
+      "Inspect validation messaging and status."
+    ],
+    "expected_results": [
+      "Invalid input is prepared.",
+      "Submission is blocked or flagged by validation.",
+      "Clear validation feedback is returned."
+    ]
+  },
+  {
+    "n": 5,
+    "title": "Verify The dialog shall contain two tabs: Real-time FrPro The dialog shall contain two action buttons: Generate Cancel Clicking Cancel or closing the dialog shall dismiss the dialog without saving any changes - Regression",
+    "steps": [
+      "Identify an adjacent workflow impacted by 'FracPro Live+ - Reports- Rename Download ASCII Report button and launch ASCII Report dialog'.",
+      "Execute the previously working adjacent workflow.",
+      "Confirm baseline behavior still holds alongside: The dialog shall contain two tabs: Real-time FrPro The dialog shall contain two action buttons: Generate Cancel Clicking Cancel or closing the dialog shall dismiss the dialog without saving any changes."
+    ],
+    "expected_results": [
+      "Impacted adjacent workflow is identified.",
+      "Adjacent workflow completes successfully.",
+      "No regression is introduced relative to the change."
+    ]
+  },
+  {
+    "n": 6,
+    "title": "Verify Leading/trailing whitespace is trimmed or rejected - API",
+    "steps": [
+      "Prepare a valid API request payload and headers.",
+      "Call the API endpoint related to: Leading/trailing whitespace is trimmed or rejected.",
+      "Inspect HTTP status code and response body."
+    ],
+    "expected_results": [
+      "Request payload and headers are valid.",
+      "API call is accepted by the service.",
+      "Status code and body match the acceptance criterion."
+    ]
+  },
+  {
+    "n": 7,
+    "title": "Verify Required fields must be provided - UI",
+    "steps": [
+      "Open the relevant UI screen.",
+      "Perform the user action for: Required fields must be provided.",
+      "Observe the UI feedback."
+    ],
+    "expected_results": [
+      "UI screen opens successfully.",
+      "User action is accepted by the UI.",
+      "UI reflects the expected result for the criterion."
+    ]
+  },
+  {
+    "n": 8,
+    "title": "Verify Duplicate values are not allowed - Configuration",
+    "steps": [
+      "Prepare conditions required for Configuration testing of 'FracPro Live+ - Reports- Rename Download ASCII Report button and launch ASCII Report dialog'.",
+      "Execute the UI scenario for: Duplicate values are not allowed.",
+      "Evaluate Configuration outcome."
+    ],
+    "expected_results": [
+      "Configuration preconditions are satisfied.",
+      "The UI scenario executes.",
+      "Configuration expectations for the criterion are met."
+    ]
+  },
+  {
+    "n": 9,
+    "title": "Verify Regression: FracPro Live+ - Reports- Rename Download ASCII Report button and launch ASCII Report dialog - Reporting",
+    "steps": [
+      "Prepare conditions required for Reporting testing of 'FracPro Live+ - Reports- Rename Download ASCII Report button and launch ASCII Report dialog'.",
+      "Execute the UI scenario for: Regression: FracPro Live+ - Reports- Rename Download ASCII Report button and launch ASCII Report dialog.",
+      "Evaluate Reporting outcome."
+    ],
+    "expected_results": [
+      "Reporting preconditions are satisfied.",
+      "The UI scenario executes.",
+      "Reporting expectations for the criterion are met."
+    ]
+  },
+  {
+    "n": 10,
+    "title": "Verify Regression: auth.service - Positive",
+    "steps": [
+      "Prepare a valid precondition for 'FracPro Live+ - Reports- Rename Download ASCII Report button and launch ASCII Report dialog'.",
+      "Execute the UI behavior for: Regression: auth.service.",
+      "Observe the primary outcome."
+    ],
+    "expected_results": [
+      "Preconditions are ready and valid.",
+      "The UI behavior executes without error.",
+      "The outcome satisfies: Regression: auth.service."
+    ]
+  },
+  {
+    "n": 11,
+    "title": "Verify Regression: plot in world.component - Negative",
+    "steps": [
+      "Prepare an invalid or unauthorized condition related to 'FracPro Live+ - Reports- Rename Download ASCII Report button and launch ASCII Report dialog'.",
+      "Attempt the UI behavior for: Regression: plot in world.component.",
+      "Capture the system response."
+    ],
+    "expected_results": [
+      "Invalid condition is in place.",
+      "The UI behavior rejects the request.",
+      "An appropriate error or failure response is returned."
+    ]
+  },
+  {
+    "n": 12,
+    "title": "Verify Regression: report buttons.component.spec - Edge Case",
+    "steps": [
+      "Prepare boundary or unusual input data.",
+      "Execute the UI behavior for: Regression: report buttons.component.spec.",
+      "Review system handling of the edge input."
+    ],
+    "expected_results": [
+      "Boundary/unusual input is prepared.",
+      "The UI behavior accepts or rejects the edge input per rules.",
+      "No unexpected failure or data corruption occurs."
+    ]
+  },
+  {
+    "n": 13,
+    "title": "Verify Regression: report buttons.component - Validation",
+    "steps": [
+      "Prepare input that violates a validation rule.",
+      "Submit the input through the UI path for: Regression: report buttons.component.",
+      "Inspect validation messaging and status."
+    ],
+    "expected_results": [
+      "Invalid input is prepared.",
+      "Submission is blocked or flagged by validation.",
+      "Clear validation feedback is returned."
+    ]
+  },
+  {
+    "n": 14,
+    "title": "Verify Regression: report.component.spec - Regression",
+    "steps": [
+      "Identify an adjacent workflow impacted by 'FracPro Live+ - Reports- Rename Download ASCII Report button and launch ASCII Report dialog'.",
+      "Execute the previously working adjacent workflow.",
+      "Confirm baseline behavior still holds alongside: Regression: report.component.spec."
+    ],
+    "expected_results": [
+      "Impacted adjacent workflow is identified.",
+      "Adjacent workflow completes successfully.",
+      "No regression is introduced relative to the change."
+    ]
+  },
+  {
+    "n": 15,
+    "title": "Verify Regression: report.component - API",
+    "steps": [
+      "Prepare a valid API request payload and headers.",
+      "Call the API endpoint related to: Regression: report.component.",
+      "Inspect HTTP status code and response body."
+    ],
+    "expected_results": [
+      "Request payload and headers are valid.",
+      "API call is accepted by the service.",
+      "Status code and body match the acceptance criterion."
+    ]
+  },
+  {
+    "n": 16,
+    "title": "Verify Regression: wellbore configuration.component.spec - UI",
+    "steps": [
+      "Open the relevant UI screen.",
+      "Perform the user action for: Regression: wellbore configuration.component.spec.",
+      "Observe the UI feedback."
+    ],
+    "expected_results": [
+      "UI screen opens successfully.",
+      "User action is accepted by the UI.",
+      "UI reflects the expected result for the criterion."
+    ]
+  },
+  {
+    "n": 17,
+    "title": "Verify Regression: save version dialogue.component - Configuration",
+    "steps": [
+      "Prepare conditions required for Configuration testing of 'FracPro Live+ - Reports- Rename Download ASCII Report button and launch ASCII Report dialog'.",
+      "Execute the UI scenario for: Regression: save version dialogue.component.",
+      "Evaluate Configuration outcome."
+    ],
+    "expected_results": [
+      "Configuration preconditions are satisfied.",
+      "The UI scenario executes.",
+      "Configuration expectations for the criterion are met."
+    ]
+  },
+  {
+    "n": 18,
+    "title": "Verify Regression: user form modal.component.spec - Reporting",
+    "steps": [
+      "Prepare conditions required for Reporting testing of 'FracPro Live+ - Reports- Rename Download ASCII Report button and launch ASCII Report dialog'.",
+      "Execute the UI scenario for: Regression: user form modal.component.spec.",
+      "Evaluate Reporting outcome."
+    ],
+    "expected_results": [
+      "Reporting preconditions are satisfied.",
+      "The UI scenario executes.",
+      "Reporting expectations for the criterion are met."
+    ]
+  },
+  {
+    "n": 19,
+    "title": "Verify Regression: alert box.service.spec - Positive",
+    "steps": [
+      "Prepare a valid precondition for 'FracPro Live+ - Reports- Rename Download ASCII Report button and launch ASCII Report dialog'.",
+      "Execute the UI behavior for: Regression: alert box.service.spec.",
+      "Observe the primary outcome."
+    ],
+    "expected_results": [
+      "Preconditions are ready and valid.",
+      "The UI behavior executes without error.",
+      "The outcome satisfies: Regression: alert box.service.spec."
+    ]
+  },
+  {
+    "n": 20,
+    "title": "Verify Regression: alert box.service - Negative",
+    "steps": [
+      "Prepare an invalid or unauthorized condition related to 'FracPro Live+ - Reports- Rename Download ASCII Report button and launch ASCII Report dialog'.",
+      "Attempt the UI behavior for: Regression: alert box.service.",
+      "Capture the system response."
+    ],
+    "expected_results": [
+      "Invalid condition is in place.",
+      "The UI behavior rejects the request.",
+      "An appropriate error or failure response is returned."
+    ]
+  },
+  {
+    "n": 21,
+    "title": "Verify Regression: report.service - Validation",
+    "steps": [
+      "Prepare input that violates a validation rule.",
+      "Submit the input through the UI path for: Regression: report.service.",
+      "Inspect validation messaging and status."
+    ],
+    "expected_results": [
+      "Invalid input is prepared.",
+      "Submission is blocked or flagged by validation.",
+      "Clear validation feedback is returned."
+    ]
+  },
+  {
+    "n": 22,
+    "title": "Verify Regression: topbar.component - Regression",
+    "steps": [
+      "Identify an adjacent workflow impacted by 'FracPro Live+ - Reports- Rename Download ASCII Report button and launch ASCII Report dialog'.",
+      "Execute the previously working adjacent workflow.",
+      "Confirm baseline behavior still holds alongside: Regression: topbar.component."
+    ],
+    "expected_results": [
+      "Impacted adjacent workflow is identified.",
+      "Adjacent workflow completes successfully.",
+      "No regression is introduced relative to the change."
+    ]
+  },
+  {
+    "n": 23,
+    "title": "Verify Regression: user defined channels.component - API",
+    "steps": [
+      "Prepare a valid API request payload and headers.",
+      "Call the API endpoint related to: Regression: user defined channels.component.",
+      "Inspect HTTP status code and response body."
+    ],
+    "expected_results": [
+      "Request payload and headers are valid.",
+      "API call is accepted by the service.",
+      "Status code and body match the acceptance criterion."
+    ]
+  },
+  {
+    "n": 24,
+    "title": "Verify Regression: user defined channels.data - UI",
+    "steps": [
+      "Open the relevant UI screen.",
+      "Perform the user action for: Regression: user defined channels.data.",
+      "Observe the UI feedback."
+    ],
+    "expected_results": [
+      "UI screen opens successfully.",
+      "User action is accepted by the UI.",
+      "UI reflects the expected result for the criterion."
+    ]
+  },
+  {
+    "n": 25,
+    "title": "Verify Regression: fluid data.component - Configuration",
+    "steps": [
+      "Prepare conditions required for Configuration testing of 'FracPro Live+ - Reports- Rename Download ASCII Report button and launch ASCII Report dialog'.",
+      "Execute the UI scenario for: Regression: fluid data.component.",
+      "Evaluate Configuration outcome."
+    ],
+    "expected_results": [
+      "Configuration preconditions are satisfied.",
+      "The UI scenario executes.",
+      "Configuration expectations for the criterion are met."
+    ]
+  }
+]

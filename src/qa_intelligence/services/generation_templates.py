@@ -47,12 +47,12 @@ def _negative_template(*, intent: str, feature: str, story_title: str) -> tuple[
     steps = [
         f"Prepare an invalid or unauthorized condition related to '{story_title}'.",
         f"Attempt the {feature} behavior for: {intent}.",
-        "Capture the system response.",
+        "Capture the system response that must block or reject the action.",
     ]
     expected = [
-        "Invalid condition is in place.",
-        f"The {feature} behavior rejects the request.",
-        "An appropriate error or failure response is returned.",
+        "Invalid or unauthorized condition is in place.",
+        f"The {feature} behavior shall not complete successfully for the invalid path.",
+        "An appropriate error or failure response is returned and the action is blocked.",
     ]
     return title, steps, expected
 
@@ -88,16 +88,17 @@ def _validation_template(*, intent: str, feature: str, story_title: str) -> tupl
 
 
 def _regression_template(*, intent: str, feature: str, story_title: str) -> tuple[str, list[str], list[str]]:
-    title = f"Verify {intent} - Regression"
+    # Rule 13: regression is tracked via mix metadata — do not put "Regression" in the title.
+    title = f"Verify adjacent workflow remains stable for {intent}"
     steps = [
-        f"Identify an adjacent workflow impacted by '{story_title}'.",
-        "Execute the previously working adjacent workflow.",
+        f"Identify an adjacent previously working workflow impacted by '{story_title}'.",
+        "Execute the baseline adjacent workflow unchanged.",
         f"Confirm baseline behavior still holds alongside: {intent}.",
     ]
     expected = [
         "Impacted adjacent workflow is identified.",
-        "Adjacent workflow completes successfully.",
-        "No regression is introduced relative to the change.",
+        "Adjacent workflow completes successfully with no regression.",
+        "Baseline parity still holds relative to the change.",
     ]
     return title, steps, expected
 
@@ -187,7 +188,11 @@ def build_draft_for_category(
     category: TestCategory,
     feature_type: FeatureType,
     story_title: str,
+    mark_critical: bool = False,
 ) -> dict[str, object]:
+    # ``mark_critical`` is retained for callers but does not alter the title
+    # (Rule 13 classifications are reported by TC index/metadata, not title text).
+    _ = mark_critical
     if category in _TEMPLATE_BUILDERS:
         return build_draft(
             scenario_title=scenario_title,

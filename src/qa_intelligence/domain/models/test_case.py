@@ -1,4 +1,4 @@
-"""Test case domain model — exactly three fields."""
+"""Test case domain model — three content fields plus optional ADO mix flags."""
 
 from __future__ import annotations
 
@@ -14,10 +14,14 @@ NonEmptyStr = Annotated[str, Field(min_length=1)]
 class TestCase(DomainModel):
     """Executable test case contract used across MCP write paths.
 
-    Contains ONLY:
+    Content fields (Rule 8):
     - title (Test Title)
     - steps (Test Steps) — array
     - expected_results (Expected Results) — array
+
+    Optional ADO publish metadata (Rule 13; not part of title text):
+    - is_regression → Custom.IsRegression
+    - is_sanity → Custom.Sanity (Critical / Sanity mix)
 
     Invariant: ``len(steps) == len(expected_results)``.
     """
@@ -38,6 +42,14 @@ class TestCase(DomainModel):
         ...,
         min_length=1,
         description="Expected Results — one assertion per matching step",
+    )
+    is_regression: bool = Field(
+        default=False,
+        description="When true, set ADO Custom.IsRegression on create",
+    )
+    is_sanity: bool = Field(
+        default=False,
+        description="When true, set ADO Custom.Sanity on create (Critical/Sanity)",
     )
 
     @field_validator("title")
@@ -69,6 +81,9 @@ class TestCase(DomainModel):
                 "step_count must equal expected_result_count "
                 f"(steps={step_count}, expected_results={expected_result_count})"
             )
+        # Rule 13: Critical/Sanity wins over Regression when both are set.
+        if self.is_regression and self.is_sanity:
+            object.__setattr__(self, "is_regression", False)
         return self
 
     @property

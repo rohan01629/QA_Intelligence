@@ -1,0 +1,230 @@
+{
+  "ok": true,
+  "correlation_id": "9c514e32-edf8-4a9b-922c-c208bceac38e",
+  "data": {
+    "feature": "FracPro Live+ Plots - Prepopulate Current Template Name in the Save Template Dialog for Existing Templates",
+    "repository_path": "C:\\Users\\WalkingTree.LAPTOP-UNM23JON\\Desktop\\Minifrac\\fracpro-agile",
+    "source_kind": "local",
+    "ado_repository": null,
+    "ado_project": null,
+    "ado_branch": null,
+    "ado_commit": null,
+    "user_story_id": 115589,
+    "affected_files": [
+      {
+        "path": "src/app/account/auth/login/login.component.ts",
+        "role": "component",
+        "score": 0.75,
+        "reason": "matched: log, api, navigate"
+      },
+      {
+        "path": "src/app/account/auth/login2/login2.component.ts",
+        "role": "component",
+        "score": 0.6,
+        "reason": "matched: log, api"
+      },
+      {
+        "path": "src/app/extrapages/lockscreen/lockscreen.component.spec.ts",
+        "role": "page",
+        "score": 0.6,
+        "reason": "matched: screen"
+      },
+      {
+        "path": "src/app/extrapages/lockscreen/lockscreen.component.ts",
+        "role": "page",
+        "score": 0.6,
+        "reason": "matched: screen"
+      },
+      {
+        "path": "src/app/extrapages/lockscreen2/lockscreen2.component.spec.ts",
+        "role": "page",
+        "score": 0.6,
+        "reason": "matched: screen"
+      },
+      {
+        "path": "src/app/extrapages/lockscreen2/lockscreen2.component.ts",
+        "role": "page",
+        "score": 0.6,
+        "reason": "matched: screen"
+      },
+      {
+        "path": "src/assets/dashboard.json",
+        "role": "other",
+        "score": 0.6,
+        "reason": "matched: dashboard, data"
+      },
+      {
+        "path": "src/app/account/auth/login/login.component.spec.ts",
+        "role": "component",
+        "score": 0.45,
+        "reason": "matched: log"
+      },
+      {
+        "path": "src/app/account/auth/login2/login2.component.spec.ts",
+        "role": "component",
+        "score": 0.45,
+        "reason": "matched: log"
+      },
+      {
+        "path": "src/app/extrapages/steptwoverification/steptwoverification.component.spec.ts",
+        "role": "page",
+        "score": 0.45,
+        "reason": "matched: step"
+      },
+      {
+        "path": "src/app/extrapages/steptwoverification/steptwoverification.component.ts",
+        "role": "page",
+        "score": 0.45,
+        "reason": "matched: step"
+      },
+      {
+        "path": "src/app/extrapages/steptwoverification2/steptwoverification2.component.spec.ts",
+        "role": "page",
+        "score": 0.45,
+        "reason": "matched: step"
+      },
+      {
+        "path": "src/app/extrapages/steptwoverification2/steptwoverification2.component.ts",
+        "role": "page",
+        "score": 0.45,
+        "reason": "matched: step"
+      },
+      {
+        "path": "src/app/pages/dashboards/dashboards-routing.module.ts",
+        "role": "page",
+        "score": 0.45,
+        "reason": "matched: dashboard"
+      },
+      {
+        "path": "src/app/pages/dashboards/dashboards.module.ts",
+        "role": "page",
+        "score": 0.45,
+        "reason": "matched: dashboard"
+      },
+      {
+        "path": "android/app/src/main/java/ai/fracpro/app/MainActivity.java",
+        "role": "other",
+        "score": 0.4,
+        "reason": "matched: fracpro"
+      },
+      {
+        "path": "android/app/src/main/res/values/strings.xml",
+        "role": "other",
+        "score": 0.4,
+        "reason": "matched: value, fracpro"
+      },
+      {
+        "path": "android/app/src/main/res/values/styles.xml",
+        "role": "other",
+        "score": 0.4,
+        "reason": "matched: value, screen"
+      },
+      {
+        "path": "android/app/src/main/res/values/ic_launcher_background.xml",
+        "role": "other",
+        "score": 0.25,
+        "reason": "matched: value"
+      },
+      {
+        "path": "src/app/pages/dashboards/default/default.component.spec.ts",
+        "role": "page",
+        "score": 0.25,
+        "reason": "matched: dashboard"
+      },
+      {
+        "path": "src/app/pages/dashboards/default/default.component.ts",
+        "role": "page",
+        "score": 0.25,
+        "reason": "matched: dashboard"
+      }
+    ],
+    "affected_apis": [],
+    "business_rules": [],
+    "validation_rules": [],
+    "regression_areas": [
+      "FracPro Live+ Plots - Prepopulate Current Template Name in the Save Template Dialog for Existing Templates",
+      "login.component",
+      "login2.component",
+      "lockscreen.component.spec",
+      "lockscreen.component",
+      "lockscreen2.component.spec",
+      "lockscreen2.component",
+      "login.component.spec",
+      "login2.component.spec",
+      "steptwoverification.component.spec",
+      "steptwoverification.component",
+      "steptwoverification2.component.spec",
+      "steptwoverification2.component",
+      "dashboards routing.module",
+      "dashboards.module",
+      "default.component.spec",
+      "default.component"
+    ],
+    "permissions": [],
+    "feature_flags": [],
+    "integrations": [],
+    "error_handling": [],
+    "database_interactions": [],
+    "ui_components": [
+      "src/app/account/auth/login/login.component.ts",
+      "src/app/account/auth/login2/login2.component.ts",
+      "src/app/extrapages/lockscreen/lockscreen.component.spec.ts",
+      "src/app/extrapages/lockscreen/lockscreen.component.ts",
+      "src/app/extrapages/lockscreen2/lockscreen2.component.spec.ts",
+      "src/app/extrapages/lockscreen2/lockscreen2.component.ts",
+      "src/app/account/auth/login/login.component.spec.ts",
+      "src/app/account/auth/login2/login2.component.spec.ts",
+      "src/app/extrapages/steptwoverification/steptwoverification.component.spec.ts",
+      "src/app/extrapages/steptwoverification/steptwoverification.component.ts",
+      "src/app/extrapages/steptwoverification2/steptwoverification2.component.spec.ts",
+      "src/app/extrapages/steptwoverification2/steptwoverification2.component.ts",
+      "src/app/pages/dashboards/dashboards-routing.module.ts",
+      "src/app/pages/dashboards/dashboards.module.ts",
+      "src/app/pages/dashboards/default/default.component.spec.ts",
+      "src/app/pages/dashboards/default/default.component.ts"
+    ],
+    "signals": [],
+    "search_terms": [
+      "fracpro",
+      "plot",
+      "result",
+      "data",
+      "api",
+      "after",
+      "navigate",
+      "live",
+      "expected",
+      "channel",
+      "marker",
+      "screen",
+      "value",
+      "open",
+      "save",
+      "reproduce",
+      "treatment",
+      "template",
+      "actual",
+      "steps",
+      "dashboard",
+      "observe",
+      "step",
+      "log",
+      "application"
+    ],
+    "files_considered": 21,
+    "files_read": 21,
+    "notes": "Source: local path 'C:\\Users\\WalkingTree.LAPTOP-UNM23JON\\Desktop\\Minifrac\\fracpro-agile'.",
+    "feature_found": true,
+    "feature_presence_notes": "implemented_markers=1/1",
+    "scanned_repository_paths": [
+      "C:\\Users\\WalkingTree.LAPTOP-UNM23JON\\Desktop\\Minifrac\\fracpro-agile"
+    ],
+    "related_implementation_available": false,
+    "related_implementation_notes": "",
+    "related_file_paths": []
+  },
+  "error": null,
+  "warnings": [
+    "Rule 1: Never generate duplicate test cases.\nRule 2: If no existing test cases exist, generate a fresh test suite.\nRule 3: If existing test cases exist, generate only missing scenarios.\nRule 4: Always analyze the User Story before selecting test categories.\nRule 5: Core categories: Positive, Negative, Edge Cases, Validation, Regression.\nRule 6: Optional categories are included only when applicable.\nRule 7: Every test step must have exactly one corresponding expected result.\nRule 8: Each test case contains only: Test Title, Test Steps, Expected Results.\nRule 9: Reject invalid output where the number of steps and expected results differ.\nRule 10: Never infer requirements that are not present. Report requirement gaps instead.\nRule 11: Fresh/full generation: produce at least 25 test cases for typical stories. Expand to 50\u201360 only when the story is complex (high/critical risk, multiple AC items, many Scenario N blocks, or long AC text). Short/simple stories must stay near 25 \u2014 do not pad to 50 with generic cases.\nRule 12: If the User Story feature is not implemented in any configured local application codebase, do not generate test cases by default. First analyze previous/related implementation in the existing codebases and report it. Generation from related/legacy code is optional \u2014 ask the user whether to proceed based on that related implementation before generating. Only generate without asking when the story feature itself is found, or when the user explicitly approves related-implementation generation.\nRule 13: After generating the suite from the User Story and codebase analysis, classify about 30% of cases as Regression and about 10% as Critical by selecting those that genuinely qualify on impact, business importance, and risk \u2014 not by randomly assigning slots up front. Do not put 'Regression' or 'Critical' in the test title; report classifications by TC number in the generation summary."
+  ]
+}

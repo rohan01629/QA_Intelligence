@@ -24,6 +24,8 @@ def generation_guidance() -> str:
     return (
         "Generate a fresh suite only when no existing tests exist; "
         "otherwise generate only missing scenarios. "
+        "Fresh/full generation must include at least 25 test cases "
+        "(expand to 50–60 when complex; cap at 60). "
         "Never emit duplicates. Each case has only title, steps, expected_results "
         "with equal step and expected-result counts.\n\n"
         + product_rules_text()

@@ -31,6 +31,8 @@ class GeneratedTestCaseRecord(DomainModel):
     test_case: TestCase | None = None
     validation: ValidationResult
     rejected: bool = False
+    mix_kind: str = "standard"
+    is_critical: bool = False
 
 
 class TestCaseGenerationResult(DomainModel):

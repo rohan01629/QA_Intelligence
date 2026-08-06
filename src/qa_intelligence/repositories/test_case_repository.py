@@ -100,9 +100,14 @@ class AdoTestCaseRepository:
         return results
 
     async def create(self, draft: TestCase) -> int:
-        document = build_test_case_create_document(draft)
+        settings = self._client.settings
+        document = build_test_case_create_document(
+            draft,
+            is_regression_field=settings.ado_is_regression_field,
+            sanity_field=settings.ado_sanity_field,
+        )
         created = await self._client.create_work_item(
-            self._client.settings.ado_test_case_type,
+            settings.ado_test_case_type,
             document,
         )
         test_case_id = int(created["id"])
